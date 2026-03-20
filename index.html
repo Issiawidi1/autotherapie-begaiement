@@ -196,7 +196,7 @@ const READING_TEXTS=[
 ];
 
 const DAYS=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-const TABS=[["session","▶ Séance"],["dashboard","Tableau de bord"],["warmup","Échauffement"],["recording","Enregistrement"],["rules","Règles"],["planning","Planning"],["journal","Journal"],["export","Partager"]];
+const TABS=[["session","▶ Séance"],["dashboard","Tableau de bord"],["warmup","Échauffement"],["muscles","Muscles"],["recording","Enregistrement"],["rules","Règles"],["planning","Planning"],["journal","Journal"],["export","Partager"]];
 const KEY="sbt_v4";
 const MAX_RECS=15;
 
@@ -290,143 +290,172 @@ function addJournalEntry(fromSession){
 }
 
 // ── MODE SÉANCE GUIDÉE ───────────────────────────────────────
-const SESSION_STEPS=["Échauffement","Texte de lecture","Pratique & enregistrement","Bilan de séance"];
+// ── PROGRAMME FORMALISÉ 6 BLOCS ──────────────────────────────
+
+const BLOCS=[
+  {id:"b1",label:"Bloc 1",title:"Décontraction",duration:"4 min",color:"#fdeef5",tc:"#9c2462",icon:"💆",
+   desc:"Priorité absolue. Ne jamais démarrer sans ce bloc.",
+   steps:[
+     {id:"b1s1",name:"Massage masséter + larynx",dur:60,desc:"Pouces sous les pommettes — cercles 1 min. Puis deux doigts de chaque côté de la pomme d'Adam, pression circulaire douce vers le bas 30s."},
+     {id:"b1s2",name:"Bâillements contrôlés",dur:30,desc:"Bailler lentement et de façon exagérée × 5. Sentir le larynx descendre au maximum. C'est l'état cible avant un mot craint."},
+     {id:"b1s3",name:"Vibration labiale 'brrr'",dur:20,desc:"Lèvres relâchées — faire 'brrr' comme un cheval × 3. Si les lèvres ne vibrent pas, elles sont trop contractées."},
+     {id:"b1s4",name:"Technique de la paille",dur:120,desc:"Paille dans un verre d'eau (3 cm). Souffler doucement en émettant 'ooo' continu. Bulles régulières = larynx détendu. 2 minutes."},
+   ]},
+  {id:"b2",label:"Bloc 2",title:"Respiration abdominale",duration:"2 min",color:"#e8f5ed",tc:"#1a7a3e",icon:"🫁",
+   desc:"Le souffle est le support de la parole. Sans soutien abdominal, le larynx compense — source directe de blocages.",
+   steps:[
+     {id:"b2s1",name:"Respiration diaphragmatique",dur:60,desc:"Main sur le ventre. Inspirer 4s (ventre sort) → expirer 6s en soufflant sur 'sss' continu. 5 cycles."},
+     {id:"b2s2",name:"Parole sur expiration abdominale",dur:60,desc:"Prononcer une phrase entière en vérifiant que le ventre se creuse progressivement. Ne jamais parler sur une réserve d'air épuisée. × 5 phrases."},
+   ]},
+  {id:"b3",label:"Bloc 3",title:"Échauffement vocal",duration:"3 min",color:"#ede8fb",tc:"#5344b5",icon:"🎤",
+   desc:"De la décontraction vers le geste vocal. Ne pas forcer le volume.",
+   steps:[
+     {id:"b3s1",name:"Bourdonnement 'mmm' → 'nnn' → 'ng'",dur:45,desc:"Intensité constante. Doigts sur la pomme d'Adam — sentir les vibrations régulières. Irrégularité = tension résiduelle."},
+     {id:"b3s2",name:"Onset doux sur voyelles",dur:60,desc:"'hhhaaaa' — 'hhhheee' — 'hhhhiii'. Démarrer depuis le silence absolu, voix qui s'allume très doucement. Aucun coup de glotte. × 5 séries."},
+     {id:"b3s3",name:"Glissades vocales",dur:45,desc:"Glisser grave → aigu → grave sur 'aaah'. Aucune cassure. Une cassure = zone d'hypercontraction laryngée. × 5 glissades."},
+   ]},
+  {id:"b4",label:"Bloc 4",title:"Bégaiement volontaire",duration:"3 à 4 min",color:"#fff3e0",tc:"#a05c00",icon:"🗣️",
+   desc:"Technique de désensibilisation. Attaquer directement la peur en faisant volontairement ce que vous craignez. Doux, calme, contrôlé — jamais imiter vos pires blocages.",
+   steps:[
+     {id:"b4s1",name:"Répétitions douces sur mots non craints",dur:60,desc:"'b-b-bonjour', 'm-m-merci', 'l-l-le'. Sons répétés doucement, sans tension. Maintenir le contact visuel. × 10 mots."},
+     {id:"b4s2",name:"Prolongations douces",dur:60,desc:"'bbbbonjour', 'mmmmmerci', 'ssssalut'. Étirer doucement le premier son. Différent d'une répétition — c'est un son tenu. × 10 mots."},
+     {id:"b4s3",name:"Bégaiement volontaire en phrases",dur:90,desc:"Prononcer 5 phrases complètes en bégayant volontairement sur au moins 2 mots par phrase. Calme, détendu, regard maintenu."},
+   ]},
+  {id:"b5",label:"Bloc 5",title:"Corrections de blocages",duration:"5 à 6 min",color:"#e8f0fb",tc:"#1a5fa8",icon:"🔧",
+   desc:"Les 3 corrections dans l'ordre Fraser + les techniques de contact. Travail sur la règle du jour.",
+   steps:[
+     {id:"b5s1",name:"Easy onset + Light contact",dur:60,desc:"Sur les mots craints identifiés : 'hhhaaaa' sur les voyelles initiales. Sur les plosives p, b, t, d : contact labial/lingual à peine perceptible — effleurant seulement. × 10 mots."},
+     {id:"b5s2",name:"Lecture à voix haute — règle du jour",dur:120,desc:"Lire le texte niveau choisi. Débit lent, amorces douces, pauses entre les phrases. Appliquer la règle du jour sur chaque difficulté."},
+     {id:"b5s3",name:"Annulation — post-blocage",dur:60,desc:"Laisser un blocage se produire → compléter le mot → pause → relâcher la tension → redire le mot lentement avec correction. × 5 blocages."},
+     {id:"b5s4",name:"Pull-out — pendant le blocage",dur:60,desc:"En cours de blocage : ralentir encore, prolonger doucement le son bloqué, sentir la tension baisser, glisser vers le son suivant. × 5 blocages."},
+     {id:"b5s5",name:"Pré-blocage — anticiper",dur:60,desc:"Avant un mot craint : pause → relâchement → rappel de l'erreur habituelle → répétition mentale de la correction → dire le mot avec onset doux. × 5 mots."},
+   ]},
+  {id:"b6",label:"Bloc 6",title:"Enregistrement + bilan",duration:"2 min",color:"#f5f5f3",tc:"#666",icon:"🎙️",
+   desc:"Toujours finir par l'enregistrement. La réécoute se fait entre les séances — pas pendant.",
+   steps:[
+     {id:"b6s1",name:"Enregistrement parole spontanée",dur:90,desc:"Parler librement 1 min 30 — raconter votre journée, un souvenir, décrire quelque chose. Appliquer les techniques sans les forcer."},
+     {id:"b6s2",name:"Bilan : mots + technique efficace",dur:30,desc:"Noter dans le journal : les mots sur lesquels vous avez buté + la technique qui a le mieux fonctionné aujourd'hui."},
+   ]},
+];
 
 function startSession(){
-  S.session={active:true,step:0,musclesDone:{},exercisesDone:{},readingLevel:2,recorded:false,journalText:"",rating:3};
+  S.session={active:true,bloc:0,stepsDone:{},readingLevel:2,recorded:false,journalText:"",rating:3};
   render();
 }
 
-function sessionNextStep(){
-  if(S.session.step<SESSION_STEPS.length-1){S.session.step++;render();window.scrollTo(0,0)}
+function sessionNextBloc(){
+  if(S.session.bloc<BLOCS.length-1){S.session.bloc++;render();window.scrollTo(0,0)}
 }
-function sessionPrevStep(){if(S.session.step>0){S.session.step--;render();window.scrollTo(0,0)}}
-
-function toggleExDone(key){S.session.exercisesDone[key]=!S.session.exercisesDone[key];renderSessionStep()}
+function sessionPrevBloc(){if(S.session.bloc>0){S.session.bloc--;render();window.scrollTo(0,0)}}
+function toggleStepDone(key){S.session.stepsDone[key]=!S.session.stepsDone[key];renderSessionStep()}
 
 function finishSession(){
-  // Enregistrer le journal
-  const text=S.session.journalText.trim()||"Séance complète.";
+  const text=S.session.journalText.trim()||"Séance de 6 blocs complète.";
   const ruleId=S.weekPlan[todayDay()]||"r1";
   S.journal=[{id:Date.now(),date:today(),rule:ruleId,text,rating:S.session.rating},...S.journal];
-  save();
-  S.session.active=false;
-  flashMsg("Séance terminée et enregistrée !");
+  save();S.session.active=false;
+  flashMsg("Séance enregistrée !");
   setTab("dashboard");
 }
 
 function renderSessionStep(){
   const el=document.getElementById("session-body");
   if(!el)return;
-  el.innerHTML=buildSessionStepContent();
+  el.innerHTML=buildBlocContent();
 }
 
-function buildSessionProgress(){
-  return`<div class="session-progress">${SESSION_STEPS.map((_,i)=>`<div class="session-step-dot ${i<S.session.step?"active":i===S.session.step?"current":""}"></div>`).join("")}</div>
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
-    <div><div style="font-size:16px;font-weight:600">${SESSION_STEPS[S.session.step]}</div><div style="font-size:12px;color:var(--text3)">Étape ${S.session.step+1} sur ${SESSION_STEPS.length}</div></div>
-    <div style="font-size:12px;color:var(--text3)">${today()}</div>
-  </div>`;
-}
-
-function buildSessionStepContent(){
-  const step=S.session.step;
+function buildBlocContent(){
+  const bloc=BLOCS[S.session.bloc];
   const todayRuleId=S.weekPlan[todayDay()];
   const todayRule=RULES.find(r=>r.id===todayRuleId);
+  const isLast=S.session.bloc===BLOCS.length-1;
 
-  if(step===0){
-    // ÉCHAUFFEMENT
-    let html=`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem">Travaillez chaque système musculaire. Cochez les exercices au fur et à mesure.</p>`;
-    MUSCLES.forEach(m=>{
-      html+=`<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><span style="font-size:16px">${m.icon}</span><span style="font-size:13px;font-weight:500">${m.name}</span></div>`;
-      m.exercises.forEach((ex,i)=>{
-        const eid=m.id+"-s-"+i;
-        const done=S.session.musclesDone[eid]||S.session.exercisesDone[eid];
-        html+=`<div class="session-muscle-mini">
-          <div class="session-tc" id="stc-${eid}" style="color:${m.tc};border-color:${m.bg}">${ex.dur}s</div>
-          <div style="flex:1"><div style="font-size:13px;font-weight:500">${ex.name}</div><div style="font-size:12px;color:var(--text2)">${ex.desc}</div></div>
-          <div style="display:flex;gap:6px;align-items:center;flex-shrink:0">
-            <button id="stb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${ex.dur},'stc-')" style="${done?"opacity:.4":""}">▶</button>
-            <div class="step-check ${done?"checked":""}" onclick="S.session.exercisesDone['${eid}']=!S.session.exercisesDone['${eid}'];renderSessionStep()">${done?"✓":""}</div>
-          </div>
-        </div>`;
-      });
-      html+="</div>";
-    });
-    const totalEx=MUSCLES.reduce((a,m)=>a+m.exercises.length,0);
-    const doneEx=Object.values({...S.session.musclesDone,...S.session.exercisesDone}).filter(Boolean).length;
-    html+=`<div style="font-size:12px;color:var(--text3);margin-bottom:1rem">${doneEx}/${totalEx} exercices complétés</div>`;
-    return html;
+  // En-tête du bloc
+  let html=`<div style="background:${bloc.color};border-radius:var(--radius-lg);padding:14px;margin-bottom:1rem;border-left:4px solid ${bloc.tc}">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:6px">
+      <span style="font-size:22px">${bloc.icon}</span>
+      <div><div style="font-size:16px;font-weight:600;color:${bloc.tc}">${bloc.label} — ${bloc.title}</div>
+      <div style="font-size:12px;color:${bloc.tc};opacity:.8">${bloc.duration}</div></div>
+    </div>
+    <p style="font-size:13px;color:${bloc.tc};line-height:1.5;opacity:.9">${bloc.desc}</p>
+  </div>`;
+
+  // Règle du jour — rappel dans bloc 5
+  if(S.session.bloc===4&&todayRule){
+    html+=`<div style="background:var(--bg2);border-radius:var(--radius);padding:11px;margin-bottom:1rem">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Règle du jour</div>
+      <div style="font-size:14px;font-weight:600">${todayRule.title} — ${todayRule.subtitle}</div>
+      ${todayRule.tip?`<div style="font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5">${todayRule.tip}</div>`:""}
+    </div>`;
   }
 
-  if(step===1){
-    // TEXTE DE LECTURE
+  // Texte de lecture — choix niveau dans bloc 5
+  if(S.session.bloc===4){
     const lvl=S.session.readingLevel;
     const txt=READING_TEXTS.find(t=>t.level===lvl)||READING_TEXTS[1];
-    let html=`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem">Lisez ce texte à voix haute en appliquant les règles : lentement, amorces douces, pauses entre les phrases.</p>`;
-    html+=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">`;
-    READING_TEXTS.forEach(t=>{html+=`<button class="btn btn-sm${lvl===t.level?" btn-success":""}" onclick="S.session.readingLevel=${t.level};renderSessionStep()">${t.level}</button>`});
-    html+=`</div>`;
-    html+=`<div class="reading-card"><div style="font-size:12px;font-weight:600;color:var(--info);margin-bottom:8px">${txt.label}</div><div class="reading-text">${txt.text}</div><div class="reading-meta">${txt.note}</div></div>`;
-    html+=`<div style="margin-bottom:1rem">
-      <div class="sl" style="margin-bottom:7px">Checklist</div>
-      ${["Débit lent — au moins 2 secondes par mot","Amorces douces sur le premier son","Pauses entre les phrases","Contact visuel (regardez devant vous)"].map((item,i)=>{
-        const k="read-"+i;const done=S.session.exercisesDone[k];
-        return`<div style="display:flex;align-items:center;gap:9px;margin-bottom:7px"><div class="step-check ${done?"checked":""}" onclick="S.session.exercisesDone['${k}']=!S.session.exercisesDone['${k}'];renderSessionStep()">${done?"✓":""}</div><span style="font-size:13px">${item}</span></div>`;
-      }).join("")}
-    </div>`;
-    return html;
+    html+=`<div class="sl" style="margin-bottom:7px">Texte de lecture — niveau</div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">${READING_TEXTS.map(t=>`<button class="btn btn-sm${lvl===t.level?" btn-success":""}" onclick="S.session.readingLevel=${t.level};renderSessionStep()">${t.level}</button>`).join("")}</div>
+    <div class="reading-card" style="margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--info);margin-bottom:7px">${txt.label}</div><div class="reading-text">${txt.text}</div><div class="reading-meta">${txt.note}</div></div>`;
   }
 
-  if(step===2){
-    // PRATIQUE & ENREGISTREMENT
-    let html=``;
-    if(todayRule){
-      html+=`<div style="background:var(--bg2);border-radius:var(--radius);padding:12px;margin-bottom:1rem"><div style="font-size:12px;color:var(--text3);margin-bottom:4px">Règle du jour</div><div style="font-size:15px;font-weight:600">${todayRule.title} — ${todayRule.subtitle}</div>${todayRule.tip?`<div style="font-size:13px;color:var(--text2);margin-top:6px;line-height:1.5">${todayRule.tip}</div>`:""}</div>
-      <div class="sl" style="margin-bottom:8px">Exercices de la règle</div>
-      <div style="margin-bottom:1rem">${todayRule.exercises.map((ex,i)=>{const k="rule-ex-"+i;const done=S.session.exercisesDone[k];return`<div style="display:flex;align-items:flex-start;gap:9px;margin-bottom:8px"><div class="step-check ${done?"checked":""}" onclick="S.session.exercisesDone['${k}']=!S.session.exercisesDone['${k}'];renderSessionStep()">${done?"✓":""}</div><span style="font-size:13px;line-height:1.5">${ex}</span></div>`;}).join("")}</div>`;
-    }else{
-      html+=`<div class="warn-box" style="margin-bottom:1rem"><p>Aucune règle assignée à aujourd'hui. Allez dans l'onglet Planning pour en configurer une.</p></div>`;
-    }
-    html+=`<div class="sl" style="margin-bottom:8px">Enregistrement de la séance</div>`;
+  // Étapes du bloc
+  html+=`<div class="sl" style="margin-bottom:9px">Étapes</div>`;
+  bloc.steps.forEach((step,i)=>{
+    const done=S.session.stepsDone[step.id];
+    const eid="bs-"+step.id;
+    html+=`<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:8px${done?";opacity:.6":""}">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="step-check ${done?"checked":""}" onclick="toggleStepDone('${step.id}')" style="margin-top:2px;flex-shrink:0">${done?"✓":""}</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500;margin-bottom:4px">${i+1}. ${step.name} <span style="font-size:11px;color:var(--text3);font-weight:400">${step.dur>=60?Math.floor(step.dur/60)+"min"+(step.dur%60>0?" "+step.dur%60+"s":""):step.dur+"s"}</span></div>
+          <p style="font-size:13px;color:var(--text2);line-height:1.5">${step.desc}</p>
+        </div>
+        <div style="flex-shrink:0">
+          <div class="session-tc" id="stc-${eid}" style="color:${bloc.tc};border-color:${bloc.color}">${step.dur>=60?Math.floor(step.dur/60)+"m":step.dur+"s"}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:9px">
+        <button id="stb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${step.dur},'stc-')">▶ Minuteur</button>
+      </div>
+    </div>`;
+  });
+
+  // Enregistrement dans le bloc 6
+  if(isLast){
+    html+=`<div class="sl" style="margin-bottom:8px;margin-top:1rem">Enregistrement</div>`;
     if(S.session.recorded){
-      html+=`<div style="background:var(--success-bg);border:1px solid var(--success);border-radius:var(--radius);padding:12px;margin-bottom:10px;font-size:13px;color:var(--success)">✓ Séance enregistrée</div>`;
+      html+=`<div style="background:var(--success-bg);border:1px solid var(--success);border-radius:var(--radius);padding:11px;margin-bottom:10px;font-size:13px;color:var(--success)">✓ Enregistrement sauvegardé</div>`;
     }else if(!isRecording&&!window._lastRec){
-      html+=`<button class="btn btn-danger" onclick="startRecording(true)" style="margin-bottom:10px"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span>Démarrer l'enregistrement</button>`;
+      html+=`<button class="btn btn-danger" onclick="startRecording(true)" style="margin-bottom:10px;width:100%"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span>Démarrer l'enregistrement</button>`;
     }else if(isRecording){
       html+=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div class="rw"><span></span><span></span><span></span><span></span><span></span></div><span id="srec-timer" style="font-size:22px;font-weight:600;color:var(--danger)">0:00</span></div><button class="btn" onclick="stopRecording()">Arrêter</button>`;
     }else if(!isRecording&&window._lastRec&&window._lastRec.fromSession){
       html+=`<div style="margin-bottom:10px"><div class="sl" style="margin-bottom:5px">Réécoute — ${fmt(window._lastRec.dur)}</div><audio controls src="${window._lastRec.b64}"></audio></div>
-      <div style="margin-bottom:9px"><div class="sl" style="margin-bottom:5px">Mots sur lesquels j'ai buté</div><input type="text" id="swords" placeholder="bonjour, Pierre… (virgules)"></div>
-      <div style="margin-bottom:12px"><div class="sl" style="margin-bottom:5px">Observations</div><textarea id="sobs" rows="2" placeholder="Débit ? Blocages ? Points positifs ?"></textarea></div>
+      <div style="margin-bottom:9px"><input type="text" id="swords" placeholder="Mots difficiles (virgules)"></div>
+      <div style="margin-bottom:10px"><textarea id="sobs" rows="2" placeholder="Technique la plus efficace aujourd'hui ?"></textarea></div>
       <div style="display:flex;gap:8px"><button class="btn btn-success" onclick="saveRecording(true)">Sauvegarder</button><button class="btn" onclick="window._lastRec=null;render()">Refaire</button></div>`;
     }
-    return html;
+
+    html+=`<div class="sl" style="margin-bottom:7px;margin-top:1rem">Journal de séance</div>
+    <textarea rows="3" placeholder="Points positifs, difficultés, ce qui a bien fonctionné…" oninput="S.session.journalText=this.value" style="margin-bottom:10px">${S.session.journalText}</textarea>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem">
+      <span style="font-size:13px;color:var(--text2)">Note :</span>
+      <div style="display:flex;gap:5px">${[1,2,3,4,5].map(i=>`<button onclick="S.session.rating=${i};renderSessionStep()" style="width:30px;height:30px;border-radius:50%;border:2px solid ${i<=S.session.rating?"var(--success)":"var(--border)"};background:${i<=S.session.rating?"var(--success-bg)":"none"};cursor:pointer;font-size:13px">${i<=S.session.rating?"★":"☆"}</button>`).join("")}</div>
+    </div>`;
   }
 
-  if(step===3){
-    // BILAN
-    let html=`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem">Résumez votre séance. Cette entrée sera ajoutée à votre journal.</p>`;
-    html+=`<div style="margin-bottom:12px"><div class="sl" style="margin-bottom:6px">Comment s'est passée la séance ?</div>
-    <textarea rows="4" placeholder="Points positifs, difficultés, observations, mots sur lesquels vous avez buté…" oninput="S.session.journalText=this.value">${S.session.journalText}</textarea></div>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
-      <span style="font-size:13px;color:var(--text2)">Note de séance :</span>
-      <div style="display:flex;gap:6px">${[1,2,3,4,5].map(i=>`<button onclick="S.session.rating=${i};renderSessionStep()" style="width:32px;height:32px;border-radius:50%;border:2px solid ${i<=S.session.rating?"var(--success)":"var(--border)"};background:${i<=S.session.rating?"var(--success-bg)":"none"};cursor:pointer;font-size:14px">${i<=S.session.rating?"★":"☆"}</button>`).join("")}</div>
-    </div>`;
-    const totalEx=Object.keys(S.session.exercisesDone).length+Object.keys(S.session.musclesDone).length;
-    const doneEx=Object.values({...S.session.musclesDone,...S.session.exercisesDone}).filter(Boolean).length;
-    html+=`<div style="background:var(--bg2);border-radius:var(--radius);padding:12px;margin-bottom:1rem">
-      <div class="sl" style="margin-bottom:8px">Résumé de séance</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div style="font-size:13px"><span style="color:var(--text3)">Exercices :</span> <strong>${doneEx}/${MUSCLES.reduce((a,m)=>a+m.exercises.length,0)+4+5}</strong></div>
-        <div style="font-size:13px"><span style="color:var(--text3)">Enregistrement :</span> <strong style="color:${S.session.recorded?"var(--success)":"var(--danger)"}">${S.session.recorded?"✓":"✗"}</strong></div>
-        <div style="font-size:13px"><span style="color:var(--text3)">Lecture :</span> <strong>Niveau ${S.session.readingLevel}</strong></div>
-        <div style="font-size:13px"><span style="color:var(--text3)">Date :</span> <strong>${today()}</strong></div>
-      </div>
-    </div>`;
-    return html;
-  }
-  return "";
+  // Progression des étapes
+  const doneCount=bloc.steps.filter(s=>S.session.stepsDone[s.id]).length;
+  html+=`<div style="font-size:12px;color:var(--text3);margin-top:10px">${doneCount}/${bloc.steps.length} étapes cochées</div>`;
+
+  return html;
+}
+
+function getTodayRuleLabel(){
+  const id=S.weekPlan[todayDay()];
+  if(!id)return null;
+  const r=RULES.find(r=>r.id===id);
+  return r?`${r.title} — ${r.subtitle}`:null;
 }
 
 function getTodayRuleLabel(){
@@ -445,8 +474,12 @@ function renderSession(){
     return`
     <div style="text-align:center;padding:1.5rem 0 1rem">
       <div style="font-size:40px;margin-bottom:12px">🎯</div>
-      <div style="font-size:20px;font-weight:600;margin-bottom:6px">Démarrer la séance</div>
-      <div style="font-size:14px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6">La séance guide automatiquement :<br>Échauffement → Lecture → Pratique → Bilan</div>
+      <div style="font-size:20px;font-weight:600;margin-bottom:6px">Programme — 6 blocs</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:.75rem;line-height:1.6">Décontraction → Respiration → Échauffement vocal<br>Bégaiement volontaire → Corrections → Enregistrement</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:1.25rem">18 à 22 minutes · 2 à 3 fois par jour</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:1.25rem">
+      ${BLOCS.map(b=>`<div style="background:${b.color};border-radius:var(--radius);padding:9px 8px;text-align:center"><div style="font-size:18px;margin-bottom:3px">${b.icon}</div><div style="font-size:10px;font-weight:600;color:${b.tc};line-height:1.3">${b.title}</div><div style="font-size:10px;color:${b.tc};opacity:.7">${b.duration}</div></div>`).join("")}
     </div>
     ${ruleLabel?`<div style="background:var(--success-bg);border:1px solid var(--success);border-radius:var(--radius-lg);padding:14px;margin-bottom:1rem;text-align:center"><div style="font-size:12px;color:var(--success);font-weight:600;margin-bottom:3px">RÈGLE DU JOUR</div><div style="font-size:15px;font-weight:600;color:var(--success)">${ruleLabel}</div></div>`:
     `<div class="warn-box" style="margin-bottom:1rem"><p>Aucune règle configurée pour aujourd'hui. Allez dans Planning pour en assigner une.</p></div>`}
@@ -459,16 +492,21 @@ function renderSession(){
     ${S.journal.length>0?`<div style="margin-top:.5rem"><div class="sl" style="margin-bottom:8px">Dernière séance</div>${[S.journal[0]].map(e=>{const rule=RULES.find(r=>r.id===e.rule);return`<div class="je"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${rule?rule.subtitle:e.rule}</span><div style="display:flex;gap:3px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=e.rating?"var(--success)":"var(--border)"}"></div>`).join("")}</div></div><div style="font-size:13px;color:var(--text2)">${e.text}</div><div class="sm">${e.date}</div></div>`;}).join("")}</div>`:""}`;
   }
 
-  const isLast=S.session.step===SESSION_STEPS.length-1;
+  const isLast=S.session.bloc===BLOCS.length-1;
+  const bloc=BLOCS[S.session.bloc];
   return`
-  ${buildSessionProgress()}
-  <div id="session-body">${buildSessionStepContent()}</div>
+  <div class="session-progress">${BLOCS.map((_,i)=>`<div class="session-step-dot ${i<S.session.bloc?"active":i===S.session.bloc?"current":""}"></div>`).join("")}</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+    <div style="font-size:12px;font-weight:500;color:var(--text2)">Bloc ${S.session.bloc+1}/${BLOCS.length} — ${bloc.title}</div>
+    <div style="font-size:12px;color:var(--text3)">${today()}</div>
+  </div>
+  <div id="session-body">${buildBlocContent()}</div>
   <div style="display:flex;gap:9px;margin-top:1rem">
-    ${S.session.step>0?`<button class="btn" onclick="sessionPrevStep()" style="flex:1">← Précédent</button>`:""}
-    ${!isLast?`<button class="btn btn-success" onclick="sessionNextStep()" style="flex:2">Suivant →</button>`
+    ${S.session.bloc>0?`<button class="btn" onclick="sessionPrevBloc()" style="flex:1">← Précédent</button>`:""}
+    ${!isLast?`<button class="btn btn-success" onclick="sessionNextBloc()" style="flex:2">Bloc suivant →</button>`
     :`<button class="btn btn-session" onclick="finishSession()" style="flex:2;background:var(--success)">Terminer la séance ✓</button>`}
   </div>
-  <button onclick="if(confirm('Abandonner la séance ?'))S.session.active=false;render()" style="width:100%;margin-top:9px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:6px">Abandonner</button>`;
+  <button onclick="if(confirm('Abandonner la séance ?')){S.session.active=false;render()}" style="width:100%;margin-top:9px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:6px">Abandonner</button>`;
 }
 
 // ── AUTRES RENDERERS ─────────────────────────────────────────
@@ -596,6 +634,161 @@ function flashMsg(msg){
   const d=document.createElement("div");d.textContent=msg;Object.assign(d.style,{position:"fixed",bottom:"1.5rem",left:"50%",transform:"translateX(-50%)",background:"var(--success)",color:"#fff",padding:"10px 20px",borderRadius:"20px",fontSize:"14px",fontWeight:"500",zIndex:"9999",boxShadow:"0 4px 12px rgba(0,0,0,.2)"});
   document.body.appendChild(d);setTimeout(()=>d.remove(),2000);
 }
+// ── PROGRAMME MUSCULAIRE ─────────────────────────────────────
+
+const MUSCLE_PROGRAM=[
+  {id:"mp1",dur:120,icon:"💆",name:"Massage masséter + larynx",color:"#fdeef5",tc:"#9c2462",
+   desc:"Pouces sous les pommettes — masser en cercles 1 min. Puis deux doigts de chaque côté de la pomme d'Adam, pression circulaire douce vers le bas 30s. Sentir le larynx descendre.",
+   note:"Dénoue les muscles sus-hyoïdiens qui tirent le larynx vers le haut lors des blocages.",
+   vid:"https://www.youtube.com/results?search_query=massage+m%C3%A2choire+masséter+relaxation+larynx+tension",lang:"FR"},
+  {id:"mp2",dur:60,icon:"😮",name:"Bâillements contrôlés",color:"#e8f5ed",tc:"#1a7a3e",
+   desc:"Bailler lentement et de façon exagérée, bouche grande ouverte. Sentir le larynx descendre au maximum. 5 répétitions lentes.",
+   note:"Le bâillement produit le relâchement laryngé le plus complet — c'est l'état cible avant un mot craint.",
+   vid:"https://www.youtube.com/results?search_query=yawn+larynx+relaxation+voice+therapy+technique",lang:"EN"},
+  {id:"mp3",dur:30,icon:"🫧",name:"Vibration labiale 'brrr'",color:"#fdecea",tc:"#c0392b",
+   desc:"Lèvres relâchées — faire 'brrr' comme un cheval pendant 10s. Si les lèvres ne vibrent pas, elles sont trop contractées. Répéter 3 fois.",
+   note:"Indicateur de tension globale. Lèvres qui vibrent librement = mécanisme détendu.",
+   vid:"https://www.youtube.com/results?search_query=lip+trill+brrr+vocal+warm+up+tension+release",lang:"EN"},
+  {id:"mp4",dur:180,icon:"🥤",name:"Technique de la paille",color:"#ede8fb",tc:"#5344b5",
+   desc:"Paille ordinaire dans un verre d'eau (3cm). Souffler doucement en émettant un 'ooo' ou 'mmm' continu. Les bulles doivent être régulières. 3 minutes.",
+   note:"Rééquilibre les pressions sous/sus-glottiques — les cordes vocales se détendent mécaniquement. Utilisé en rééducation orthophonique.",
+   vid:"https://www.youtube.com/results?search_query=straw+phonation+SOVT+voice+therapy+tutorial",lang:"EN"},
+  {id:"mp5",dur:45,icon:"🎵",name:"Bourdonnement 'mmm' laryngé",color:"#ede8fb",tc:"#5344b5",
+   desc:"Bourdonner 'mmm' à intensité constante. Poser deux doigts sur la pomme d'Adam — sentir les vibrations régulières. Passer à 'nnn' puis 'ng'.",
+   note:"Un larynx détendu bourdonne régulièrement et sans effort. Toute irrégularité indique de la tension.",
+   vid:"https://www.youtube.com/results?search_query=humming+mmm+larynx+resonance+voice+warm+up",lang:"EN"},
+  {id:"mp6",dur:60,icon:"🎤",name:"Onset doux sur voyelles",color:"#ede8fb",tc:"#5344b5",
+   desc:"'hhhaaaa', 'hhhheee', 'hhhhiii' — démarrer depuis le silence absolu, laisser la voix s'allumer très doucement comme une flamme. Aucun coup de glotte.",
+   note:"C'est l'amorce douce de la règle 2 appliquée directement sur les cordes vocales — le geste cible avant chaque mot craint.",
+   vid:"https://www.youtube.com/results?search_query=easy+onset+soft+onset+vowel+stuttering+therapy",lang:"EN"}
+];
+
+const RELAX_EXERCISES=[
+  {id:"r_jacob",group:"Jacobson adapté",icon:"🧘",color:"#e8f0fb",tc:"#1a5fa8",
+   items:[
+     {id:"rj1",name:"Mâchoires",dur:40,desc:"Serrer les mâchoires fort 5s → relâcher brutalement. Laisser la bouche s'entrouvrir par gravité. Observer la différence. Répéter 5 fois.",note:"La mâchoire entraîne tout le mécanisme. Apprendre à reconnaître l'état tendu pour le relâcher en parole.",vid:"https://www.youtube.com/results?search_query=jaw+tension+release+progressive+relaxation+speech"},
+     {id:"rj2",name:"Lèvres",dur:30,desc:"Serrer les lèvres fort 5s → relâcher complètement. Puis sourire exagéré 5s → lèvres en avant 5s. 5 cycles.",note:"Mobilise l'orbiculaire dans ses deux directions — élimine la rigidité labiale responsable des blocages sur p, b, m.",vid:"https://www.youtube.com/results?search_query=lip+relaxation+exercises+speech+therapy+tension"},
+     {id:"rj3",name:"Langue",dur:40,desc:"Appuyer la langue fort contre le palais 5s → laisser tomber mollement au fond de la bouche. Observer la position neutre. Répéter 5 fois.",note:"La position 'langue qui dort au fond de la bouche' est la position de repos cible — point de départ de la parole fluide.",vid:"https://www.youtube.com/results?search_query=tongue+relaxation+neutral+position+speech+therapy"},
+     {id:"rj4",name:"Cou et larynx",dur:50,desc:"Incliner la tête vers l'épaule droite 10s → gauche 10s → avant 10s. Puis tourner lentement. Terminer en laissant la tête dans la position naturelle.",note:"Les muscles sterno-cléido-mastoïdiens sont directement connectés à la tension laryngée. Cou libre = larynx libre.",vid:"https://www.youtube.com/results?search_query=neck+stretches+laryngeal+tension+voice+therapy"},
+   ]},
+  {id:"r_larynx",group:"Larynx — décontraction ciblée",icon:"🗣️",color:"#fff3e0",tc:"#a05c00",
+   items:[
+     {id:"rl1",name:"Massage laryngé manuel",dur:60,desc:"Deux doigts de chaque côté de la pomme d'Adam. Pression circulaire très douce vers le bas et les côtés, 1 minute. Ne pas appuyer sur la trachée.",note:"Dénoue directement les muscles sus-hyoïdiens hypercontractés — technique utilisée par les orthophonistes en rééducation vocale.",vid:"https://www.youtube.com/results?search_query=laryngeal+massage+technique+voice+therapy+neck"},
+     {id:"rl2",name:"Glissades vocales graves→aigus",dur:30,desc:"Glisser doucement de la note la plus grave possible à la plus aiguë sur 'aaah', puis redescendre. Aucune cassure. 5 glissades.",note:"Une cassure dans la glissade signale une zone d'hypercontraction laryngée — c'est précisément là que se situent vos blocages.",vid:"https://www.youtube.com/results?search_query=gliding+tones+laryngeal+flexibility+voice+exercises"},
+     {id:"rl3",name:"Chuchotement progressif",dur:45,desc:"Commencer une phrase en chuchotant très doucement, puis monter progressivement en volume sur la même phrase. Répéter 5 phrases.",note:"Le chuchotement contourne la fermeture glottique et 'déverrouille' le larynx avant la phonation complète.",vid:"https://www.youtube.com/results?search_query=whisper+to+voice+technique+laryngeal+tension+stuttering"},
+   ]},
+  {id:"r_machoire",group:"Mâchoire — relaxation profonde",icon:"😬",color:"#fdeef5",tc:"#9c2462",
+   items:[
+     {id:"rm1",name:"Rotation mandibulaire",dur:40,desc:"Bouche légèrement ouverte — faire des cercles lents avec la mâchoire, 5 fois dans chaque sens. Aucun craquement ne doit se produire.",note:"Mobilise les ptérygoïdiens et le temporal — les muscles qui maintiennent la mâchoire serrée sous stress.",vid:"https://www.youtube.com/results?search_query=jaw+rotation+tmj+relaxation+exercises"},
+     {id:"rm2",name:"Chute mandibulaire par gravité",dur:30,desc:"Laisser la mâchoire tomber complètement par gravité, bouche entrouverte, pendant 30s. Ne pas contrôler. Sentir le poids.",note:"C'est la position de repos cible pendant la parole — mâchoire suspendue, non contractée. Viser cet état pendant les exercices de lecture.",vid:"https://www.youtube.com/results?search_query=jaw+drop+gravity+relaxation+speaking+tension+release"},
+   ]},
+];
+
+const STRENGTHEN_EXERCISES=[
+  {id:"s1",icon:"💨",name:"Soutien du souffle — appui abdominal",color:"#e8f5ed",tc:"#1a7a3e",dur:60,
+   desc:"Main sur le ventre. Parler une phrase entière en vérifiant que le ventre se creuse progressivement pendant toute la phrase. Ne jamais parler sur une réserve d'air épuisée.",
+   note:"Le manque de soutien abdominal force le larynx à compenser — source majeure de blocages laryngés.",
+   vid:"https://www.youtube.com/results?search_query=abdominal+support+voice+diaphragm+speaking+exercises"},
+  {id:"s2",icon:"🗨️",name:"Activation du voile du palais",color:"#fff3e0",tc:"#a05c00",dur:45,
+   desc:"Répéter rapidement 'ka-ka-ka' puis 'ga-ga-ga' 20 fois chaque. Ce sont les seuls sons qui activent directement le voile du palais.",
+   note:"Un voile sous-actif produit une voix nasillarde et fermée qui aggrave les blocages. Ce renforcement est complémentaire à la relaxation laryngée.",
+   vid:"https://www.youtube.com/results?search_query=soft+palate+exercises+velopharyngeal+strengthen"},
+  {id:"s3",icon:"🏋️",name:"Tonicité labiale",color:"#fdecea",tc:"#c0392b",dur:40,
+   desc:"Tenir un crayon entre les lèvres horizontalement pendant 30s. Puis faire 'p-p-p-p-p' avec contacts légers mais nets, 20 répétitions.",
+   note:"Renforcer la précision labiale sans rigidité — contacts nets mais jamais serrés. La cible est la précision, pas la force.",
+   vid:"https://www.youtube.com/results?search_query=lip+strengthening+exercises+speech+therapy+articulation"},
+];
+
+function renderMuscles(){
+  let html=`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1.25rem">Programme ciblé sur le blocage laryngé. Ordre : relaxation en premier, renforcement ensuite. Le larynx hypercontracté doit d'abord être détendu avant d'être renforcé.</p>`;
+
+  // Programme quotidien
+  html+=`<div style="background:var(--success-bg);border:1px solid var(--success);border-radius:var(--radius-lg);padding:14px;margin-bottom:1.25rem">
+    <div class="sl" style="color:var(--success);margin-bottom:8px">Programme quotidien — 8 minutes avant chaque séance</div>
+    <p style="font-size:13px;color:var(--success);line-height:1.6;margin-bottom:12px">Enchaîner dans cet ordre : de la périphérie vers le centre, en finissant sur le geste vocal cible.</p>
+    ${MUSCLE_PROGRAM.map((ex,i)=>{
+      const eid="mp-"+ex.id;
+      return`<div class="session-muscle-mini" style="background:${ex.color}20;border:1px solid ${ex.color}40">
+        <div class="session-tc" id="stc-${eid}" style="color:${ex.tc};border-color:${ex.color}">${ex.dur>60?Math.floor(ex.dur/60)+"m":ex.dur+"s"}</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500">${i+1}. ${ex.icon} ${ex.name}</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.4;margin-top:2px">${ex.note}</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;flex-shrink:0">
+          <button id="stb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${ex.dur},'stc-')" style="font-size:11px">▶</button>
+          <a href="${ex.vid}" target="_blank" rel="noopener" class="btn btn-sm btn-yt" style="padding:6px 8px;font-size:11px">
+            <svg width="12" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>
+            <span class="lang-badge ${ex.lang==="FR"?"lang-fr":"lang-en"}" style="font-size:10px">${ex.lang}</span>
+          </a>
+        </div>
+      </div>`;
+    }).join("")}
+    <div style="font-size:12px;color:var(--success);margin-top:8px;font-style:italic">Total estimé : ~8 minutes · À faire quotidiennement, avant chaque séance de parole</div>
+  </div>`;
+
+  // Relaxation
+  html+=`<div class="sl" style="margin-bottom:10px">Relaxation musculaire — détail par système</div>
+  <div style="background:var(--info-bg);border-left:3px solid var(--info);padding:10px 12px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:1rem"><p style="font-size:13px;color:var(--info);line-height:1.5"><strong>Jacobson adapté :</strong> contracter volontairement 5s → relâcher brutalement → observer la différence. L'objectif est d'apprendre à reconnaître l'état tendu pour pouvoir le relâcher consciemment <em>pendant</em> la parole.</p></div>`;
+
+  RELAX_EXERCISES.forEach(group=>{
+    const isOpen=S.muscleExpanded===group.id;
+    html+=`<div class="mc" style="margin-bottom:8px">
+      <button class="mh" onclick="toggleMuscle('${group.id}')">
+        <div class="mi" style="background:${group.color};font-size:18px">${group.icon}</div>
+        <div style="flex:1"><div style="font-size:14px;font-weight:500">${group.group}</div><div style="font-size:11px;color:var(--text3)">${group.items.length} exercice${group.items.length>1?"s":""}</div></div>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="transform:${isOpen?"rotate(180deg)":"rotate(0)"};transition:transform .2s;flex-shrink:0"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      ${isOpen?`<div class="cb"><div style="padding-top:12px">${group.items.map(ex=>{
+        const eid="rel-"+ex.id;
+        return`<div class="ec">
+          <div style="display:flex;align-items:flex-start;gap:11px;margin-bottom:9px">
+            <div class="tc" id="tc-${eid}" style="color:${group.tc};border-color:${group.color}">${ex.dur}s</div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">${ex.name}</div>
+              <p style="font-size:13px;color:var(--text2);line-height:1.5">${ex.desc}</p>
+            </div>
+          </div>
+          <div class="tip" style="background:${group.color};border-left-color:${group.tc};margin-bottom:9px"><p style="color:${group.tc}">Pourquoi : ${ex.note}</p></div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap">
+            <button id="tb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${ex.dur},'tc-')">Démarrer ${ex.dur}s</button>
+            <a href="${ex.vid}" target="_blank" rel="noopener" class="btn btn-sm btn-yt">
+              <svg width="12" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>
+              Vidéo <span class="lang-badge lang-en" style="font-size:10px">EN</span>
+            </a>
+          </div>
+        </div>`;
+      }).join("")}</div></div>`:""}
+    </div>`;
+  });
+
+  // Renforcement
+  html+=`<div class="sl" style="margin-bottom:6px;margin-top:1.25rem">Renforcement — uniquement après la relaxation</div>
+  <div style="background:var(--warning-bg);border-left:3px solid var(--warning);padding:9px 11px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:1rem"><p style="font-size:13px;color:var(--warning);line-height:1.5">Le renforcement cible les muscles <strong>sous-actifs</strong>, pas les muscles hypercontractés. Appliquer uniquement quand la relaxation est bien en place.</p></div>`;
+
+  STRENGTHEN_EXERCISES.forEach(ex=>{
+    const eid="str-"+ex.id;
+    html+=`<div class="ec" style="border:1px solid ${ex.color}60">
+      <div style="display:flex;align-items:flex-start;gap:11px;margin-bottom:9px">
+        <div class="tc" id="tc-${eid}" style="color:${ex.tc};border-color:${ex.color}">${ex.dur}s</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500;margin-bottom:4px">${ex.icon} ${ex.name}</div>
+          <p style="font-size:13px;color:var(--text2);line-height:1.5">${ex.desc}</p>
+        </div>
+      </div>
+      <div class="tip" style="background:${ex.color}30;border-left-color:${ex.tc};margin-bottom:9px"><p style="color:${ex.tc}">Pourquoi : ${ex.note}</p></div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button id="tb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${ex.dur},'tc-')">Démarrer ${ex.dur}s</button>
+        <a href="${ex.vid}" target="_blank" rel="noopener" class="btn btn-sm btn-yt">
+          <svg width="12" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>
+          Vidéo <span class="lang-badge ${ex.lang==="FR"?"lang-fr":"lang-en"}" style="font-size:10px">${ex.lang||"EN"}</span>
+        </a>
+      </div>
+    </div>`;
+  });
+
+  return html;
+}
+
 function renderExport(){
   const bilan=buildBilanText();const hasShare=!!navigator.share;
   return`<div class="sl" style="margin-bottom:10px">Partager vers Claude</div>
@@ -623,6 +816,7 @@ function render(){
   if(S.tab==="session")c=renderSession();
   else if(S.tab==="dashboard")c=renderDashboard();
   else if(S.tab==="warmup")c=renderWarmup();
+  else if(S.tab==="muscles")c=renderMuscles();
   else if(S.tab==="recording")c=renderRecording();
   else if(S.tab==="rules")c=renderRules();
   else if(S.tab==="planning")c=renderPlanning();
