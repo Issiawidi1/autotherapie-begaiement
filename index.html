@@ -3,826 +3,791 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Auto-thérapie">
-<meta name="theme-color" content="#eeece8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#333330" media="(prefers-color-scheme: dark)">
-<title>Auto-thérapie — Bégaiement</title>
+<meta name="theme-color" content="#f0ede8">
+<title>Auto-thérapie Bégaiement</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#fff;--bg2:#f5f5f3;--bg3:#eeece8;
-  --text:#1a1a1a;--text2:#666;--text3:#999;
-  --border:#e0ddd8;--border2:#ccc;
-  --success:#1a7a3e;--success-bg:#e8f5ed;
-  --warning:#a05c00;--warning-bg:#fff3e0;
-  --danger:#c0392b;--danger-bg:#fdecea;
-  --info:#1a5fa8;--info-bg:#e8f0fb;
-  --radius:8px;--radius-lg:12px;
-  --safe-b:env(safe-area-inset-bottom,0px);
+  --bg:#fff;--bg2:#f7f5f2;--bg3:#f0ede8;
+  --text:#1a1a1a;--text2:#5a5a5a;--text3:#999;
+  --border:#e2ddd8;
+  --green:#1a7a3e;--green-bg:#e8f5ed;
+  --blue:#1a5fa8;--blue-bg:#e8f0fb;
+  --orange:#a05c00;--orange-bg:#fff3e0;
+  --red:#c0392b;--red-bg:#fdecea;
+  --purple:#5344b5;--purple-bg:#ede8fb;
+  --pink:#9c2462;--pink-bg:#fdeef5;
+  --r:8px;--rl:14px;
+  --safe:env(safe-area-inset-bottom,0px);
 }
-@media(prefers-color-scheme:dark){
-  :root{--bg:#1e1e1c;--bg2:#2a2a28;--bg3:#333330;--text:#f0ede8;--text2:#a8a49e;--text3:#6e6a64;--border:#3a3a36;--border2:#555;--success:#4caf7a;--success-bg:#0f3320;--warning:#ffb74d;--warning-bg:#3a2200;--danger:#ef6c5a;--danger-bg:#3a0f0a;--info:#6ea8e8;--info-bg:#0d2540}
-}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1c1c1a;--bg2:#262624;--bg3:#2e2e2b;--text:#f0ede8;--text2:#a8a49e;--text3:#666;--border:#3a3836;
+  --green:#4caf7a;--green-bg:#0d2e1a;--blue:#6ea8e8;--blue-bg:#0d2540;
+  --orange:#ffb74d;--orange-bg:#2e1a00;--red:#ef6c5a;--red-bg:#2e0e08;
+  --purple:#9b8fe0;--purple-bg:#1e1940;--pink:#d47ab0;--pink-bg:#2e0e20;
+}}
 html,body{height:100%;overflow-x:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg3);color:var(--text);font-size:15px;line-height:1.5}
-.wrap{max-width:820px;margin:0 auto;padding:1rem 14px calc(2rem + var(--safe-b))}
+.wrap{max-width:780px;margin:0 auto;padding:1rem 14px calc(2.5rem + var(--safe))}
 header{background:var(--bg3);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border)}
-.hi{max-width:820px;margin:0 auto;padding:1rem 14px 0}
-h1{font-size:17px;font-weight:600;margin-bottom:1px}
-.sub{font-size:11px;color:var(--text3)}
-.tabs{display:flex;overflow-x:auto;margin-top:.75rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.hi{max-width:780px;margin:0 auto;padding:.9rem 14px 0}
+h1{font-size:16px;font-weight:600}
+.sub{font-size:11px;color:var(--text3);margin-top:1px}
+.tabs{display:flex;overflow-x:auto;margin-top:.7rem;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{padding:8px 12px;border:none;border-bottom:2px solid transparent;background:none;font-size:13px;color:var(--text2);cursor:pointer;white-space:nowrap;font-family:inherit;min-height:44px;display:flex;align-items:center}
+.tab{padding:8px 13px;border:none;border-bottom:2px solid transparent;background:none;font-size:13px;color:var(--text2);cursor:pointer;white-space:nowrap;font-family:inherit;min-height:42px}
 .tab.active{border-bottom-color:var(--text);color:var(--text);font-weight:500}
-.tab.tab-session{color:var(--success);font-weight:500}
-.tab.tab-session.active{border-bottom-color:var(--success)}
-.card{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg);overflow:hidden;margin-bottom:10px}
-.ch{width:100%;padding:13px 14px;background:none;border:none;text-align:left;display:flex;align-items:center;gap:10px;cursor:pointer;font-family:inherit;color:var(--text);min-height:56px}
-.ch:active{background:var(--bg2)}
-.cb{padding:0 14px 14px;border-top:1px solid var(--border)}
-.num{width:32px;height:32px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
-.badge{font-size:11px;padding:3px 10px;border-radius:20px;white-space:nowrap;font-weight:500}
-.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
-.mt{background:var(--bg2);border-radius:var(--radius);padding:12px;text-align:center}
-.mv{font-size:28px;font-weight:600;line-height:1;margin-bottom:3px}
-.ml{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text2)}
-.pb{height:5px;background:var(--bg2);border-radius:3px;overflow:hidden;margin-bottom:1rem}
-.pf{height:100%;border-radius:3px;background:var(--success);transition:width .4s}
-.sl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
-.tip{background:var(--info-bg);border-left:3px solid var(--info);padding:9px 11px;border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 12px}
-.tip p{font-size:13px;color:var(--info);line-height:1.5}
-.sr{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-.sb{padding:6px 12px;border-radius:var(--radius);font-size:12px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-family:inherit;min-height:36px}
-.sb.ns{background:var(--bg2);font-weight:600}
-.sb.ip{background:var(--warning-bg);color:var(--warning);border-color:var(--warning);font-weight:600}
-.sb.ma{background:var(--success-bg);color:var(--success);border-color:var(--success);font-weight:600}
-textarea,select,input[type=text],input[type=file]{font-family:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);width:100%;padding:9px 11px;font-size:15px;-webkit-appearance:none;appearance:none}
-textarea{resize:vertical;line-height:1.5}
-.btn{padding:10px 16px;border-radius:var(--radius);font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--bg2);color:var(--text);cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:7px;min-height:44px;-webkit-appearance:none;text-decoration:none;justify-content:center}
-.btn:active{opacity:.7}
-.btn-primary{background:var(--info-bg);color:var(--info);border-color:var(--info)}
-.btn-danger{background:var(--danger-bg);color:var(--danger);border-color:var(--danger)}
-.btn-success{background:var(--success-bg);color:var(--success);border-color:var(--success)}
-.btn-session{background:var(--success);color:#fff;border-color:var(--success);font-size:15px;font-weight:600;padding:14px 24px;width:100%;justify-content:center}
-.btn-sm{padding:6px 12px;font-size:12px;min-height:34px}
-.btn-yt{background:#ff0000;color:#fff;border-color:#cc0000;font-size:12px;padding:6px 12px;min-height:34px}
-.btn-yt-embed{background:var(--bg2);color:var(--text);border:1px solid var(--border2);font-size:12px;padding:6px 12px;min-height:34px}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.ei{display:flex;gap:9px;align-items:flex-start;margin-bottom:8px}
-.en{width:20px;height:20px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text3);flex-shrink:0;margin-top:2px}
-.mc{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg);margin-bottom:10px;overflow:hidden}
-.mh{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;width:100%;background:none;border:none;text-align:left;font-family:inherit;color:var(--text);min-height:56px}
-.mh:active{background:var(--bg2)}
-.mi{width:38px;height:38px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.ec{background:var(--bg2);border-radius:var(--radius);padding:12px;margin-bottom:9px}
-.tc{width:58px;height:58px;border-radius:50%;border:2.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;flex-shrink:0;transition:all .3s}
-.tc.run{border-color:var(--success);color:var(--success)}
-.tc.done{border-color:var(--success);background:var(--success-bg);color:var(--success)}
-.vid-wrap{border-radius:var(--radius);overflow:hidden;margin:10px 0;background:#000;position:relative;padding-top:56.25%}
-.vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-.vid-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
-.pr{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:7px}
-.dl{width:66px;font-size:13px;font-weight:500;flex-shrink:0}
-.je{padding:13px 14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px}
-.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
-.wt{display:inline-block;background:var(--danger-bg);color:var(--danger);font-size:12px;padding:3px 9px;border-radius:12px;margin:2px 3px 0 0}
-.rw{display:flex;align-items:center;gap:3px;height:28px}
-.rw span{display:block;width:3px;background:var(--danger);border-radius:2px;animation:wave .8s ease-in-out infinite}
-.rw span:nth-child(2){animation-delay:.12s}.rw span:nth-child(3){animation-delay:.24s}.rw span:nth-child(4){animation-delay:.36s}.rw span:nth-child(5){animation-delay:.48s}
-@keyframes wave{0%,100%{height:6px}50%{height:22px}}
-.empty{text-align:center;padding:2.5rem 1rem;color:var(--text3);font-size:14px}
-.rs{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:6px}
-.ib{background:var(--bg2);border-radius:var(--radius);padding:12px;margin-top:1rem}
-.sm{font-size:11px;color:var(--text3);margin-top:2px}
-audio{width:100%;margin-bottom:8px}
-.sb-bar{height:4px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-top:5px}
-.sb-fill{height:100%;border-radius:2px;transition:width .4s}
-.warn-box{background:var(--warning-bg);border:1px solid var(--warning);border-radius:var(--radius);padding:10px 12px;margin-bottom:1rem}
-.warn-box p{font-size:13px;color:var(--warning);line-height:1.5}
-.del-btn{padding:4px 10px;font-size:11px;border:1px solid var(--danger);color:var(--danger);background:none;border-radius:var(--radius);cursor:pointer;font-family:inherit;flex-shrink:0}
-.pl{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;font-size:12px;color:var(--text2)}
-.export-ta{font-size:12px;line-height:1.6;font-family:monospace;height:200px;background:var(--bg2)}
-.lang-badge{font-size:10px;padding:2px 6px;border-radius:10px;font-weight:600;background:var(--bg2);color:var(--text3);border:1px solid var(--border)}
-.lang-fr{background:#e8f0fb;color:#1a5fa8;border-color:#1a5fa8}
-.lang-en{background:#fff3e0;color:#a05c00;border-color:#a05c00}
+.tab-s{color:var(--green)!important}.tab-s.active{border-bottom-color:var(--green)!important}
 
-/* ── MODE SÉANCE ─────────────────── */
-.session-progress{display:flex;gap:4px;margin-bottom:1.25rem}
-.session-step-dot{flex:1;height:4px;border-radius:2px;background:var(--border);transition:background .3s}
-.session-step-dot.active{background:var(--success)}
-.session-step-dot.current{background:var(--warning)}
-.session-block{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg);overflow:hidden;margin-bottom:12px}
-.session-block-header{padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
-.session-step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
-.session-block-body{padding:16px}
-.session-done-banner{background:var(--success-bg);border:1px solid var(--success);border-radius:var(--radius-lg);padding:20px;text-align:center;margin-bottom:12px}
-.session-muscle-mini{background:var(--bg2);border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.session-tc{width:44px;height:44px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;transition:all .3s}
-.session-tc.run{border-color:var(--success);color:var(--success)}
-.session-tc.done{background:var(--success-bg);color:var(--success);border-color:var(--success)}
-.reading-card{background:var(--bg2);border-radius:var(--radius);padding:14px;margin-bottom:10px;border-left:3px solid var(--info)}
-.reading-text{font-size:16px;line-height:1.9;color:var(--text);letter-spacing:.01em}
-.reading-meta{font-size:11px;color:var(--text3);margin-top:8px}
-.step-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .2s;background:none}
-.step-check.checked{background:var(--success);border-color:var(--success);color:#fff}
+/* cards */
+.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-bottom:10px}
+.ch{width:100%;padding:13px 14px;background:none;border:none;text-align:left;display:flex;align-items:center;gap:10px;cursor:pointer;font-family:inherit;color:var(--text);min-height:54px}
+.ch:active{background:var(--bg2)}
+.cb{padding:14px;border-top:1px solid var(--border)}
+
+/* typography */
+.sl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.note{background:var(--blue-bg);border-left:3px solid var(--blue);padding:9px 11px;border-radius:0 var(--r) var(--r) 0;margin:8px 0 12px;font-size:13px;color:var(--blue);line-height:1.5}
+.warn{background:var(--orange-bg);border-left:3px solid var(--orange);padding:9px 11px;border-radius:0 var(--r) var(--r) 0;margin:8px 0;font-size:13px;color:var(--orange);line-height:1.5}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 15px;border-radius:var(--r);font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--bg2);color:var(--text);cursor:pointer;font-family:inherit;min-height:42px;text-decoration:none;-webkit-appearance:none}
+.btn:active{opacity:.7}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-full{width:100%;justify-content:center}
+.btn-sm{padding:6px 11px;font-size:12px;min-height:32px}
+.btn-green{background:var(--green-bg);color:var(--green);border-color:var(--green)}
+.btn-blue{background:var(--blue-bg);color:var(--blue);border-color:var(--blue)}
+.btn-red{background:var(--red-bg);color:var(--red);border-color:var(--red)}
+.btn-orange{background:var(--orange-bg);color:var(--orange);border-color:var(--orange)}
+.btn-start{background:var(--green);color:#fff;border-color:var(--green);font-size:16px;font-weight:600;padding:14px;width:100%;justify-content:center;border-radius:var(--rl)}
+.btn-yt{background:#f00;color:#fff;border-color:#c00}
+
+/* forms */
+input,textarea,select{font-family:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;font-size:15px;-webkit-appearance:none;width:100%}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--blue);outline-offset:-1px}
+textarea{resize:vertical;line-height:1.5}
+
+/* timer */
+.timer-ring{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;transition:all .3s}
+.timer-ring.running{border-color:var(--green);color:var(--green)}
+.timer-ring.done{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+
+/* video */
+.vid-box{border-radius:var(--r);overflow:hidden;background:#000;position:relative;padding-top:56.25%;margin:10px 0}
+.vid-box iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+
+/* session */
+.prog-bar{display:flex;gap:4px;margin-bottom:1rem}
+.prog-dot{flex:1;height:4px;border-radius:2px;background:var(--border);transition:background .3s}
+.prog-dot.done{background:var(--green)}.prog-dot.cur{background:var(--orange)}
+
+/* module header */
+.mod-head{border-radius:var(--rl);padding:16px;margin-bottom:12px;display:flex;align-items:flex-start;gap:14px}
+.mod-icon-wrap{width:56px;height:56px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.mod-illus{width:72px;height:72px;flex-shrink:0}
+
+/* step */
+.step{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+.step.done-step{opacity:.55}
+.check{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:12px;transition:all .2s;background:none}
+.check.on{background:var(--green);border-color:var(--green);color:#fff}
+
+/* words */
+.word-chip{display:inline-block;padding:5px 13px;border-radius:20px;font-size:14px;font-weight:500;margin:4px;background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange)}
+.phrase-chip{display:block;padding:9px 13px;border-radius:var(--r);font-size:14px;margin-bottom:7px;background:var(--bg2);border-left:3px solid var(--orange);line-height:1.5}
+
+/* recording */
+.wave{display:flex;align-items:center;gap:3px;height:26px}
+.wave span{display:block;width:3px;background:var(--red);border-radius:2px;animation:wv .8s ease-in-out infinite}
+.wave span:nth-child(2){animation-delay:.12s}.wave span:nth-child(3){animation-delay:.24s}.wave span:nth-child(4){animation-delay:.36s}.wave span:nth-child(5){animation-delay:.48s}
+@keyframes wv{0%,100%{height:5px}50%{height:20px}}
+
+/* misc */
+.badge{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap}
+.empty{text-align:center;padding:2.5rem;color:var(--text3);font-size:14px}
+.dot-row{display:flex;gap:3px}
+.dot{width:8px;height:8px;border-radius:50%}
+.del-btn{font-size:11px;padding:4px 9px;border:1px solid var(--red);color:var(--red);background:none;border-radius:var(--r);cursor:pointer;flex-shrink:0;font-family:inherit}
+.storage-bar{height:4px;border-radius:2px;overflow:hidden;background:var(--bg2);margin-top:4px}
+.storage-fill{height:100%;border-radius:2px;transition:width .4s}
+audio{width:100%;margin:6px 0}
+
+/* SVG illustrations */
+svg.illus{overflow:visible}
 </style>
 </head>
 <body>
 <header>
   <div class="hi">
-    <h1>Auto-thérapie — Bégaiement</h1>
-    <div class="sub">Programme Malcolm Fraser</div>
+    <h1>Auto-thérapie Bégaiement</h1>
+    <div class="sub">Programme structuré · 8 modules</div>
     <div class="tabs" id="tabs"></div>
   </div>
 </header>
-<div class="wrap"><div id="content"></div></div>
+<div class="wrap"><div id="app"></div></div>
 
 <script>
-// ── DONNÉES ──────────────────────────────────────────────────
+// ── DONNÉES ──────────────────────────────────────────────────────────────────
 
-const RULES=[
-  {id:"exp",num:"0",title:"Thérapie expérimentale",subtitle:"Parole lente, amorces douces",phase:"Préliminaire",description:"Parlez très lentement (≈30 mots/min). Prendre ≥1 seconde pour glisser sur le premier son de chaque mot. Prolonger toutes les consonnes et voyelles. Phonation continue.",tip:"Technique provisoire — démontre que le contrôle est possible.",exercises:["Lire un texte en ralentissant progressivement","Amorces douces sur plosives : p, b, t, d, k","Étirer chaque consonne et voyelle","Appliquer dans une vraie conversation"],eq:["Miroir","Enregistreur"]},
-  {id:"r1",num:"1",title:"Règle 1",subtitle:"Parlez lentement",phase:"Réduction de la tension",description:"Prendre l'habitude de parler lentement. Pauses courtes et fréquentes. Résister à la pression du temps.",tip:"Objectif progressif : 1 → 2 → 3 → 5 interlocuteurs consécutifs avec débit lent.",exercises:["5-10 min/jour de lecture — débit décroissant","Pause délibérée avant de répondre au téléphone","Résister à l'urgence de parler vite","S'enregistrer et réécouter"],eq:["Enregistreur","Cahier"]},
-  {id:"r2",num:"2",title:"Règle 2",subtitle:"Bégayez plus facilement",phase:"Réduction de la tension",description:"Bégayer calmement, sans effort. Prolonger le premier son des mots craints. Mouvements relâchés.",tip:"Ne pas forcer la fluence — glisser doucement sur les sons.",exercises:["Lecture avec mouvements relâchés","Contacts légers sur plosives","Prolonger son initial des mots craints","Aide-mémoire : bracelet ou note"],eq:["Aide-mémoire","Cahier"]},
-  {id:"r3",num:"3",title:"Règle 3",subtitle:"Admettez que vous bégayez",phase:"Désensibilisation",description:"Cesser de cacher. Admettre ouvertement. Pratiquer le bégaiement volontaire sur des mots non craints.",tip:"Le bégaiement volontaire doit être doux.",exercises:["Dire à un proche : 'Je bégaie et j'y travaille'","Bégaiement volontaire seul","Transférer en conversation","Aller en magasin et bégayer volontairement"],eq:["Miroir"]},
-  {id:"r4",num:"4",title:"Règle 4",subtitle:"Éliminez les symptômes secondaires",phase:"Comportements inadaptés",description:"Identifier et éliminer les mouvements corporels superflus.",tip:"Un seul symptôme à la fois. Rendre involontaire → volontaire → éliminer.",exercises:["Observer dans un miroir pendant appels","Demander à un proche de noter les symptômes","Faire volontairement le symptôme sans parler","Varier consciemment le symptôme"],eq:["Miroir","Vidéo","Cahier"]},
-  {id:"r5",num:"5",title:"Règle 5",subtitle:"Éliminez les évitements",phase:"Comportements inadaptés",description:"Cesser évitements, procrastinations, substitutions.",tip:"Chaque évitement renforce la peur. Mieux vaut bégayer 5 min que d'éviter le mot.",exercises:["Inventaire des évitements","Affronter une situation crainte par jour","Utiliser exactement les mots difficiles","Répéter le mot évité en punition"],eq:["Cahier"]},
-  {id:"r6",num:"6",title:"Règle 6",subtitle:"Maintenez le contact visuel",phase:"Comportements inadaptés",description:"Contact visuel naturel pendant toutes les conversations.",tip:"Établir le contact 2-3 secondes AVANT de commencer à parler.",exercises:["Miroir : bloquer en maintenant le regard","5 appels face au miroir","Noter la couleur des yeux de 10 personnes"],eq:["Miroir","Cahier"]},
-  {id:"r7",num:"7",title:"Règle 7",subtitle:"Analysez vos blocages",phase:"Analyse et correction",description:"Identifier les mouvements musculaires inadaptés lors des blocages.",tip:"La plupart des blocages viennent d'un contact trop serré.",exercises:["Bégayer très lentement pour ressentir les actions musculaires","Observer dans un miroir pendant appels","Enregistrer 5-10 min, réécouter en mimant","Comparer le même son avec et sans bégaiement"],eq:["Miroir","Enregistreur","Cahier"]},
-  {id:"r8",num:"8",title:"Règle 8",subtitle:"Corrections des blocages",phase:"Analyse et correction",description:"3 corrections dans l'ordre : Annulation → Pendant le blocage → Pré-blocage.",tip:"Respecter l'ordre : annulation d'abord, puis pendant, puis pré.",exercises:["ANNULATION : compléter → pause → relâchement → analyser → redire lentement","PENDANT : ralentir le blocage → prolonger → se libérer","PRÉ : pause → relâchement → rappel erreur → répétition mentale → dire corrigé"],eq:["Miroir","Cahier"]},
-  {id:"r9",num:"9",title:"Règle 9",subtitle:"Ne revenez jamais en arrière",phase:"Contrôle du débit",description:"Maintenir phonation et débit d'air continus.",exercises:["Identifier les répétitions involontaires à l'écoute","Amorce douce + prolongation + transition continue","Maintenir la phonation pendant les difficultés"],eq:["Enregistreur"]},
-  {id:"r10",num:"10",title:"Règle 10",subtitle:"Parlez avec intonation",phase:"Qualité de l'élocution",description:"Voix mélodieuse, ferme, naturelle. Varier débit et volume.",tip:"Variation + débit continu = parole détendue.",exercises:["Lire en variant l'intonation","Identifier les passages monotones","Varier volume et débit"],eq:["Enregistreur"]},
-  {id:"r11",num:"11",title:"Règle 11",subtitle:"Portez attention à votre fluence",phase:"Renforcement positif",description:"Reconnaître et mémoriser les moments de parole fluide.",tip:"La fluence existe déjà en vous.",exercises:["Noter les conversations réussies","Parler seul devant un miroir","Visualisation : revivre une situation réussie"],eq:["Cahier","Miroir"]},
-  {id:"r12",num:"12",title:"Règle 12",subtitle:"Parlez aussi souvent que possible",phase:"Pratique intensive",description:"Maximiser les occasions de parole.",tip:"Parlez à saturation. — Gerald F. Johnson",exercises:["Créer chaque jour une occasion difficile","Utiliser le téléphone activement","Prendre la parole quand l'occasion se présente"],eq:[]}
+const MODULES=[
+{id:"massage",num:1,icon:"💆",name:"Massage musculaire",color:"var(--pink)",bg:"var(--pink-bg)",dur:"3-4 min",
+ desc:"Priorité absolue — déverrouiller le larynx et les muscles péri-laryngés avant tout exercice vocal. Un larynx tendu bloque la parole.",
+ illus:`<svg class="illus" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="40" cy="32" rx="14" ry="18" stroke="#9c2462" stroke-width="2" fill="#fdeef5"/>
+  <line x1="40" y1="50" x2="40" y2="65" stroke="#9c2462" stroke-width="2"/>
+  <path d="M26 38 Q18 44 20 56 Q22 62 30 60" stroke="#9c2462" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M54 38 Q62 44 60 56 Q58 62 50 60" stroke="#9c2462" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="28" cy="58" r="4" fill="#9c2462" opacity=".3"/>
+  <circle cx="52" cy="58" r="4" fill="#9c2462" opacity=".3"/>
+  <path d="M32 22 Q40 16 48 22" stroke="#9c2462" stroke-width="1.5" fill="none"/>
+ </svg>`,
+ steps:[
+  {id:"m1",name:"Massage masséter",dur:60,desc:"Pouces sous les pommettes. Mouvements circulaires lents pendant 1 minute. Sentir le relâchement progressif."},
+  {id:"m2",name:"Massage larynx",dur:45,desc:"Deux doigts de chaque côté de la pomme d'Adam. Pression circulaire très douce vers le bas. Sentir le larynx descendre."},
+  {id:"m3",name:"Vibration labiale 'brrr'",dur:20,desc:"Lèvres relâchées — faire 'brrr' × 3. Si les lèvres ne vibrent pas : trop contractées. Indicateur de tension globale."},
+  {id:"m4",name:"Bâillements contrôlés × 5",dur:30,desc:"Bailler lentement, exagéré, bouche grande ouverte. Larynx qui descend = état cible avant un mot craint."},
+ ],
+ videos:[
+  {id:"HbQOCB9bO6g",label:"Massage larynx & gorge"},
+  {id:"4SNO61r4Nz8",label:"Massage langue"},
+  {id:"Ldvvz8N02Ms",label:"Exercice gorge"},
+ ]},
+
+{id:"resp",num:2,icon:"🫁",name:"Respiration abdominale",color:"var(--green)",bg:"var(--green-bg)",dur:"2 min",
+ desc:"Le souffle abdominal est le support de la parole. Sans soutien du diaphragme, le larynx compense — source directe de blocages.",
+ illus:`<svg class="illus" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M40 14 L40 22" stroke="#1a7a3e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M28 22 Q22 22 20 30 Q16 42 18 54 Q21 64 30 62 Q36 60 40 54 Q44 60 50 62 Q59 64 62 54 Q64 42 60 30 Q58 22 52 22 L40 22 Z" stroke="#1a7a3e" stroke-width="2" fill="#e8f5ed"/>
+  <path d="M10 36 Q5 32 8 26" stroke="#1a7a3e" stroke-width="1.5" stroke-dasharray="3,2" stroke-linecap="round"/>
+  <path d="M70 36 Q75 32 72 26" stroke="#1a7a3e" stroke-width="1.5" stroke-dasharray="3,2" stroke-linecap="round"/>
+  <path d="M20 45 Q40 52 60 45" stroke="#1a7a3e" stroke-width="1.5" opacity=".4"/>
+ </svg>`,
+ steps:[
+  {id:"r1",name:"Respiration diaphragmatique",dur:60,desc:"Main sur le ventre. Inspirer 4s (ventre sort) → expirer 6s en soufflant sur 'sss' continu. 5 cycles complets."},
+  {id:"r2",name:"Parole sur expiration",dur:60,desc:"Prononcer une phrase entière en vérifiant que le ventre se creuse progressivement. Ne jamais parler sur réserve vide. × 5 phrases."},
+ ],
+ videos:[{id:"4kkONEub04M",label:"Respiration diaphragmatique"}]},
+
+{id:"paille",num:3,icon:"🥤",name:"Technique de la paille",color:"var(--purple)",bg:"var(--purple-bg)",dur:"3 min",
+ desc:"Rééquilibre les pressions sous/sus-glottiques. Les cordes vocales se détendent mécaniquement. Utilisé en rééducation orthophonique pour le blocage laryngé.",
+ illus:`<svg class="illus" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="22" y="30" width="36" height="42" rx="6" stroke="#5344b5" stroke-width="2" fill="#ede8fb"/>
+  <line x1="44" y1="72" x2="52" y2="20" stroke="#5344b5" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="36" cy="52" r="3" fill="#5344b5" opacity=".4"/>
+  <circle cx="30" cy="44" r="2" fill="#5344b5" opacity=".3"/>
+  <circle cx="40" cy="60" r="2" fill="#5344b5" opacity=".3"/>
+  <circle cx="32" cy="58" r="1.5" fill="#5344b5" opacity=".2"/>
+  <path d="M22 55 Q40 58 58 55" stroke="#5344b5" stroke-width="1" opacity=".3"/>
+ </svg>`,
+ steps:[
+  {id:"p1",name:"Paille dans l'eau",dur:180,desc:"Paille ordinaire dans un verre (3 cm d'eau). Souffler doucement en émettant 'ooo' ou 'mmm' continu. Bulles régulières = larynx détendu. Irrégularité = tension. 3 minutes."},
+ ],
+ videos:[{id:"YB3IKoeCGs0",label:"Technique de la paille"}]},
+
+{id:"artic",num:4,icon:"👄",name:"Articulation",color:"var(--red)",bg:"var(--red-bg)",dur:"2 min",
+ desc:"Contacts précis et légers des articulateurs. L'objectif est la précision, jamais la force. Des consonnes nettes soulagent la voix.",
+ illus:`<svg class="illus" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M18 36 Q18 28 40 28 Q62 28 62 36 Q62 52 40 58 Q18 52 18 36Z" stroke="#c0392b" stroke-width="2" fill="#fdecea"/>
+  <path d="M22 36 Q40 44 58 36" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <ellipse cx="40" cy="50" rx="10" ry="5" fill="#c0392b" opacity=".25"/>
+  <line x1="30" y1="32" x2="30" y2="28" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="40" y1="30" x2="40" y2="26" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="50" y1="32" x2="50" y2="28" stroke="#c0392b" stroke-width="1.5"/>
+ </svg>`,
+ steps:[
+  {id:"a1",name:"Voyelles exagérées",dur:30,desc:"A — E — I — O — U avec ouverture maximale de la bouche. Exagérer chaque position. × 5 séries."},
+  {id:"a2",name:"Virelangue lent",dur:60,desc:"'Un chasseur sachant chasser sans son chien' — lire lentement en détachant chaque syllabe. Puis reprendre 2× plus vite."},
+  {id:"a3",name:"Lecture syllabique",dur:60,desc:"Prendre un texte et lire en déta-chant cha-que syl-la-be. Prendre conscience de chaque consonne. Progresser vers débit normal."},
+ ],
+ videos:[{id:"YMESKuiUmRM",start:271,label:"Exercices d'articulation"}]},
+
+{id:"bvol",num:5,icon:"🗣️",name:"Bégaiement volontaire",color:"var(--orange)",bg:"var(--orange-bg)",dur:"3-4 min",
+ desc:"Désensibilisation directe. Faire volontairement ce que l'on craint réduit la peur et prouve que l'on contrôle le mécanisme. Doux, calme — jamais imiter les pires blocages.",
+ illus:`<svg class="illus" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="12" y="18" width="46" height="34" rx="8" stroke="#a05c00" stroke-width="2" fill="#fff3e0"/>
+  <path d="M24 52 L18 64" stroke="#a05c00" stroke-width="2" stroke-linecap="round"/>
+  <text x="20" y="38" font-size="13" fill="#a05c00" font-family="monospace" font-weight="600">b-b-b</text>
+  <text x="20" y="52" font-size="11" fill="#a05c00" font-family="monospace" opacity=".6">bon...</text>
+  <circle cx="64" cy="22" r="10" fill="#fff3e0" stroke="#a05c00" stroke-width="1.5"/>
+  <text x="59" y="26" font-size="10" fill="#a05c00" font-weight="600">!</text>
+ </svg>`,
+ steps:[
+  {id:"bv1",name:"Répétitions sur mots",dur:60,desc:"b-b-bonjour · m-m-merci · p-p-parler · t-t-téléphone. Sons répétés doucement, sans tension, contact visuel maintenu. × 10 mots."},
+  {id:"bv2",name:"Prolongations",dur:60,desc:"bbbbonjour · mmmmmerci · sssalut. Étirer doucement le premier son avant de glisser sur le reste. × 10 mots."},
+  {id:"bv3",name:"Phrases complètes",dur:90,desc:"Prononcer 5 phrases en bégayant volontairement sur au moins 2 mots par phrase. Calme, détendu. Voir les mots et phrases du jour ci-dessous."},
+ ],
+ random:true,
+ videos:[]},
+
+{id:"onset",num:6,icon:"🎤",name:"Onset & Light contact",color:"var(--blue)",bg:"var(--blue-bg)",dur:"3 min",
+ desc:"Easy onset : démarrer la voix très doucement, comme une flamme qui s'allume. Light contact : articulateurs effleurant à peine. Les deux ensemble éliminent la fermeture glottique brutale.",
+ illus:`<svg class="illus" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M14 52 Q20 40 30 36 Q40 32 50 36 Q60 40 66 52" stroke="#1a5fa8" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M14 52 Q20 48 26 48 Q32 48 34 44" stroke="#1a5fa8" stroke-width="1" fill="none" opacity=".4"/>
+  <circle cx="66" cy="52" r="4" fill="#1a5fa8"/>
+  <circle cx="14" cy="52" r="3" fill="#1a5fa8" opacity=".3"/>
+  <text x="28" y="24" font-size="11" fill="#1a5fa8" font-family="-apple-system,sans-serif">hhhaaaa</text>
+  <path d="M28 26 L66 48" stroke="#1a5fa8" stroke-width="1" stroke-dasharray="2,2" opacity=".3"/>
+ </svg>`,
+ steps:[
+  {id:"o1",name:"Easy onset sur voyelles",dur:60,desc:"'hhhaaaa' — 'hhhheee' — 'hhhhiii'. Démarrer depuis le silence absolu. La voix s'allume très doucement. Aucun coup de glotte. × 5 séries."},
+  {id:"o2",name:"Light contact sur plosives",dur:60,desc:"p-b-p-b · t-d-t-d · m-m-m. Contacts labiaux et linguaux à peine perceptibles — effleurer seulement. Jamais appuyer ou bloquer. × 20."},
+  {id:"o3",name:"Mots combinés",dur:60,desc:"Appliquer easy onset sur les voyelles initiales et light contact sur les plosives dans des mots réels : 'bonjour', 'parler', 'téléphone'. × 10 mots."},
+ ],
+ videos:[{id:"tleTRXOqWCg",label:"Easy onset & light contact"}]},
+
+{id:"debloc",num:7,icon:"🔓",name:"Déblocage",color:"var(--blue)",bg:"var(--blue-bg)",dur:"4-5 min",
+ desc:"Les 3 corrections de Van Riper dans l'ordre Fraser. À pratiquer sur de vrais blocages ou sur du bégaiement volontaire. La maîtrise vient dans cet ordre : post → pendant → pré.",
+ illus:`<svg class="illus" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="24" y="38" width="32" height="28" rx="5" stroke="#1a5fa8" stroke-width="2" fill="#e8f0fb"/>
+  <path d="M32 38 L32 28 Q32 18 40 18 Q48 18 48 28 L48 38" stroke="#1a5fa8" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="40" cy="52" r="5" fill="#1a5fa8"/>
+  <line x1="40" y1="57" x2="40" y2="62" stroke="#1a5fa8" stroke-width="2"/>
+  <text x="50" y="22" font-size="9" fill="#1a5fa8" opacity=".5">→ ouvert</text>
+ </svg>`,
+ steps:[
+  {id:"d1",name:"Annulation — post-blocage",dur:90,desc:"Laisser le blocage se produire → compléter le mot → pause → relâcher la tension → redire le mot lentement avec correction. Approche : calme, pas de panique. × 5."},
+  {id:"d2",name:"Pull-out — pendant le blocage",dur:90,desc:"En cours de blocage : ralentir encore, prolonger doucement le son bloqué, sentir la tension baisser, glisser vers le son suivant. Ne pas forcer. × 5."},
+  {id:"d3",name:"Pré-blocage — anticiper",dur:90,desc:"Avant un mot craint : pause courte → relâchement → rappel de l'erreur habituelle → onset doux → dire le mot. Planifier avant d'attaquer. × 5."},
+ ],
+ videos:[
+  {id:"ZEwYs9wlmx4",label:"Annulation (post-blocage)"},
+  {id:"02P2yqNsUCs",label:"Pull-out & pré-blocage"},
+ ]},
+
+{id:"parole",num:8,icon:"📖",name:"Parole libre chronométrée",color:"var(--text2)",bg:"var(--bg2)",dur:"2-3 min",
+ desc:"Intégrer tout le travail dans la parole réelle. Sujet libre, débit lent, correction immédiate des blocages. Réécoute entre les séances — jamais pendant.",
+ illus:`<svg class="illus" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="40" cy="42" r="24" stroke="#5a5a5a" stroke-width="2" fill="#f7f5f2"/>
+  <line x1="40" y1="42" x2="40" y2="24" stroke="#5a5a5a" stroke-width="2" stroke-linecap="round"/>
+  <line x1="40" y1="42" x2="54" y2="50" stroke="#5a5a5a" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="40" cy="42" r="3" fill="#5a5a5a"/>
+  <path d="M40 18 L40 14" stroke="#5a5a5a" stroke-width="2"/>
+  <path d="M35 14 L45 14" stroke="#5a5a5a" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="52" cy="20" r="8" fill="#fff3e0" stroke="#a05c00" stroke-width="1.5"/>
+  <text x="48" y="24" font-size="9" fill="#a05c00" font-weight="600">🗣</text>
+ </svg>`,
+ steps:[
+  {id:"pl1",name:"Parole spontanée 2 min",dur:120,desc:"Parler librement — raconter un souvenir, décrire une journée, exprimer une opinion. Débit lent, corrections immédiates. Sujet au choix."},
+  {id:"pl2",name:"Enregistrement",dur:0,desc:"Enregistrer la séance. La réécoute se fait entre les séances — pas pendant. Noter les mots difficiles et la technique la plus efficace."},
+ ],
+ videos:[],
+ topics:["Décris ta journée d'hier","Parle d'un souvenir d'enfance","Explique ce que tu études","Décris ton endroit préféré","Donne ton avis sur un film vu récemment","Raconte un défi que tu as surmonté","Parle de tes objectifs professionnels","Décris une personne que tu admires","Explique ce qu'est le bégaiement","Parle de ce qui te rend heureux"]}
 ];
 
-const MUSCLES=[
-  {id:"resp",icon:"🫁",name:"Respiratoire",bg:"#e8f5ed",tc:"#1a7a3e",exercises:[
-    {name:"Respiration diaphragmatique",dur:60,desc:"Inspirer 4s (ventre sort) → expirer 6s sur 'sss' continu.",note:"Support de la parole.",vid_id:"e1b6tnz-QR0",vid_url:"https://www.youtube.com/watch?v=e1b6tnz-QR0",vid_lang:"FR",vid_label:"Respiration diaphragmatique (UQAM)"},
-    {name:"Contrôle du flux d'air",dur:45,desc:"Expirer sur 'mmm' continu et régulier. Volume constant.",note:"Base de l'amorce douce (règle 2).",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=controlled+exhalation+speech+therapy+airflow",vid_lang:"EN",vid_label:"Controlled exhalation"},
-    {name:"Soupir laryngé relâché",dur:30,desc:"Inspirer doucement → soupir 'aaah' très relâché.",note:"État laryngé cible avant un mot craint.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=yawn+sigh+technique+voice+relaxation",vid_lang:"EN",vid_label:"Yawn-sigh technique"}
-  ]},
-  {id:"phon",icon:"🎤",name:"Phonatoire",bg:"#ede8fb",tc:"#5344b5",exercises:[
-    {name:"Onset doux",dur:45,desc:"'aaa', 'eee', 'iii' démarrés du silence. Aucun coup de glotte.",note:"Amorce douce de la règle 2.",vid_id:"fV7VT_R-sQI",vid_url:"https://www.youtube.com/watch?v=fV7VT_R-sQI",vid_lang:"EN",vid_label:"Easy onset / soft onset"},
-    {name:"Bourdonnement laryngé",dur:45,desc:"'mmm' puis 'nnn' à intensité constante.",note:"Larynx détendu = son régulier.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=humming+voice+warm+up+larynx",vid_lang:"EN",vid_label:"Humming warm-up"},
-    {name:"Glissades vocales",dur:30,desc:"Glisser grave → aigu → grave sur 'aaah'.",note:"Cassure = hypercontraction laryngée.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=glissade+vocale+exercice+voix",vid_lang:"FR",vid_label:"Glissades vocales"}
-  ]},
-  {id:"vel",icon:"🔊",name:"Vélaire",bg:"#fff3e0",tc:"#a05c00",exercises:[
-    {name:"Alternance nasale / orale",dur:40,desc:"'mmm' → 'aaa' → 'nnn' → 'ooo'. Sentir le voile monter et descendre.",note:"Voile tendu = voix nasillarde.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=exercice+voile+palais+orthophonie",vid_lang:"FR",vid_label:"Exercice voile du palais"},
-    {name:"Sons contrastés",dur:30,desc:"Enchaîner lentement : 'ma-na-ba-da'.",note:"Appliquer sur vos mots difficiles.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=nasal+oral+contrast+speech+exercises",vid_lang:"EN",vid_label:"Nasal/oral contrast"}
-  ]},
-  {id:"ling",icon:"👅",name:"Lingual",bg:"#fdecea",tc:"#c0392b",exercises:[
-    {name:"Mobilisation complète",dur:40,desc:"Langue : sortir → rentrer → gauche → droite → palais → relâcher. 5 cycles.",note:"Langue détendue = condition de fluidité.",vid_id:"kPdVNM8ZNOI",vid_url:"https://www.youtube.com/watch?v=kPdVNM8ZNOI",vid_lang:"FR",vid_label:"Exercices langue — orthophonie"},
-    {name:"Contacts légers alvéolaires",dur:45,desc:"'t-d-t-d' et 'l-l-l' avec contacts extrêmement légers.",note:"Suppression de la pression excessive.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=light+articulatory+contacts+stuttering",vid_lang:"EN",vid_label:"Light articulatory contacts"},
-    {name:"Prolongation des liquides",dur:40,desc:"'lllll' → 'rrrrr' → 'nnnnn' très lentement.",note:"Conscience proprioceptive linguale.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=prolongation+consonnes+liquides+articulation",vid_lang:"FR",vid_label:"Prolongation des liquides"}
-  ]},
-  {id:"lab",icon:"👄",name:"Labial / Mandibulaire",bg:"#fdeef5",tc:"#9c2462",exercises:[
-    {name:"Relaxation mandibulaire",dur:40,desc:"Ouvrir au max → fermer 5 fois. Puis mâchoire en gravité.",note:"Point de départ de l'annulation.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=jaw+relaxation+exercises+speech+therapy",vid_lang:"EN",vid_label:"Jaw relaxation"},
-    {name:"Contacts labiaux feather-light",dur:45,desc:"'p-b-p-b-m-m-m' avec contacts labiaux à peine perceptibles.",note:"Supprime le blocage labial sur 'p' et 'b'.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=exercice+levres+articulation+contacts+legers",vid_lang:"FR",vid_label:"Exercices lèvres articulation"},
-    {name:"Décontraction du masséter",dur:35,desc:"Mâcher lentement de façon exagérée, puis parler dans cet état.",note:"Cible l'hypertonique sur 'b', 'p', 'm'.",vid_id:null,vid_url:"https://www.youtube.com/results?search_query=masseter+muscle+relaxation+jaw+tension",vid_lang:"EN",vid_label:"Masséter relaxation"}
-  ]}
-];
-
-// Textes de lecture graduels pour la pratique
-const READING_TEXTS=[
-  {level:1,label:"Niveau 1 — Mots simples",text:"Le pain est bon. Le chat dort. Il fait beau. Je vais bien. La maison est grande. Mon ami arrive. Nous mangeons ensemble. Le soir tombe doucement.",note:"Chaque mot en 1-2 secondes. Glisser sur le premier son."},
-  {level:2,label:"Niveau 2 — Phrases courtes",text:"Le matin, je me lève tôt. Je prépare mon café tranquillement. Aujourd'hui, il fait beau dehors. Je vais faire une promenade dans le parc. Les arbres sont verts et le ciel est bleu.",note:"Faire une pause entre chaque phrase. Respirer avant de reprendre."},
-  {level:3,label:"Niveau 3 — Phrases moyennes",text:"Ce matin, j'ai décidé de prendre mon temps pour parler plus lentement. Je sais que c'est difficile au début, mais chaque effort compte. Les gens sont patients et attendent que je finisse mes phrases.",note:"Maintenir le débit lent même dans les transitions entre phrases."},
-  {level:4,label:"Niveau 4 — Texte suivi",text:"La pratique quotidienne est essentielle pour progresser. Chaque jour, je m'entraîne à parler lentement et avec des amorces douces. Je commence à ressentir la différence dans mon mécanisme de parole. Les blocages sont moins fréquents lorsque je reste calme et détendu.",note:"Lire comme si vous parliez à quelqu'un. Maintenir le contact visuel imaginaire."},
-  {level:5,label:"Niveau 5 — Conversation simulée",text:"Bonjour, je m'appelle Issiaka. Je travaille actuellement sur mon bégaiement grâce à un programme d'auto-thérapie. C'est un travail quotidien qui demande de la patience. Je progresse peu à peu et je suis de plus en plus confiant dans mes prises de parole.",note:"Le niveau le plus difficile — simuler une vraie conversation. Utiliser les corrections pré-blocage sur les mots craints."}
-];
-
-const DAYS=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-const TABS=[["session","▶ Séance"],["dashboard","Tableau de bord"],["warmup","Échauffement"],["muscles","Muscles"],["recording","Enregistrement"],["rules","Règles"],["planning","Planning"],["journal","Journal"],["export","Partager"]];
-const KEY="sbt_v4";
-const MAX_RECS=15;
-
-// ── ÉTAT ─────────────────────────────────────────────────────
-let S={tab:"session",statuses:{},notes:{},journal:[],weekPlan:{},recordings:[],expanded:null,muscleExpanded:null,vidOpen:{},
-  session:{active:false,step:0,musclesDone:{},exercisesDone:{},readingLevel:1,recorded:false,journalText:"",rating:3}
+const MODULE_ELOQ={
+ id:"eloq",icon:"✨",name:"Éloquence (bonus)",color:"#b7860b",bg:"#fffbe6",dur:"libre",
+ desc:"Travail complémentaire sur la clarté, l'impact et la présence orale. Non inclus dans le programme principal — exercice additionnel quand les 8 modules sont bien en place.",
+ videos:[
+  {url:"https://www.youtube.com/results?search_query=exercices+éloquence+prise+de+parole+français+adulte",label:"Exercices d'éloquence FR"},
+  {url:"https://www.youtube.com/results?search_query=virelangue+français+articulation+diction",label:"Virelangues & diction FR"},
+ ]
 };
-let recorder=null,audioChunks=[],isRecording=false,recTimer=null,recSeconds=0,timers={};
 
-// ── PERSISTANCE ──────────────────────────────────────────────
-function load(){try{const d=localStorage.getItem(KEY);if(d){const p=JSON.parse(d);S.statuses=p.statuses||{};S.notes=p.notes||{};S.journal=p.journal||[];S.weekPlan=p.weekPlan||{};S.recordings=p.recordings||[]}}catch(e){}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify({statuses:S.statuses,notes:S.notes,journal:S.journal,weekPlan:S.weekPlan,recordings:S.recordings}))}catch(e){alert("Stockage plein. Téléchargez une sauvegarde puis supprimez des enregistrements.");}}
-function storUsed(){try{const d=localStorage.getItem(KEY);return d?d.length*2:0}catch(e){return 0}}
-function fmtSz(b){if(b<1024)return b+"o";if(b<1048576)return Math.round(b/1024)+"Ko";return(b/1048576).toFixed(1)+"Mo"}
-function fmt(s){const m=Math.floor(s/60),sc=s%60;return m+":"+(sc<10?"0":"")+sc}
+const SESSION_BLOCS=[
+ {id:"b1",title:"Massage musculaire",icon:"💆",moduleIds:["massage"],dur:"3-4 min"},
+ {id:"b2",title:"Respiration & Paille",icon:"🫁",moduleIds:["resp","paille"],dur:"5 min"},
+ {id:"b3",title:"Articulation",icon:"👄",moduleIds:["artic"],dur:"2 min"},
+ {id:"b4",title:"Bégaiement volontaire",icon:"🗣️",moduleIds:["bvol"],dur:"3-4 min"},
+ {id:"b5",title:"Onset, Light contact & Déblocage",icon:"🎤",moduleIds:["onset","debloc"],dur:"6-7 min"},
+ {id:"b6",title:"Parole libre & Enregistrement",icon:"📖",moduleIds:["parole"],dur:"2-3 min"},
+];
+
+// Mots pour le bégaiement volontaire
+const BV_MOTS_PLOSIVES=["bonjour","père","café","téléphone","problème","bureau","partir","présenter","préparer","diplôme","parler","travailler","programme","demain","début","possible","proposer","participer","pertinent","capable"];
+const BV_MOTS_FRICAT=["salut","voilà","merci","savoir","suivre","chercher","jamais","faire","futur","société","service","succès","financer","valeur","zéro","vision","souhait","saison"];
+const BV_MOTS_VOYELLES=["arriver","écouter","étudier","objectif","important","université","exercice","expliquer","apprendre","essayer","aller","idée","occasion","accord","ouvrir","avancer","évoluer"];
+const BV_PHRASES=["Bonjour, comment allez-vous ?","Permettez-moi de me présenter.","Je voudrais poser une question.","Pouvez-vous répéter s'il vous plaît ?","Je travaille sur ma prise de parole.","Bonne journée à vous.","Je comprends votre point de vue.","Pourriez-vous m'expliquer ?","Je suis en train de progresser.","Merci pour votre patience.","Je prends le temps de bien parler.","Voici ce que je pense de la situation.","Permettez-moi de continuer.","Je fais de mon mieux chaque jour.","Chaque séance compte vraiment.","Mon objectif est de m'améliorer.","Je pratique tous les jours.","La régularité est essentielle.","Je suis capable de progresser.","C'est un travail de longue haleine."];
+const TOPICS=["Décris ta journée d'hier","Parle d'un souvenir d'enfance","Explique ce que tu études","Décris ton endroit préféré","Donne ton avis sur un film vu récemment","Raconte un défi que tu as surmonté","Parle de tes objectifs professionnels","Décris une personne que tu admires","Explique ce qu'est le bégaiement","Parle de ce qui te rend heureux","Décris un moment de fierté","Présente ta journée idéale","Parle d'un livre qui t'a marqué","Donne tes conseils sur l'organisation","Décris un voyage que tu aimerais faire"];
+
+// ── ÉTAT ─────────────────────────────────────────────────────────────────────
+const KEY="sbt_v5";
+let S={tab:"session",session:{active:false,bloc:0,done:{},readingLevel:2,recorded:false,jText:"",rating:3},journal:[],recordings:[],expanded:null,vidOpen:{}};
+let recorder=null,chunks=[],isRec=false,recTimer=null,recSecs=0,timers={};
+
+function load(){try{const d=localStorage.getItem(KEY);if(d){const p=JSON.parse(d);S.journal=p.journal||[];S.recordings=p.recordings||[]}}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({journal:S.journal,recordings:S.recordings}))}catch(e){alert("Stockage plein — supprimez des enregistrements.");}}
 function today(){return new Date().toLocaleDateString("fr-FR")}
-function todayDay(){return DAYS[new Date().getDay()===0?6:new Date().getDay()-1].toLowerCase()}
+function fmt(s){const m=Math.floor(s/60),sc=s%60;return m+":"+(sc<10?"0":"")+sc}
+function storUsed(){try{const d=localStorage.getItem(KEY);return d?d.length*2:0}catch(e){return 0}}
+function fmtSz(b){return b<1048576?Math.round(b/1024)+"Ko":(b/1048576).toFixed(1)+"Mo"}
 
-function si(st){if(st==="mastered")return{label:"Maîtrisée",c:"var(--success)",bg:"var(--success-bg)"};if(st==="in_progress")return{label:"En cours",c:"var(--warning)",bg:"var(--warning-bg)"};return{label:"Non commencée",c:"var(--text3)",bg:"var(--bg2)"}}
-function ns(st){if(st==="mastered")return{bg:"var(--success-bg)",c:"var(--success)"};if(st==="in_progress")return{bg:"var(--warning-bg)",c:"var(--warning)"};return{bg:"var(--bg2)",c:"var(--text3)"}}
+// ── RANDOM WORDS (seeded daily) ──────────────────────────────────────────────
+function dailySeed(){
+  const s=new Date().toDateString();let h=0;
+  for(let c of s)h=((h<<5)-h)+c.charCodeAt(0);
+  return h>>>0;
+}
+function seededPick(arr,n,seed){
+  let h=seed;const pick=(max)=>{h=(h*1664525+1013904223)>>>0;return h%max};
+  const pool=[...arr],res=[];
+  while(res.length<n&&pool.length>0){const i=pick(pool.length);res.push(pool.splice(i,1)[0])}
+  return res;
+}
+function getDailyWords(){
+  const s=dailySeed();
+  return{
+    plosives:seededPick(BV_MOTS_PLOSIVES,5,s),
+    fricat:seededPick(BV_MOTS_FRICAT,4,s+1),
+    voyelles:seededPick(BV_MOTS_VOYELLES,3,s+2),
+    phrases:seededPick(BV_PHRASES,5,s+3),
+    topic:seededPick(TOPICS,1,s+4)[0]
+  };
+}
 
-function setStatus(id,s){S.statuses[id]=s;save();render()}
-function toggleExpand(id){S.expanded=S.expanded===id?null:id;render()}
-function toggleMuscle(id){S.muscleExpanded=S.muscleExpanded===id?null:id;S.vidOpen={};render()}
-function toggleVid(key){S.vidOpen[key]=!S.vidOpen[key];render()}
-function setTab(t){S.tab=t;render()}
-function deleteRec(id){if(!confirm("Supprimer cet enregistrement ?"))return;S.recordings=S.recordings.filter(r=>r.id!==id);save();render()}
-
-// ── MINUTEURS ────────────────────────────────────────────────
-function startTimer(eid,sec,prefix){
-  prefix=prefix||"tc-";
+// ── TIMERS ───────────────────────────────────────────────────────────────────
+function startTimer(eid,sec){
   if(timers[eid]){clearInterval(timers[eid]);delete timers[eid]}
   let rem=sec;
+  const el=()=>document.getElementById("tr-"+eid);
+  const btn=()=>document.getElementById("tb-"+eid);
   const tick=()=>{
-    const el=document.getElementById(prefix+eid),btn=document.getElementById((prefix==="stc-"?"stb-":"tb-")+eid);
-    if(!el)return;
-    if(rem<=0){clearInterval(timers[eid]);delete timers[eid];el.textContent="✓";el.className=(prefix==="stc-"?"session-tc":"tc")+" done";if(btn){btn.textContent="Terminé";btn.disabled=true}
-      if(prefix==="stc-"){S.session.musclesDone[eid]=true;renderSessionStep()}
-    }else{el.textContent=rem+"s";el.className=(prefix==="stc-"?"session-tc":"tc")+" run";rem--}
+    if(!el())return;
+    if(rem<=0){
+      clearInterval(timers[eid]);delete timers[eid];
+      el().textContent="✓";el().className="timer-ring done";
+      if(btn()){btn().textContent="Terminé";btn().disabled=true}
+    }else{el().textContent=rem+"s";el().className="timer-ring running";rem--}
   };
   tick();timers[eid]=setInterval(tick,1000);
-  const btn=document.getElementById((prefix==="stc-"?"stb-":"tb-")+eid);if(btn){btn.textContent="En cours…";btn.disabled=true}
+  if(btn()){btn().textContent="En cours…";btn().disabled=true}
 }
 
-// ── ENREGISTREMENT ───────────────────────────────────────────
-function blobToB64(blob){return new Promise(res=>{const r=new FileReader();r.onloadend=()=>res(r.result);r.readAsDataURL(blob)})}
+// ── RECORDING ────────────────────────────────────────────────────────────────
+function b64(blob){return new Promise(r=>{const fr=new FileReader();fr.onloadend=()=>r(fr.result);fr.readAsDataURL(blob)})}
 
-async function startRecording(fromSession){
+async function startRec(fromSession){
   try{
     const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    audioChunks=[];
-    const mt=MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus":MediaRecorder.isTypeSupported("audio/webm")?"audio/webm":MediaRecorder.isTypeSupported("audio/mp4")?"audio/mp4":"audio/ogg";
+    chunks=[];
+    const mt=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg"].find(t=>MediaRecorder.isTypeSupported(t));
     recorder=new MediaRecorder(stream,{mimeType:mt});
-    recorder.ondataavailable=e=>{if(e.data.size>0)audioChunks.push(e.data)};
+    recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data)};
     recorder.onstop=async()=>{
       stream.getTracks().forEach(t=>t.stop());
-      const blob=new Blob(audioChunks,{type:recorder.mimeType});
-      const b64=await blobToB64(blob);
-      window._lastRec={b64,dur:recSeconds,fromSession:!!fromSession};
-      isRecording=false;render();
+      const blob=new Blob(chunks,{type:recorder.mimeType});
+      window._rec={b64:await b64(blob),dur:recSecs,fromSession:!!fromSession};
+      isRec=false;render();
     };
-    recorder.start(1000);isRecording=true;recSeconds=0;
-    recTimer=setInterval(()=>{recSeconds++;const el=document.getElementById("rec-timer")||document.getElementById("srec-timer");if(el)el.textContent=fmt(recSeconds)},1000);
+    recorder.start(1000);isRec=true;recSecs=0;
+    recTimer=setInterval(()=>{recSecs++;const el=document.getElementById("rec-time");if(el)el.textContent=fmt(recSecs)},1000);
     render();
-  }catch(e){alert("Microphone inaccessible.\n\n"+e.message)}
+  }catch(e){alert("Microphone inaccessible.\n"+e.message)}
 }
-
-function stopRecording(){if(recorder&&recorder.state!=="inactive")recorder.stop();clearInterval(recTimer)}
-
-async function saveRecording(fromSession){
-  if(!window._lastRec)return;
-  if(S.recordings.length>=MAX_RECS){alert("Maximum "+MAX_RECS+" enregistrements.");return}
-  const ruleId=fromSession?(S.weekPlan[todayDay()]||"r1"):(document.getElementById("rec-rule")?.value||"r1");
-  const obs=fromSession?(document.getElementById("sobs")?.value||""):(document.getElementById("rec-obs")?.value||"");
-  const words=fromSession?(document.getElementById("swords")?.value||""):(document.getElementById("rec-words")?.value||"");
-  S.recordings=[{id:Date.now(),date:today(),time:new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}),rule:ruleId,obs,words,dur:window._lastRec.dur,b64:window._lastRec.b64},...S.recordings];
+function stopRec(){if(recorder&&recorder.state!=="inactive")recorder.stop();clearInterval(recTimer)}
+async function saveRec(fromSession){
+  if(!window._rec||S.recordings.length>=15)return;
+  const rule=fromSession?"parole":(document.getElementById("rec-mod")?.value||"parole");
+  const obs=document.getElementById("rec-obs")?.value||"";
+  const words=document.getElementById("rec-words")?.value||"";
+  S.recordings=[{id:Date.now(),date:today(),time:new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}),module:rule,obs,words,dur:window._rec.dur,b64:window._rec.b64},...S.recordings];
   try{save()}catch(e){S.recordings.shift();return}
-  if(fromSession){S.session.recorded=true}
-  window._lastRec=null;render();
+  if(fromSession)S.session.recorded=true;
+  window._rec=null;render();
+}
+function delRec(id){if(!confirm("Supprimer ?"))return;S.recordings=S.recordings.filter(r=>r.id!==id);save();render()}
+function dlAudio(id){
+  const r=S.recordings.find(r=>r.id===id);if(!r)return;
+  const ext=r.b64.includes("webm")?"webm":r.b64.includes("mp4")?"m4a":"ogg";
+  const a=document.createElement("a");a.href=r.b64;a.download="seance-"+r.date.replace(/\//g,"-")+"."+ext;a.click();
 }
 
-function addJournalEntry(fromSession){
-  const text=fromSession?S.session.journalText:(document.getElementById("j-text")?.value||"");
-  const ruleId=fromSession?(S.weekPlan[todayDay()]||"r1"):(document.getElementById("j-rule")?.value||"r1");
-  const rt=fromSession?S.session.rating:parseInt(document.getElementById("j-rating")?.value||3);
-  if(!text.trim())return;
-  S.journal=[{id:Date.now(),date:today(),rule:ruleId,text,rating:rt},...S.journal];
-  save();
-  if(!fromSession){document.getElementById("j-text").value="";}
-  render();
-}
-
-// ── MODE SÉANCE GUIDÉE ───────────────────────────────────────
-// ── PROGRAMME FORMALISÉ 6 BLOCS ──────────────────────────────
-
-const BLOCS=[
-  {id:"b1",label:"Bloc 1",title:"Décontraction",duration:"4 min",color:"#fdeef5",tc:"#9c2462",icon:"💆",
-   desc:"Priorité absolue. Ne jamais démarrer sans ce bloc.",
-   steps:[
-     {id:"b1s1",name:"Massage masséter + larynx",dur:60,desc:"Pouces sous les pommettes — cercles 1 min. Puis deux doigts de chaque côté de la pomme d'Adam, pression circulaire douce vers le bas 30s."},
-     {id:"b1s2",name:"Bâillements contrôlés",dur:30,desc:"Bailler lentement et de façon exagérée × 5. Sentir le larynx descendre au maximum. C'est l'état cible avant un mot craint."},
-     {id:"b1s3",name:"Vibration labiale 'brrr'",dur:20,desc:"Lèvres relâchées — faire 'brrr' comme un cheval × 3. Si les lèvres ne vibrent pas, elles sont trop contractées."},
-     {id:"b1s4",name:"Technique de la paille",dur:120,desc:"Paille dans un verre d'eau (3 cm). Souffler doucement en émettant 'ooo' continu. Bulles régulières = larynx détendu. 2 minutes."},
-   ]},
-  {id:"b2",label:"Bloc 2",title:"Respiration abdominale",duration:"2 min",color:"#e8f5ed",tc:"#1a7a3e",icon:"🫁",
-   desc:"Le souffle est le support de la parole. Sans soutien abdominal, le larynx compense — source directe de blocages.",
-   steps:[
-     {id:"b2s1",name:"Respiration diaphragmatique",dur:60,desc:"Main sur le ventre. Inspirer 4s (ventre sort) → expirer 6s en soufflant sur 'sss' continu. 5 cycles."},
-     {id:"b2s2",name:"Parole sur expiration abdominale",dur:60,desc:"Prononcer une phrase entière en vérifiant que le ventre se creuse progressivement. Ne jamais parler sur une réserve d'air épuisée. × 5 phrases."},
-   ]},
-  {id:"b3",label:"Bloc 3",title:"Échauffement vocal",duration:"3 min",color:"#ede8fb",tc:"#5344b5",icon:"🎤",
-   desc:"De la décontraction vers le geste vocal. Ne pas forcer le volume.",
-   steps:[
-     {id:"b3s1",name:"Bourdonnement 'mmm' → 'nnn' → 'ng'",dur:45,desc:"Intensité constante. Doigts sur la pomme d'Adam — sentir les vibrations régulières. Irrégularité = tension résiduelle."},
-     {id:"b3s2",name:"Onset doux sur voyelles",dur:60,desc:"'hhhaaaa' — 'hhhheee' — 'hhhhiii'. Démarrer depuis le silence absolu, voix qui s'allume très doucement. Aucun coup de glotte. × 5 séries."},
-     {id:"b3s3",name:"Glissades vocales",dur:45,desc:"Glisser grave → aigu → grave sur 'aaah'. Aucune cassure. Une cassure = zone d'hypercontraction laryngée. × 5 glissades."},
-   ]},
-  {id:"b4",label:"Bloc 4",title:"Bégaiement volontaire",duration:"3 à 4 min",color:"#fff3e0",tc:"#a05c00",icon:"🗣️",
-   desc:"Technique de désensibilisation. Attaquer directement la peur en faisant volontairement ce que vous craignez. Doux, calme, contrôlé — jamais imiter vos pires blocages.",
-   steps:[
-     {id:"b4s1",name:"Répétitions douces sur mots non craints",dur:60,desc:"'b-b-bonjour', 'm-m-merci', 'l-l-le'. Sons répétés doucement, sans tension. Maintenir le contact visuel. × 10 mots."},
-     {id:"b4s2",name:"Prolongations douces",dur:60,desc:"'bbbbonjour', 'mmmmmerci', 'ssssalut'. Étirer doucement le premier son. Différent d'une répétition — c'est un son tenu. × 10 mots."},
-     {id:"b4s3",name:"Bégaiement volontaire en phrases",dur:90,desc:"Prononcer 5 phrases complètes en bégayant volontairement sur au moins 2 mots par phrase. Calme, détendu, regard maintenu."},
-   ]},
-  {id:"b5",label:"Bloc 5",title:"Corrections de blocages",duration:"5 à 6 min",color:"#e8f0fb",tc:"#1a5fa8",icon:"🔧",
-   desc:"Les 3 corrections dans l'ordre Fraser + les techniques de contact. Travail sur la règle du jour.",
-   steps:[
-     {id:"b5s1",name:"Easy onset + Light contact",dur:60,desc:"Sur les mots craints identifiés : 'hhhaaaa' sur les voyelles initiales. Sur les plosives p, b, t, d : contact labial/lingual à peine perceptible — effleurant seulement. × 10 mots."},
-     {id:"b5s2",name:"Lecture à voix haute — règle du jour",dur:120,desc:"Lire le texte niveau choisi. Débit lent, amorces douces, pauses entre les phrases. Appliquer la règle du jour sur chaque difficulté."},
-     {id:"b5s3",name:"Annulation — post-blocage",dur:60,desc:"Laisser un blocage se produire → compléter le mot → pause → relâcher la tension → redire le mot lentement avec correction. × 5 blocages."},
-     {id:"b5s4",name:"Pull-out — pendant le blocage",dur:60,desc:"En cours de blocage : ralentir encore, prolonger doucement le son bloqué, sentir la tension baisser, glisser vers le son suivant. × 5 blocages."},
-     {id:"b5s5",name:"Pré-blocage — anticiper",dur:60,desc:"Avant un mot craint : pause → relâchement → rappel de l'erreur habituelle → répétition mentale de la correction → dire le mot avec onset doux. × 5 mots."},
-   ]},
-  {id:"b6",label:"Bloc 6",title:"Enregistrement + bilan",duration:"2 min",color:"#f5f5f3",tc:"#666",icon:"🎙️",
-   desc:"Toujours finir par l'enregistrement. La réécoute se fait entre les séances — pas pendant.",
-   steps:[
-     {id:"b6s1",name:"Enregistrement parole spontanée",dur:90,desc:"Parler librement 1 min 30 — raconter votre journée, un souvenir, décrire quelque chose. Appliquer les techniques sans les forcer."},
-     {id:"b6s2",name:"Bilan : mots + technique efficace",dur:30,desc:"Noter dans le journal : les mots sur lesquels vous avez buté + la technique qui a le mieux fonctionné aujourd'hui."},
-   ]},
-];
-
-function startSession(){
-  S.session={active:true,bloc:0,stepsDone:{},readingLevel:2,recorded:false,journalText:"",rating:3};
-  render();
-}
-
-function sessionNextBloc(){
-  if(S.session.bloc<BLOCS.length-1){S.session.bloc++;render();window.scrollTo(0,0)}
-}
-function sessionPrevBloc(){if(S.session.bloc>0){S.session.bloc--;render();window.scrollTo(0,0)}}
-function toggleStepDone(key){S.session.stepsDone[key]=!S.session.stepsDone[key];renderSessionStep()}
-
-function finishSession(){
-  const text=S.session.journalText.trim()||"Séance de 6 blocs complète.";
-  const ruleId=S.weekPlan[todayDay()]||"r1";
-  S.journal=[{id:Date.now(),date:today(),rule:ruleId,text,rating:S.session.rating},...S.journal];
-  save();S.session.active=false;
-  flashMsg("Séance enregistrée !");
-  setTab("dashboard");
-}
-
-function renderSessionStep(){
-  const el=document.getElementById("session-body");
-  if(!el)return;
-  el.innerHTML=buildBlocContent();
-}
-
-function buildBlocContent(){
-  const bloc=BLOCS[S.session.bloc];
-  const todayRuleId=S.weekPlan[todayDay()];
-  const todayRule=RULES.find(r=>r.id===todayRuleId);
-  const isLast=S.session.bloc===BLOCS.length-1;
-
-  // En-tête du bloc
-  let html=`<div style="background:${bloc.color};border-radius:var(--radius-lg);padding:14px;margin-bottom:1rem;border-left:4px solid ${bloc.tc}">
-    <div style="display:flex;align-items:center;gap:9px;margin-bottom:6px">
-      <span style="font-size:22px">${bloc.icon}</span>
-      <div><div style="font-size:16px;font-weight:600;color:${bloc.tc}">${bloc.label} — ${bloc.title}</div>
-      <div style="font-size:12px;color:${bloc.tc};opacity:.8">${bloc.duration}</div></div>
-    </div>
-    <p style="font-size:13px;color:${bloc.tc};line-height:1.5;opacity:.9">${bloc.desc}</p>
-  </div>`;
-
-  // Règle du jour — rappel dans bloc 5
-  if(S.session.bloc===4&&todayRule){
-    html+=`<div style="background:var(--bg2);border-radius:var(--radius);padding:11px;margin-bottom:1rem">
-      <div style="font-size:11px;color:var(--text3);margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Règle du jour</div>
-      <div style="font-size:14px;font-weight:600">${todayRule.title} — ${todayRule.subtitle}</div>
-      ${todayRule.tip?`<div style="font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5">${todayRule.tip}</div>`:""}
-    </div>`;
-  }
-
-  // Texte de lecture — choix niveau dans bloc 5
-  if(S.session.bloc===4){
-    const lvl=S.session.readingLevel;
-    const txt=READING_TEXTS.find(t=>t.level===lvl)||READING_TEXTS[1];
-    html+=`<div class="sl" style="margin-bottom:7px">Texte de lecture — niveau</div>
-    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">${READING_TEXTS.map(t=>`<button class="btn btn-sm${lvl===t.level?" btn-success":""}" onclick="S.session.readingLevel=${t.level};renderSessionStep()">${t.level}</button>`).join("")}</div>
-    <div class="reading-card" style="margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--info);margin-bottom:7px">${txt.label}</div><div class="reading-text">${txt.text}</div><div class="reading-meta">${txt.note}</div></div>`;
-  }
-
-  // Étapes du bloc
-  html+=`<div class="sl" style="margin-bottom:9px">Étapes</div>`;
-  bloc.steps.forEach((step,i)=>{
-    const done=S.session.stepsDone[step.id];
-    const eid="bs-"+step.id;
-    html+=`<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:8px${done?";opacity:.6":""}">
-      <div style="display:flex;align-items:flex-start;gap:10px">
-        <div class="step-check ${done?"checked":""}" onclick="toggleStepDone('${step.id}')" style="margin-top:2px;flex-shrink:0">${done?"✓":""}</div>
-        <div style="flex:1">
-          <div style="font-size:13px;font-weight:500;margin-bottom:4px">${i+1}. ${step.name} <span style="font-size:11px;color:var(--text3);font-weight:400">${step.dur>=60?Math.floor(step.dur/60)+"min"+(step.dur%60>0?" "+step.dur%60+"s":""):step.dur+"s"}</span></div>
-          <p style="font-size:13px;color:var(--text2);line-height:1.5">${step.desc}</p>
-        </div>
-        <div style="flex-shrink:0">
-          <div class="session-tc" id="stc-${eid}" style="color:${bloc.tc};border-color:${bloc.color}">${step.dur>=60?Math.floor(step.dur/60)+"m":step.dur+"s"}</div>
-        </div>
+// ── VIDEO HELPERS ─────────────────────────────────────────────────────────────
+const YT_SVG=`<svg width="13" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>`;
+function ytUrl(v){const u=v.url?v.url:`https://www.youtube.com/watch?v=${v.id}${v.start?`&t=${v.start}s`:""}`;return u}
+function ytEmbed(v){return`https://www.youtube-nocookie.com/embed/${v.id}${v.start?`?start=${v.start}`:""}`}
+function renderVideos(videos,prefix){
+  if(!videos||!videos.length)return"";
+  return videos.map((v,i)=>{
+    const eid=prefix+"-v"+i;const isOpen=S.vidOpen[eid];
+    return`<div style="margin-bottom:8px">
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px">
+        ${v.id?`<button class="btn btn-sm" onclick="S.vidOpen['${eid}']=!S.vidOpen['${eid}'];render()">
+          ${isOpen?"✕ Fermer":"▶ Voir dans l'app"}</button>`:""}
+        <a href="${ytUrl(v)}" target="_blank" rel="noopener" class="btn btn-sm btn-yt">${YT_SVG} ${v.label}</a>
       </div>
-      <div style="display:flex;gap:6px;margin-top:9px">
-        <button id="stb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${step.dur},'stc-')">▶ Minuteur</button>
-      </div>
+      ${v.id&&isOpen?`<div class="vid-box"><iframe src="${ytEmbed(v)}" allowfullscreen loading="lazy"></iframe></div>`:""}
     </div>`;
-  });
-
-  // Enregistrement dans le bloc 6
-  if(isLast){
-    html+=`<div class="sl" style="margin-bottom:8px;margin-top:1rem">Enregistrement</div>`;
-    if(S.session.recorded){
-      html+=`<div style="background:var(--success-bg);border:1px solid var(--success);border-radius:var(--radius);padding:11px;margin-bottom:10px;font-size:13px;color:var(--success)">✓ Enregistrement sauvegardé</div>`;
-    }else if(!isRecording&&!window._lastRec){
-      html+=`<button class="btn btn-danger" onclick="startRecording(true)" style="margin-bottom:10px;width:100%"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span>Démarrer l'enregistrement</button>`;
-    }else if(isRecording){
-      html+=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div class="rw"><span></span><span></span><span></span><span></span><span></span></div><span id="srec-timer" style="font-size:22px;font-weight:600;color:var(--danger)">0:00</span></div><button class="btn" onclick="stopRecording()">Arrêter</button>`;
-    }else if(!isRecording&&window._lastRec&&window._lastRec.fromSession){
-      html+=`<div style="margin-bottom:10px"><div class="sl" style="margin-bottom:5px">Réécoute — ${fmt(window._lastRec.dur)}</div><audio controls src="${window._lastRec.b64}"></audio></div>
-      <div style="margin-bottom:9px"><input type="text" id="swords" placeholder="Mots difficiles (virgules)"></div>
-      <div style="margin-bottom:10px"><textarea id="sobs" rows="2" placeholder="Technique la plus efficace aujourd'hui ?"></textarea></div>
-      <div style="display:flex;gap:8px"><button class="btn btn-success" onclick="saveRecording(true)">Sauvegarder</button><button class="btn" onclick="window._lastRec=null;render()">Refaire</button></div>`;
-    }
-
-    html+=`<div class="sl" style="margin-bottom:7px;margin-top:1rem">Journal de séance</div>
-    <textarea rows="3" placeholder="Points positifs, difficultés, ce qui a bien fonctionné…" oninput="S.session.journalText=this.value" style="margin-bottom:10px">${S.session.journalText}</textarea>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem">
-      <span style="font-size:13px;color:var(--text2)">Note :</span>
-      <div style="display:flex;gap:5px">${[1,2,3,4,5].map(i=>`<button onclick="S.session.rating=${i};renderSessionStep()" style="width:30px;height:30px;border-radius:50%;border:2px solid ${i<=S.session.rating?"var(--success)":"var(--border)"};background:${i<=S.session.rating?"var(--success-bg)":"none"};cursor:pointer;font-size:13px">${i<=S.session.rating?"★":"☆"}</button>`).join("")}</div>
-    </div>`;
-  }
-
-  // Progression des étapes
-  const doneCount=bloc.steps.filter(s=>S.session.stepsDone[s.id]).length;
-  html+=`<div style="font-size:12px;color:var(--text3);margin-top:10px">${doneCount}/${bloc.steps.length} étapes cochées</div>`;
-
-  return html;
-}
-
-function getTodayRuleLabel(){
-  const id=S.weekPlan[todayDay()];
-  if(!id)return null;
-  const r=RULES.find(r=>r.id===id);
-  return r?`${r.title} — ${r.subtitle}`:null;
-}
-
-function getTodayRuleLabel(){
-  const id=S.weekPlan[todayDay()];
-  if(!id)return null;
-  const r=RULES.find(r=>r.id===id);
-  return r?`${r.title} — ${r.subtitle}`:null;
-}
-
-// ── RENDU MODE SÉANCE ─────────────────────────────────────────
-function renderSession(){
-  if(!S.session.active){
-    const ruleLabel=getTodayRuleLabel();
-    const mastered=RULES.filter(r=>S.statuses[r.id]==="mastered").length;
-    const inProg=RULES.filter(r=>S.statuses[r.id]==="in_progress").length;
-    return`
-    <div style="text-align:center;padding:1.5rem 0 1rem">
-      <div style="font-size:40px;margin-bottom:12px">🎯</div>
-      <div style="font-size:20px;font-weight:600;margin-bottom:6px">Programme — 6 blocs</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:.75rem;line-height:1.6">Décontraction → Respiration → Échauffement vocal<br>Bégaiement volontaire → Corrections → Enregistrement</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:1.25rem">18 à 22 minutes · 2 à 3 fois par jour</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:1.25rem">
-      ${BLOCS.map(b=>`<div style="background:${b.color};border-radius:var(--radius);padding:9px 8px;text-align:center"><div style="font-size:18px;margin-bottom:3px">${b.icon}</div><div style="font-size:10px;font-weight:600;color:${b.tc};line-height:1.3">${b.title}</div><div style="font-size:10px;color:${b.tc};opacity:.7">${b.duration}</div></div>`).join("")}
-    </div>
-    ${ruleLabel?`<div style="background:var(--success-bg);border:1px solid var(--success);border-radius:var(--radius-lg);padding:14px;margin-bottom:1rem;text-align:center"><div style="font-size:12px;color:var(--success);font-weight:600;margin-bottom:3px">RÈGLE DU JOUR</div><div style="font-size:15px;font-weight:600;color:var(--success)">${ruleLabel}</div></div>`:
-    `<div class="warn-box" style="margin-bottom:1rem"><p>Aucune règle configurée pour aujourd'hui. Allez dans Planning pour en assigner une.</p></div>`}
-    <button class="btn btn-session" onclick="startSession()">▶ Commencer la séance</button>
-    <div class="mg" style="margin-top:1.25rem">
-      <div class="mt"><div class="mv" style="color:var(--success)">${mastered}</div><div class="ml">Maîtrisées</div></div>
-      <div class="mt"><div class="mv" style="color:var(--warning)">${inProg}</div><div class="ml">En cours</div></div>
-      <div class="mt"><div class="mv" style="color:var(--info)">${S.recordings.length}</div><div class="ml">Séances</div></div>
-    </div>
-    ${S.journal.length>0?`<div style="margin-top:.5rem"><div class="sl" style="margin-bottom:8px">Dernière séance</div>${[S.journal[0]].map(e=>{const rule=RULES.find(r=>r.id===e.rule);return`<div class="je"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${rule?rule.subtitle:e.rule}</span><div style="display:flex;gap:3px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=e.rating?"var(--success)":"var(--border)"}"></div>`).join("")}</div></div><div style="font-size:13px;color:var(--text2)">${e.text}</div><div class="sm">${e.date}</div></div>`;}).join("")}</div>`:""}`;
-  }
-
-  const isLast=S.session.bloc===BLOCS.length-1;
-  const bloc=BLOCS[S.session.bloc];
-  return`
-  <div class="session-progress">${BLOCS.map((_,i)=>`<div class="session-step-dot ${i<S.session.bloc?"active":i===S.session.bloc?"current":""}"></div>`).join("")}</div>
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-    <div style="font-size:12px;font-weight:500;color:var(--text2)">Bloc ${S.session.bloc+1}/${BLOCS.length} — ${bloc.title}</div>
-    <div style="font-size:12px;color:var(--text3)">${today()}</div>
-  </div>
-  <div id="session-body">${buildBlocContent()}</div>
-  <div style="display:flex;gap:9px;margin-top:1rem">
-    ${S.session.bloc>0?`<button class="btn" onclick="sessionPrevBloc()" style="flex:1">← Précédent</button>`:""}
-    ${!isLast?`<button class="btn btn-success" onclick="sessionNextBloc()" style="flex:2">Bloc suivant →</button>`
-    :`<button class="btn btn-session" onclick="finishSession()" style="flex:2;background:var(--success)">Terminer la séance ✓</button>`}
-  </div>
-  <button onclick="if(confirm('Abandonner la séance ?')){S.session.active=false;render()}" style="width:100%;margin-top:9px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:6px">Abandonner</button>`;
-}
-
-// ── AUTRES RENDERERS ─────────────────────────────────────────
-function renderVidBlock(ex,eid){
-  if(!ex.vid_url)return"";
-  const langClass=ex.vid_lang==="FR"?"lang-fr":"lang-en";
-  const hasEmbed=!!ex.vid_id;const isOpen=S.vidOpen[eid];
-  return`<div style="margin-bottom:10px">
-    <div class="vid-actions">
-      ${hasEmbed?`<button class="btn btn-sm btn-yt-embed" onclick="toggleVid('${eid}')">${isOpen?"✕ Fermer":"▶ Voir la vidéo"}</button>`:""}
-      <a href="${ex.vid_url}" target="_blank" rel="noopener" class="btn btn-sm btn-yt">
-        <svg width="12" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>
-        YouTube <span class="lang-badge ${langClass}">${ex.vid_lang}</span>
-      </a>
-    </div>
-    ${hasEmbed&&isOpen?`<div class="vid-wrap"><iframe src="https://www.youtube-nocookie.com/embed/${ex.vid_id}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div>`:""}
-    <div style="font-size:11px;color:var(--text3)">${ex.vid_label}</div>
-  </div>`;
-}
-
-function renderStorBar(){
-  const used=storUsed(),max=5*1024*1024,pct=Math.min(100,Math.round((used/max)*100));
-  const c=pct>80?"var(--danger)":pct>55?"var(--warning)":"var(--success)";
-  return`<div style="background:var(--bg2);border-radius:var(--radius);padding:10px 12px;margin-bottom:1rem"><div class="pl"><span>Stockage local</span><span style="font-weight:500">${fmtSz(used)} / ~5 Mo</span></div><div class="sb-bar"><div class="sb-fill" style="width:${pct}%;background:${c}"></div></div><div style="font-size:11px;color:var(--text3);margin-top:4px">${S.recordings.length}/${MAX_RECS} enregistrements</div></div>`;
-}
-
-function renderDashboard(){
-  const mastered=RULES.filter(r=>S.statuses[r.id]==="mastered").length,inProg=RULES.filter(r=>S.statuses[r.id]==="in_progress").length,total=RULES.length,pct=Math.round((mastered/total)*100);
-  return`<div class="mg"><div class="mt"><div class="mv" style="color:var(--success)">${mastered}</div><div class="ml">Maîtrisées</div></div><div class="mt"><div class="mv" style="color:var(--warning)">${inProg}</div><div class="ml">En cours</div></div><div class="mt"><div class="mv" style="color:var(--info)">${S.recordings.length}</div><div class="ml">Enregistrements</div></div></div>
-  <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;color:var(--text2)">Progression — ${total} étapes</span><span style="font-size:13px;font-weight:600">${pct}%</span></div>
-  <div class="pb"><div class="pf" style="width:${pct}%"></div></div>
-  ${RULES.map(r=>{const st=S.statuses[r.id]||"not_started";const sI=si(st);const nS=ns(st);return`<div class="rs"><div style="display:flex;align-items:center;gap:9px"><div class="num" style="background:${nS.bg};color:${nS.c}">${r.num}</div><span style="font-size:13px">${r.subtitle}</span></div><span class="badge" style="background:${sI.bg};color:${sI.c}">${sI.label}</span></div>`;}).join("")}
-  ${S.journal.length>0?`<div style="margin-top:1rem"><div class="sl" style="margin-bottom:9px">Dernières entrées</div>${S.journal.slice(0,3).map(e=>{const rule=RULES.find(r=>r.id===e.rule);return`<div class="je"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${rule?rule.subtitle:e.rule}</span><div style="display:flex;gap:3px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=e.rating?"var(--success)":"var(--border)"}"></div>`).join("")}</div></div><div style="font-size:13px;color:var(--text2);line-height:1.5">${e.text}</div><div class="sm">${e.date}</div></div>`;}).join("")}</div>`:""}`;
-}
-
-function renderWarmup(){
-  return`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem">Avant chaque séance, travaillez les cinq systèmes dans l'ordre.</p>
-  ${MUSCLES.map(m=>{const isOpen=S.muscleExpanded===m.id;return`<div class="mc"><button class="mh" onclick="toggleMuscle('${m.id}')"><div class="mi" style="background:${m.bg}">${m.icon}</div><div style="flex:1"><div style="font-size:14px;font-weight:500">${m.name}</div><div style="font-size:11px;color:var(--text3);margin-top:1px">${m.muscles||""}</div></div><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="transform:${isOpen?"rotate(180deg)":"rotate(0)"};transition:transform .2s;flex-shrink:0"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-  ${isOpen?`<div class="cb"><div style="padding-top:12px">${m.exercises.map((ex,i)=>{const eid=m.id+"-"+i;return`<div class="ec"><div style="display:flex;align-items:flex-start;gap:11px;margin-bottom:9px"><div class="tc" id="tc-${eid}" style="color:${m.tc};border-color:${m.bg}">${ex.dur}s</div><div style="flex:1"><div style="font-size:13px;font-weight:500;margin-bottom:4px">${ex.name}</div><p style="font-size:13px;color:var(--text2);line-height:1.5">${ex.desc}</p></div></div><div class="tip" style="background:${m.bg};border-left-color:${m.tc};margin-bottom:9px"><p style="color:${m.tc}">Lien parole : ${ex.note}</p></div>${renderVidBlock(ex,eid)}<button id="tb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${ex.dur},'tc-')">Démarrer ${ex.dur}s</button></div>`;}).join("")}</div></div>`:""}`;}).join("")}`;
-}
-
-function renderRecording(){
-  const recs=S.recordings,usedPct=Math.min(100,Math.round((storUsed()/(5*1024*1024))*100));
-  return`${usedPct>75?`<div class="warn-box"><p>Stockage à ${usedPct}%. Téléchargez une sauvegarde puis supprimez des enregistrements.</p></div>`:""}
-  <div class="card" style="margin-bottom:1rem"><div style="padding:15px">
-    <div class="sl" style="margin-bottom:10px">Enregistrement libre</div>
-    ${!isRecording&&!window._lastRec?`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px">En dehors des séances guidées, enregistrez à tout moment.</p><button class="btn btn-danger" onclick="startRecording(false)"><span style="width:10px;height:10px;border-radius:50%;background:currentColor;display:inline-block"></span>Démarrer</button>`:""}
-    ${isRecording?`<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div class="rw"><span></span><span></span><span></span><span></span><span></span></div><span id="rec-timer" style="font-size:24px;font-weight:600;color:var(--danger)">0:00</span></div><button class="btn" onclick="stopRecording()">Arrêter</button>`:""}
-    ${!isRecording&&window._lastRec&&!window._lastRec.fromSession?`
-    <div style="margin-bottom:11px"><div class="sl" style="margin-bottom:5px">Réécoute — ${fmt(window._lastRec.dur)}</div><audio controls src="${window._lastRec.b64}"></audio></div>
-    <div style="margin-bottom:10px"><div class="sl" style="margin-bottom:5px">Règle travaillée</div><select id="rec-rule">${RULES.map(r=>`<option value="${r.id}">${r.title} — ${r.subtitle}</option>`).join("")}</select></div>
-    <div style="margin-bottom:10px"><div class="sl" style="margin-bottom:5px">Mots sur lesquels j'ai buté</div><input type="text" id="rec-words" placeholder="bonjour, Pierre… (virgules)"></div>
-    <div style="margin-bottom:12px"><div class="sl" style="margin-bottom:5px">Observations</div><textarea id="rec-obs" rows="3" placeholder="Débit ? Blocages ? Points positifs ?"></textarea></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-success" onclick="saveRecording(false)">Sauvegarder</button><button class="btn" onclick="window._lastRec=null;render()">Annuler</button></div>`:""}
-  </div></div>
-  ${renderStorBar()}
-  ${recs.length===0?`<div class="empty">Aucun enregistrement.</div>`:`
-  <div class="sl" style="margin-bottom:9px">Enregistrements (${recs.length})</div>
-  ${recs.map(e=>{const rule=RULES.find(r=>r.id===e.rule);const words=e.words?e.words.split(",").map(w=>w.trim()).filter(Boolean):[];return`<div class="je">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px"><div><span style="font-size:14px;font-weight:500">${rule?rule.subtitle:"—"}</span><div class="sm">${e.date} ${e.time} · ${fmt(e.dur||0)}</div></div><button class="del-btn" onclick="deleteRec(${e.id})">Supprimer</button></div>
-    ${words.length>0?`<div style="margin-bottom:7px">${words.map(w=>`<span class="wt">${w}</span>`).join("")}</div>`:""}
-    ${e.obs?`<p style="font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:8px">${e.obs}</p>`:""}
-    <audio controls src="${e.b64}"></audio>
-    <div style="margin-top:6px"><button class="btn btn-sm btn-primary" onclick="downloadAudio(${e.id})">Télécharger l'audio</button></div>
-  </div>`;}).join("")}`}`;
-}
-
-function renderRules(){
-  return RULES.map(r=>{
-    const st=S.statuses[r.id]||"not_started";const sI=si(st);const nS=ns(st);const isOpen=S.expanded===r.id;
-    return`<div class="card"><button class="ch" onclick="toggleExpand('${r.id}')"><div class="num" style="background:${nS.bg};color:${nS.c}">${r.num}</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">${r.subtitle}</div><div style="font-size:11px;color:var(--text3);margin-top:1px">${r.phase}</div></div><span class="badge" style="background:${sI.bg};color:${sI.c};margin-right:7px">${sI.label}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="transform:${isOpen?"rotate(180deg)":"rotate(0)"};transition:transform .2s;flex-shrink:0"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    ${isOpen?`<div class="cb"><p style="font-size:13px;color:var(--text2);line-height:1.6;margin:11px 0">${r.description}</p>${r.tip?`<div class="tip"><p>${r.tip}</p></div>`:""}<div class="sl">Exercices</div><div style="margin-bottom:12px">${r.exercises.map((ex,i)=>`<div class="ei"><div class="en">${i+1}</div><span style="font-size:13px;line-height:1.5">${ex}</span></div>`).join("")}</div>${r.eq.length>0?`<div style="margin-bottom:12px"><span style="font-size:12px;color:var(--text3)">Équipement : </span>${r.eq.map(e=>`<span style="font-size:12px;background:var(--bg2);padding:2px 8px;border-radius:12px;margin-left:4px">${e}</span>`).join("")}</div>`:""}<div class="sl">Notes personnelles</div><textarea rows="3" placeholder="Vos observations…" oninput="S.notes['${r.id}']=this.value;save()">${S.notes[r.id]||""}</textarea><div class="sr"><button class="sb${st==="not_started"?" ns":""}" onclick="setStatus('${r.id}','not_started')">Non commencée</button><button class="sb${st==="in_progress"?" ip":""}" onclick="setStatus('${r.id}','in_progress')">En cours</button><button class="sb${st==="mastered"?" ma":""}" onclick="setStatus('${r.id}','mastered')">Maîtrisée</button></div></div>`:""}`;
   }).join("");
 }
 
-function renderPlanning(){
-  return`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem">Assignez une règle par jour. La séance guidée s'y référera automatiquement.</p>
-  ${DAYS.map(day=>{const dk=day.toLowerCase();const aid=S.weekPlan[dk];const isToday=dk===todayDay();const st=aid?(S.statuses[aid]||"not_started"):null;const sI=st?si(st):null;return`<div class="pr" style="${isToday?"border-color:var(--success);border-width:1.5px":""}"><div class="dl" style="${isToday?"color:var(--success);font-weight:600":""}">${day}${isToday?` ◀`:"  "}</div><select style="flex:1" onchange="S.weekPlan['${dk}']=this.value;save();render()"><option value="">— Aucune —</option>${RULES.map(r=>`<option value="${r.id}"${aid===r.id?" selected":""}>${r.title} — ${r.subtitle}</option>`).join("")}</select>${sI?`<span class="badge" style="background:${sI.bg};color:${sI.c};flex-shrink:0">${sI.label}</span>`:""}</div>`;}).join("")}
-  <div class="ib"><div class="sl" style="margin-bottom:7px">Rappels</div><div style="font-size:13px;color:var(--text2);line-height:1.9">· La règle du jour est affichée automatiquement dans la séance guidée<br>· Travailler les règles dans l'ordre — chacune prépare la suivante<br>· Attendre de maîtriser une règle avant de passer à la suivante</div></div>`;
+// ── SESSION ───────────────────────────────────────────────────────────────────
+function startSession(){
+  S.session={active:true,bloc:0,done:{},readingLevel:2,recorded:false,jText:"",rating:3};
+  render();
 }
+function nextBloc(){if(S.session.bloc<SESSION_BLOCS.length-1){S.session.bloc++;render();window.scrollTo(0,0)}}
+function prevBloc(){if(S.session.bloc>0){S.session.bloc--;render();window.scrollTo(0,0)}}
+function toggleDone(k){S.session.done[k]=!S.session.done[k];renderBloc()}
+function renderBloc(){const el=document.getElementById("bloc-body");if(el)el.innerHTML=buildBlocContent()}
 
-function renderJournal(){
-  return`<div class="card" style="margin-bottom:1rem"><div style="padding:14px"><div class="sl" style="margin-bottom:9px">Nouvelle entrée manuelle</div><div style="display:flex;gap:9px;margin-bottom:9px;flex-wrap:wrap;align-items:center"><select id="j-rule" style="flex:1;min-width:180px">${RULES.map(r=>`<option value="${r.id}">${r.title} — ${r.subtitle}</option>`).join("")}</select><div style="display:flex;align-items:center;gap:6px;flex-shrink:0"><span style="font-size:12px;color:var(--text2)">Note :</span><select id="j-rating" style="width:auto;padding:9px 10px">${[1,2,3,4,5].map(i=>`<option value="${i}"${i===3?" selected":""}>${i}/5</option>`).join("")}</select></div></div><textarea id="j-text" rows="4" placeholder="Vos observations après la séance…"></textarea><button class="btn btn-primary" onclick="addJournalEntry(false)" style="margin-top:9px">Enregistrer</button></div></div>
-  ${S.journal.length===0?`<div class="empty">Aucune entrée. Les séances guidées remplissent automatiquement le journal.</div>`:S.journal.map(e=>{const rule=RULES.find(r=>r.id===e.rule);return`<div class="je"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px"><div><span style="font-size:14px;font-weight:500">${rule?rule.subtitle:e.rule}</span><div class="sm">${rule?rule.phase:""} · ${e.date}</div></div><div style="display:flex;gap:3px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=e.rating?"var(--success)":"var(--border)"}"></div>`).join("")}</div></div><div style="font-size:14px;line-height:1.6">${e.text}</div></div>`;}).join("")}`;
-}
+function buildBlocContent(){
+  const b=SESSION_BLOCS[S.session.bloc];
+  const mods=b.moduleIds.map(id=>MODULES.find(m=>m.id===id)).filter(Boolean);
+  const words=getDailyWords();
+  let html="";
 
-function downloadBackup(){
-  const data=JSON.stringify({statuses:S.statuses,notes:S.notes,journal:S.journal,weekPlan:S.weekPlan,recordings:S.recordings,exportedAt:new Date().toISOString()},null,2);
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));a.download="autotherapie-"+today().replace(/\//g,"-")+".json";a.click();
-}
-function importBackup(input){
-  const file=input.files[0];if(!file)return;
-  const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(confirm("Importer ? Vos données actuelles seront remplacées.")){if(d.statuses)S.statuses=d.statuses;if(d.notes)S.notes=d.notes;if(d.journal)S.journal=d.journal;if(d.weekPlan)S.weekPlan=d.weekPlan;if(d.recordings)S.recordings=d.recordings;save();render();alert("Importé avec succès.")}}catch(err){alert("Fichier invalide.")}};r.readAsText(file);
-}
-function downloadAudio(id){
-  const rec=S.recordings.find(r=>r.id===id);if(!rec||!rec.b64)return;
-  const ext=rec.b64.includes("audio/webm")?"webm":rec.b64.includes("audio/mp4")?"m4a":"ogg";
-  const rule=RULES.find(r=>r.id===rec.rule);
-  const a=document.createElement("a");a.href=rec.b64;a.download="seance-"+rec.date.replace(/\//g,"-")+"-r"+(rule?rule.num:"0")+"."+ext;a.click();
-}
-function buildBilanText(){
-  const now=new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
-  let t="=== BILAN AUTO-THÉRAPIE BÉGAIEMENT ===\nExporté le "+now+"\n\n--- PROGRESSION ---\n";
-  RULES.forEach(r=>{const st=S.statuses[r.id]||"not_started";t+=`Règle ${r.num} — ${r.subtitle} : ${st==="mastered"?"✅ Maîtrisée":st==="in_progress"?"🔄 En cours":"⬜ Non commencée"}\n`});
-  const mastered=RULES.filter(r=>S.statuses[r.id]==="mastered").length,inProg=RULES.filter(r=>S.statuses[r.id]==="in_progress").length;
-  t+=`\n${mastered} maîtrisées · ${inProg} en cours\n\n--- MOTS SUR LESQUELS JE BUTE ---\n`;
-  const wc={};S.recordings.forEach(rec=>{if(rec.words)rec.words.split(",").map(w=>w.trim().toLowerCase()).filter(Boolean).forEach(w=>{wc[w]=(wc[w]||0)+1})});
-  const sorted=Object.entries(wc).sort((a,b)=>b[1]-a[1]);
-  if(!sorted.length)t+="Aucun mot enregistré.\n";else sorted.forEach(([w,c])=>{t+=`• ${w} — ${c} fois\n`});
-  t+="\n--- OBSERVATIONS DE SÉANCES ("+S.recordings.length+") ---\n";
-  S.recordings.slice(0,8).forEach(e=>{const rule=RULES.find(r=>r.id===e.rule);t+=`\n[${e.date} ${e.time}] ${rule?rule.subtitle:"—"} (${fmt(e.dur||0)})\n`;if(e.words)t+=`Mots difficiles : ${e.words}\n`;if(e.obs)t+=`Observations : ${e.obs}\n`});
-  t+="\n--- JOURNAL ("+S.journal.length+" entrées) ---\n";
-  S.journal.slice(0,8).forEach(e=>{const rule=RULES.find(r=>r.id===e.rule);t+=`\n[${e.date}] ${rule?rule.subtitle:"—"} ${"★".repeat(e.rating)}${"☆".repeat(5-e.rating)}\n${e.text}\n`});
-  t+="\n=== FIN DU BILAN ===\nCollez ce texte dans Claude.ai pour une analyse personnalisée.";
-  return t;
-}
-async function shareBilan(){
-  const text=buildBilanText();
-  if(navigator.share){try{await navigator.share({title:"Bilan auto-thérapie bégaiement",text})}catch(e){if(e.name!=="AbortError")copyBilan()}}else copyBilan();
-}
-function copyBilan(){
-  navigator.clipboard.writeText(buildBilanText()).then(()=>flashMsg("Copié dans le presse-papier !")).catch(()=>{const ta=document.getElementById("bilan-ta");if(ta){ta.select();document.execCommand("copy");flashMsg("Copié !")}});
-}
-function flashMsg(msg){
-  const d=document.createElement("div");d.textContent=msg;Object.assign(d.style,{position:"fixed",bottom:"1.5rem",left:"50%",transform:"translateX(-50%)",background:"var(--success)",color:"#fff",padding:"10px 20px",borderRadius:"20px",fontSize:"14px",fontWeight:"500",zIndex:"9999",boxShadow:"0 4px 12px rgba(0,0,0,.2)"});
-  document.body.appendChild(d);setTimeout(()=>d.remove(),2000);
-}
-// ── PROGRAMME MUSCULAIRE ─────────────────────────────────────
+  mods.forEach(mod=>{
+    // Module header
+    html+=`<div style="background:${mod.bg};border-radius:var(--rl);padding:14px;margin-bottom:12px;border-left:4px solid ${mod.color}">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:22px">${mod.icon}</span>
+        <div><div style="font-size:15px;font-weight:600;color:${mod.color}">${mod.name}</div>
+        <div style="font-size:11px;color:${mod.color};opacity:.8">${mod.dur}</div></div>
+      </div>
+      <p style="font-size:13px;line-height:1.5;opacity:.85;color:${mod.color}">${mod.desc}</p>
+    </div>`;
 
-const MUSCLE_PROGRAM=[
-  {id:"mp1",dur:120,icon:"💆",name:"Massage masséter + larynx",color:"#fdeef5",tc:"#9c2462",
-   desc:"Pouces sous les pommettes — masser en cercles 1 min. Puis deux doigts de chaque côté de la pomme d'Adam, pression circulaire douce vers le bas 30s. Sentir le larynx descendre.",
-   note:"Dénoue les muscles sus-hyoïdiens qui tirent le larynx vers le haut lors des blocages.",
-   vid:"https://www.youtube.com/results?search_query=massage+m%C3%A2choire+masséter+relaxation+larynx+tension",lang:"FR"},
-  {id:"mp2",dur:60,icon:"😮",name:"Bâillements contrôlés",color:"#e8f5ed",tc:"#1a7a3e",
-   desc:"Bailler lentement et de façon exagérée, bouche grande ouverte. Sentir le larynx descendre au maximum. 5 répétitions lentes.",
-   note:"Le bâillement produit le relâchement laryngé le plus complet — c'est l'état cible avant un mot craint.",
-   vid:"https://www.youtube.com/results?search_query=yawn+larynx+relaxation+voice+therapy+technique",lang:"EN"},
-  {id:"mp3",dur:30,icon:"🫧",name:"Vibration labiale 'brrr'",color:"#fdecea",tc:"#c0392b",
-   desc:"Lèvres relâchées — faire 'brrr' comme un cheval pendant 10s. Si les lèvres ne vibrent pas, elles sont trop contractées. Répéter 3 fois.",
-   note:"Indicateur de tension globale. Lèvres qui vibrent librement = mécanisme détendu.",
-   vid:"https://www.youtube.com/results?search_query=lip+trill+brrr+vocal+warm+up+tension+release",lang:"EN"},
-  {id:"mp4",dur:180,icon:"🥤",name:"Technique de la paille",color:"#ede8fb",tc:"#5344b5",
-   desc:"Paille ordinaire dans un verre d'eau (3cm). Souffler doucement en émettant un 'ooo' ou 'mmm' continu. Les bulles doivent être régulières. 3 minutes.",
-   note:"Rééquilibre les pressions sous/sus-glottiques — les cordes vocales se détendent mécaniquement. Utilisé en rééducation orthophonique.",
-   vid:"https://www.youtube.com/results?search_query=straw+phonation+SOVT+voice+therapy+tutorial",lang:"EN"},
-  {id:"mp5",dur:45,icon:"🎵",name:"Bourdonnement 'mmm' laryngé",color:"#ede8fb",tc:"#5344b5",
-   desc:"Bourdonner 'mmm' à intensité constante. Poser deux doigts sur la pomme d'Adam — sentir les vibrations régulières. Passer à 'nnn' puis 'ng'.",
-   note:"Un larynx détendu bourdonne régulièrement et sans effort. Toute irrégularité indique de la tension.",
-   vid:"https://www.youtube.com/results?search_query=humming+mmm+larynx+resonance+voice+warm+up",lang:"EN"},
-  {id:"mp6",dur:60,icon:"🎤",name:"Onset doux sur voyelles",color:"#ede8fb",tc:"#5344b5",
-   desc:"'hhhaaaa', 'hhhheee', 'hhhhiii' — démarrer depuis le silence absolu, laisser la voix s'allumer très doucement comme une flamme. Aucun coup de glotte.",
-   note:"C'est l'amorce douce de la règle 2 appliquée directement sur les cordes vocales — le geste cible avant chaque mot craint.",
-   vid:"https://www.youtube.com/results?search_query=easy+onset+soft+onset+vowel+stuttering+therapy",lang:"EN"}
-];
+    // Random words for bégaiement volontaire
+    if(mod.random){
+      html+=`<div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:10px">
+        <div class="sl" style="margin-bottom:8px">Mots du jour — répétitions</div>
+        <div style="margin-bottom:4px"><span style="font-size:11px;color:var(--text3)">Plosives (p,b,t) :</span><br>${words.plosives.map(w=>`<span class="word-chip">b-b-${w}</span>`).join("")}</div>
+        <div style="margin-bottom:4px"><span style="font-size:11px;color:var(--text3)">Fricatives (s,f,v) :</span><br>${words.fricat.map(w=>`<span class="word-chip">sss-${w}</span>`).join("")}</div>
+        <div style="margin-bottom:10px"><span style="font-size:11px;color:var(--text3)">Voyelles :</span><br>${words.voyelles.map(w=>`<span class="word-chip">hhh-${w}</span>`).join("")}</div>
+        <div class="sl" style="margin-bottom:7px">Phrases du jour</div>
+        ${words.phrases.map(p=>`<div class="phrase-chip">${p}</div>`).join("")}
+      </div>`;
+    }
 
-const RELAX_EXERCISES=[
-  {id:"r_jacob",group:"Jacobson adapté",icon:"🧘",color:"#e8f0fb",tc:"#1a5fa8",
-   items:[
-     {id:"rj1",name:"Mâchoires",dur:40,desc:"Serrer les mâchoires fort 5s → relâcher brutalement. Laisser la bouche s'entrouvrir par gravité. Observer la différence. Répéter 5 fois.",note:"La mâchoire entraîne tout le mécanisme. Apprendre à reconnaître l'état tendu pour le relâcher en parole.",vid:"https://www.youtube.com/results?search_query=jaw+tension+release+progressive+relaxation+speech"},
-     {id:"rj2",name:"Lèvres",dur:30,desc:"Serrer les lèvres fort 5s → relâcher complètement. Puis sourire exagéré 5s → lèvres en avant 5s. 5 cycles.",note:"Mobilise l'orbiculaire dans ses deux directions — élimine la rigidité labiale responsable des blocages sur p, b, m.",vid:"https://www.youtube.com/results?search_query=lip+relaxation+exercises+speech+therapy+tension"},
-     {id:"rj3",name:"Langue",dur:40,desc:"Appuyer la langue fort contre le palais 5s → laisser tomber mollement au fond de la bouche. Observer la position neutre. Répéter 5 fois.",note:"La position 'langue qui dort au fond de la bouche' est la position de repos cible — point de départ de la parole fluide.",vid:"https://www.youtube.com/results?search_query=tongue+relaxation+neutral+position+speech+therapy"},
-     {id:"rj4",name:"Cou et larynx",dur:50,desc:"Incliner la tête vers l'épaule droite 10s → gauche 10s → avant 10s. Puis tourner lentement. Terminer en laissant la tête dans la position naturelle.",note:"Les muscles sterno-cléido-mastoïdiens sont directement connectés à la tension laryngée. Cou libre = larynx libre.",vid:"https://www.youtube.com/results?search_query=neck+stretches+laryngeal+tension+voice+therapy"},
-   ]},
-  {id:"r_larynx",group:"Larynx — décontraction ciblée",icon:"🗣️",color:"#fff3e0",tc:"#a05c00",
-   items:[
-     {id:"rl1",name:"Massage laryngé manuel",dur:60,desc:"Deux doigts de chaque côté de la pomme d'Adam. Pression circulaire très douce vers le bas et les côtés, 1 minute. Ne pas appuyer sur la trachée.",note:"Dénoue directement les muscles sus-hyoïdiens hypercontractés — technique utilisée par les orthophonistes en rééducation vocale.",vid:"https://www.youtube.com/results?search_query=laryngeal+massage+technique+voice+therapy+neck"},
-     {id:"rl2",name:"Glissades vocales graves→aigus",dur:30,desc:"Glisser doucement de la note la plus grave possible à la plus aiguë sur 'aaah', puis redescendre. Aucune cassure. 5 glissades.",note:"Une cassure dans la glissade signale une zone d'hypercontraction laryngée — c'est précisément là que se situent vos blocages.",vid:"https://www.youtube.com/results?search_query=gliding+tones+laryngeal+flexibility+voice+exercises"},
-     {id:"rl3",name:"Chuchotement progressif",dur:45,desc:"Commencer une phrase en chuchotant très doucement, puis monter progressivement en volume sur la même phrase. Répéter 5 phrases.",note:"Le chuchotement contourne la fermeture glottique et 'déverrouille' le larynx avant la phonation complète.",vid:"https://www.youtube.com/results?search_query=whisper+to+voice+technique+laryngeal+tension+stuttering"},
-   ]},
-  {id:"r_machoire",group:"Mâchoire — relaxation profonde",icon:"😬",color:"#fdeef5",tc:"#9c2462",
-   items:[
-     {id:"rm1",name:"Rotation mandibulaire",dur:40,desc:"Bouche légèrement ouverte — faire des cercles lents avec la mâchoire, 5 fois dans chaque sens. Aucun craquement ne doit se produire.",note:"Mobilise les ptérygoïdiens et le temporal — les muscles qui maintiennent la mâchoire serrée sous stress.",vid:"https://www.youtube.com/results?search_query=jaw+rotation+tmj+relaxation+exercises"},
-     {id:"rm2",name:"Chute mandibulaire par gravité",dur:30,desc:"Laisser la mâchoire tomber complètement par gravité, bouche entrouverte, pendant 30s. Ne pas contrôler. Sentir le poids.",note:"C'est la position de repos cible pendant la parole — mâchoire suspendue, non contractée. Viser cet état pendant les exercices de lecture.",vid:"https://www.youtube.com/results?search_query=jaw+drop+gravity+relaxation+speaking+tension+release"},
-   ]},
-];
+    // Topic for parole libre
+    if(mod.topics){
+      html+=`<div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:10px">
+        <div class="sl" style="margin-bottom:5px">Sujet du jour</div>
+        <div style="font-size:16px;font-weight:500;color:var(--orange)">${words.topic}</div>
+      </div>`;
+    }
 
-const STRENGTHEN_EXERCISES=[
-  {id:"s1",icon:"💨",name:"Soutien du souffle — appui abdominal",color:"#e8f5ed",tc:"#1a7a3e",dur:60,
-   desc:"Main sur le ventre. Parler une phrase entière en vérifiant que le ventre se creuse progressivement pendant toute la phrase. Ne jamais parler sur une réserve d'air épuisée.",
-   note:"Le manque de soutien abdominal force le larynx à compenser — source majeure de blocages laryngés.",
-   vid:"https://www.youtube.com/results?search_query=abdominal+support+voice+diaphragm+speaking+exercises"},
-  {id:"s2",icon:"🗨️",name:"Activation du voile du palais",color:"#fff3e0",tc:"#a05c00",dur:45,
-   desc:"Répéter rapidement 'ka-ka-ka' puis 'ga-ga-ga' 20 fois chaque. Ce sont les seuls sons qui activent directement le voile du palais.",
-   note:"Un voile sous-actif produit une voix nasillarde et fermée qui aggrave les blocages. Ce renforcement est complémentaire à la relaxation laryngée.",
-   vid:"https://www.youtube.com/results?search_query=soft+palate+exercises+velopharyngeal+strengthen"},
-  {id:"s3",icon:"🏋️",name:"Tonicité labiale",color:"#fdecea",tc:"#c0392b",dur:40,
-   desc:"Tenir un crayon entre les lèvres horizontalement pendant 30s. Puis faire 'p-p-p-p-p' avec contacts légers mais nets, 20 répétitions.",
-   note:"Renforcer la précision labiale sans rigidité — contacts nets mais jamais serrés. La cible est la précision, pas la force.",
-   vid:"https://www.youtube.com/results?search_query=lip+strengthening+exercises+speech+therapy+articulation"},
-];
-
-function renderMuscles(){
-  let html=`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1.25rem">Programme ciblé sur le blocage laryngé. Ordre : relaxation en premier, renforcement ensuite. Le larynx hypercontracté doit d'abord être détendu avant d'être renforcé.</p>`;
-
-  // Programme quotidien
-  html+=`<div style="background:var(--success-bg);border:1px solid var(--success);border-radius:var(--radius-lg);padding:14px;margin-bottom:1.25rem">
-    <div class="sl" style="color:var(--success);margin-bottom:8px">Programme quotidien — 8 minutes avant chaque séance</div>
-    <p style="font-size:13px;color:var(--success);line-height:1.6;margin-bottom:12px">Enchaîner dans cet ordre : de la périphérie vers le centre, en finissant sur le geste vocal cible.</p>
-    ${MUSCLE_PROGRAM.map((ex,i)=>{
-      const eid="mp-"+ex.id;
-      return`<div class="session-muscle-mini" style="background:${ex.color}20;border:1px solid ${ex.color}40">
-        <div class="session-tc" id="stc-${eid}" style="color:${ex.tc};border-color:${ex.color}">${ex.dur>60?Math.floor(ex.dur/60)+"m":ex.dur+"s"}</div>
+    // Steps
+    html+=`<div class="sl" style="margin-bottom:7px">Étapes</div>`;
+    mod.steps.forEach((step,i)=>{
+      const eid=mod.id+"-"+i;const done=S.session.done[eid];
+      if(step.dur===0){
+        // Enregistrement step
+        html+=buildRecordingStep(eid,done);
+        return;
+      }
+      html+=`<div class="step${done?" done-step":""}">
+        <div class="check${done?" on":""}" onclick="toggleDone('${eid}')">${done?"✓":""}</div>
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:500">${i+1}. ${ex.icon} ${ex.name}</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.4;margin-top:2px">${ex.note}</div>
-        </div>
-        <div style="display:flex;gap:6px;align-items:center;flex-shrink:0">
-          <button id="stb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${ex.dur},'stc-')" style="font-size:11px">▶</button>
-          <a href="${ex.vid}" target="_blank" rel="noopener" class="btn btn-sm btn-yt" style="padding:6px 8px;font-size:11px">
-            <svg width="12" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>
-            <span class="lang-badge ${ex.lang==="FR"?"lang-fr":"lang-en"}" style="font-size:10px">${ex.lang}</span>
-          </a>
+          <div style="font-size:13px;font-weight:500;margin-bottom:3px">${i+1}. ${step.name}
+            <span style="font-size:11px;color:var(--text3);font-weight:400"> · ${step.dur>=60?Math.floor(step.dur/60)+"min":step.dur+"s"}</span>
+          </div>
+          <p style="font-size:13px;color:var(--text2);line-height:1.5">${step.desc}</p>
+          <div style="margin-top:8px"><div class="timer-ring" id="tr-${eid}">${step.dur>=60?Math.floor(step.dur/60)+"m":step.dur+"s"}</div>
+          <button id="tb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${step.dur})" style="margin-top:6px">▶ Minuteur</button></div>
         </div>
       </div>`;
-    }).join("")}
-    <div style="font-size:12px;color:var(--success);margin-top:8px;font-style:italic">Total estimé : ~8 minutes · À faire quotidiennement, avant chaque séance de parole</div>
-  </div>`;
+    });
 
-  // Relaxation
-  html+=`<div class="sl" style="margin-bottom:10px">Relaxation musculaire — détail par système</div>
-  <div style="background:var(--info-bg);border-left:3px solid var(--info);padding:10px 12px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:1rem"><p style="font-size:13px;color:var(--info);line-height:1.5"><strong>Jacobson adapté :</strong> contracter volontairement 5s → relâcher brutalement → observer la différence. L'objectif est d'apprendre à reconnaître l'état tendu pour pouvoir le relâcher consciemment <em>pendant</em> la parole.</p></div>`;
-
-  RELAX_EXERCISES.forEach(group=>{
-    const isOpen=S.muscleExpanded===group.id;
-    html+=`<div class="mc" style="margin-bottom:8px">
-      <button class="mh" onclick="toggleMuscle('${group.id}')">
-        <div class="mi" style="background:${group.color};font-size:18px">${group.icon}</div>
-        <div style="flex:1"><div style="font-size:14px;font-weight:500">${group.group}</div><div style="font-size:11px;color:var(--text3)">${group.items.length} exercice${group.items.length>1?"s":""}</div></div>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="transform:${isOpen?"rotate(180deg)":"rotate(0)"};transition:transform .2s;flex-shrink:0"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      ${isOpen?`<div class="cb"><div style="padding-top:12px">${group.items.map(ex=>{
-        const eid="rel-"+ex.id;
-        return`<div class="ec">
-          <div style="display:flex;align-items:flex-start;gap:11px;margin-bottom:9px">
-            <div class="tc" id="tc-${eid}" style="color:${group.tc};border-color:${group.color}">${ex.dur}s</div>
-            <div style="flex:1">
-              <div style="font-size:13px;font-weight:500;margin-bottom:4px">${ex.name}</div>
-              <p style="font-size:13px;color:var(--text2);line-height:1.5">${ex.desc}</p>
-            </div>
-          </div>
-          <div class="tip" style="background:${group.color};border-left-color:${group.tc};margin-bottom:9px"><p style="color:${group.tc}">Pourquoi : ${ex.note}</p></div>
-          <div style="display:flex;gap:7px;flex-wrap:wrap">
-            <button id="tb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${ex.dur},'tc-')">Démarrer ${ex.dur}s</button>
-            <a href="${ex.vid}" target="_blank" rel="noopener" class="btn btn-sm btn-yt">
-              <svg width="12" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>
-              Vidéo <span class="lang-badge lang-en" style="font-size:10px">EN</span>
-            </a>
-          </div>
-        </div>`;
-      }).join("")}</div></div>`:""}
-    </div>`;
+    // Videos
+    if(mod.videos&&mod.videos.length){
+      html+=`<div class="sl" style="margin-bottom:7px;margin-top:1rem">Vidéo de référence</div>`;
+      html+=renderVideos(mod.videos,"sess-"+mod.id);
+    }
+    html+=`<div style="height:12px"></div>`;
   });
 
-  // Renforcement
-  html+=`<div class="sl" style="margin-bottom:6px;margin-top:1.25rem">Renforcement — uniquement après la relaxation</div>
-  <div style="background:var(--warning-bg);border-left:3px solid var(--warning);padding:9px 11px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:1rem"><p style="font-size:13px;color:var(--warning);line-height:1.5">Le renforcement cible les muscles <strong>sous-actifs</strong>, pas les muscles hypercontractés. Appliquer uniquement quand la relaxation est bien en place.</p></div>`;
-
-  STRENGTHEN_EXERCISES.forEach(ex=>{
-    const eid="str-"+ex.id;
-    html+=`<div class="ec" style="border:1px solid ${ex.color}60">
-      <div style="display:flex;align-items:flex-start;gap:11px;margin-bottom:9px">
-        <div class="tc" id="tc-${eid}" style="color:${ex.tc};border-color:${ex.color}">${ex.dur}s</div>
-        <div style="flex:1">
-          <div style="font-size:13px;font-weight:500;margin-bottom:4px">${ex.icon} ${ex.name}</div>
-          <p style="font-size:13px;color:var(--text2);line-height:1.5">${ex.desc}</p>
-        </div>
-      </div>
-      <div class="tip" style="background:${ex.color}30;border-left-color:${ex.tc};margin-bottom:9px"><p style="color:${ex.tc}">Pourquoi : ${ex.note}</p></div>
-      <div style="display:flex;gap:7px;flex-wrap:wrap">
-        <button id="tb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${ex.dur},'tc-')">Démarrer ${ex.dur}s</button>
-        <a href="${ex.vid}" target="_blank" rel="noopener" class="btn btn-sm btn-yt">
-          <svg width="12" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>
-          Vidéo <span class="lang-badge ${ex.lang==="FR"?"lang-fr":"lang-en"}" style="font-size:10px">${ex.lang||"EN"}</span>
-        </a>
-      </div>
+  // Journal for last bloc
+  if(S.session.bloc===SESSION_BLOCS.length-1){
+    html+=`<div class="sl" style="margin-bottom:7px;margin-top:1rem">Journal de séance</div>
+    <textarea rows="3" placeholder="Points positifs, technique efficace, mots difficiles…" oninput="S.session.jText=this.value" style="margin-bottom:10px">${S.session.jText}</textarea>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem">
+      <span style="font-size:13px;color:var(--text2)">Note :</span>
+      <div style="display:flex;gap:5px">${[1,2,3,4,5].map(i=>`<button onclick="S.session.rating=${i};renderBloc()" style="width:30px;height:30px;border-radius:50%;border:2px solid ${i<=S.session.rating?"var(--green)":"var(--border)"};background:${i<=S.session.rating?"var(--green-bg)":"none"};cursor:pointer;font-size:13px">${i<=S.session.rating?"★":"☆"}</button>`).join("")}</div>
     </div>`;
-  });
+  }
 
+  const total=mods.reduce((a,m)=>a+m.steps.filter(s=>s.dur>0).length,0);
+  const done=Object.values(S.session.done).filter(Boolean).length;
+  html+=`<div style="font-size:12px;color:var(--text3);margin-top:8px">${done} / ${total} étapes cochées</div>`;
   return html;
 }
 
-function renderExport(){
-  const bilan=buildBilanText();const hasShare=!!navigator.share;
-  return`<div class="sl" style="margin-bottom:10px">Partager vers Claude</div>
+function buildRecordingStep(eid,done){
+  if(S.session.recorded){
+    return`<div class="step" style="background:var(--green-bg);border-color:var(--green)"><div style="color:var(--green);font-size:16px">✓</div><div style="font-size:13px;color:var(--green)">Enregistrement sauvegardé</div></div>`;
+  }
+  if(!isRec&&!window._rec){
+    return`<div class="step"><div class="check${done?" on":""}" onclick="toggleDone('${eid}')">${done?"✓":""}</div><div style="flex:1"><div style="font-size:13px;font-weight:500;margin-bottom:6px">Enregistrement de séance</div><button class="btn btn-red" onclick="startRec(true)"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span> Démarrer</button></div></div>`;
+  }
+  if(isRec){
+    return`<div class="step"><div style="flex:1"><div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div class="wave"><span></span><span></span><span></span><span></span><span></span></div><span id="rec-time" style="font-size:20px;font-weight:600;color:var(--red)">0:00</span></div><button class="btn" onclick="stopRec()">Arrêter</button></div></div>`;
+  }
+  if(window._rec&&window._rec.fromSession){
+    return`<div class="step"><div style="flex:1">
+      <div class="sl" style="margin-bottom:4px">Réécoute — ${fmt(window._rec.dur)}</div>
+      <audio controls src="${window._rec.b64}"></audio>
+      <input id="rec-words" placeholder="Mots difficiles (virgules)" style="margin-bottom:8px">
+      <textarea id="rec-obs" rows="2" placeholder="Technique la plus efficace ?"></textarea>
+      <div style="display:flex;gap:7px;margin-top:8px">
+        <button class="btn btn-green" onclick="saveRec(true)">Sauvegarder</button>
+        <button class="btn" onclick="window._rec=null;render()">Refaire</button>
+      </div>
+    </div></div>`;
+  }
+  return"";
+}
+
+function finishSession(){
+  const text=S.session.jText.trim()||"Séance complète.";
+  S.journal=[{id:Date.now(),date:today(),text,rating:S.session.rating},...S.journal];
+  save();S.session.active=false;
+  flashMsg("Séance enregistrée !");
+  S.tab="journal";render();
+}
+
+// ── FLASH ─────────────────────────────────────────────────────────────────────
+function flashMsg(msg){
+  const d=document.createElement("div");d.textContent=msg;
+  Object.assign(d.style,{position:"fixed",bottom:"1.5rem",left:"50%",transform:"translateX(-50%)",background:"var(--green)",color:"#fff",padding:"10px 20px",borderRadius:"20px",fontSize:"14px",fontWeight:"500",zIndex:"9999",boxShadow:"0 4px 12px rgba(0,0,0,.2)"});
+  document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+
+// ── EXPORTS ──────────────────────────────────────────────────────────────────
+function buildBilan(){
+  const now=new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+  let t=`=== BILAN AUTO-THÉRAPIE BÉGAIEMENT ===\n${now}\n\n`;
+  t+=`--- JOURNAL (${S.journal.length} séances) ---\n`;
+  S.journal.slice(0,10).forEach(e=>{t+=`\n[${e.date}] ${"★".repeat(e.rating)}${"☆".repeat(5-e.rating)}\n${e.text}\n`});
+  t+=`\n--- MOTS DIFFICILES ---\n`;
+  const wc={};S.recordings.forEach(r=>{if(r.words)r.words.split(",").map(w=>w.trim().toLowerCase()).filter(Boolean).forEach(w=>{wc[w]=(wc[w]||0)+1})});
+  const sorted=Object.entries(wc).sort((a,b)=>b[1]-a[1]);
+  if(!sorted.length)t+="Aucun mot enregistré.\n";
+  else sorted.forEach(([w,c])=>{t+=`• ${w} — ${c} fois\n`});
+  t+=`\n--- OBSERVATIONS SÉANCES (${S.recordings.length}) ---\n`;
+  S.recordings.slice(0,6).forEach(e=>{t+=`[${e.date} ${e.time}] ${fmt(e.dur||0)}\n`;if(e.obs)t+=`${e.obs}\n`});
+  t+=`\n=== FIN — Coller dans Claude.ai pour analyse ===`;
+  return t;
+}
+async function shareBilan(){
+  const text=buildBilan();
+  if(navigator.share){try{await navigator.share({title:"Bilan bégaiement",text})}catch(e){if(e.name!=="AbortError")copyBilan()}}else copyBilan();
+}
+function copyBilan(){
+  navigator.clipboard.writeText(buildBilan()).then(()=>flashMsg("Copié !")).catch(()=>{const t=document.getElementById("bilan-ta");if(t){t.select();document.execCommand("copy");flashMsg("Copié !")}});
+}
+function dlBackup(){
+  const data=JSON.stringify({journal:S.journal,recordings:S.recordings,exportedAt:new Date().toISOString()},null,2);
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));a.download="autotherapie-"+today().replace(/\//g,"-")+".json";a.click();
+}
+function importBackup(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();r.onload=e=>{try{
+    const d=JSON.parse(e.target.result);
+    if(confirm("Importer ? Données actuelles remplacées.")){
+      if(d.journal)S.journal=d.journal;
+      if(d.recordings)S.recordings=d.recordings;
+      save();render();flashMsg("Importé !");
+    }
+  }catch(err){alert("Fichier invalide.")}};r.readAsText(f);
+}
+
+// ── RENDERERS ─────────────────────────────────────────────────────────────────
+function renderSession(){
+  if(!S.session.active){
+    const w=getDailyWords();
+    return`
+    <div style="text-align:center;padding:1.5rem 0 1rem">
+      <div style="font-size:42px;margin-bottom:10px">🎯</div>
+      <div style="font-size:20px;font-weight:600;margin-bottom:6px">Programme — 6 blocs</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:.75rem">
+        Massage → Respiration & Paille → Articulation<br>Bégaiement volontaire → Onset & Déblocage → Parole libre
+      </div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:1.5rem">18 à 22 minutes · 2 à 3 séances par jour</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:1.25rem">
+      ${SESSION_BLOCS.map(b=>`<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:10px 8px;text-align:center">
+        <div style="font-size:20px;margin-bottom:4px">${b.icon}</div>
+        <div style="font-size:10px;font-weight:600;color:var(--text2);line-height:1.3">${b.title}</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">${b.dur}</div>
+      </div>`).join("")}
+    </div>
+    <button class="btn-start" onclick="startSession()">▶ Commencer la séance</button>
+    ${S.journal.length>0?`<div style="margin-top:1.5rem"><div class="sl" style="margin-bottom:8px">Dernière séance</div>
+    <div class="card"><div style="padding:13px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+        <span style="font-size:13px;font-weight:500">${S.journal[0].date}</span>
+        <div style="display:flex;gap:2px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=S.journal[0].rating?"var(--green)":"var(--border)"}"></div>`).join("")}</div>
+      </div>
+      <div style="font-size:13px;color:var(--text2)">${S.journal[0].text}</div>
+    </div></div></div>`:""}`;
+  }
+
+  const b=SESSION_BLOCS[S.session.bloc];
+  const isLast=S.session.bloc===SESSION_BLOCS.length-1;
+  return`
+  <div class="prog-bar">${SESSION_BLOCS.map((_,i)=>`<div class="prog-dot${i<S.session.bloc?" done":i===S.session.bloc?" cur":""}"></div>`).join("")}</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem">
+    <div><div style="font-size:15px;font-weight:600">${b.icon} ${b.title}</div>
+    <div style="font-size:12px;color:var(--text3)">Bloc ${S.session.bloc+1}/${SESSION_BLOCS.length} · ${b.dur}</div></div>
+    <div style="font-size:12px;color:var(--text3)">${today()}</div>
+  </div>
+  <div id="bloc-body">${buildBlocContent()}</div>
+  <div style="display:flex;gap:8px;margin-top:1rem">
+    ${S.session.bloc>0?`<button class="btn" onclick="prevBloc()" style="flex:1">← Précédent</button>`:""}
+    ${!isLast?`<button class="btn btn-green" onclick="nextBloc()" style="flex:2">Bloc suivant →</button>`
+    :`<button class="btn-start" onclick="finishSession()" style="flex:2;background:var(--green)">Terminer ✓</button>`}
+  </div>
+  <button onclick="if(confirm('Abandonner la séance ?')){S.session.active=false;render()}" style="width:100%;margin-top:8px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:6px">Abandonner</button>`;
+}
+
+function renderModules(){
+  let html=`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem">8 modules fondamentaux. Chaque module est intégré dans la séance guidée. Explorez-les ici pour comprendre le "pourquoi" de chaque exercice.</p>`;
+  MODULES.forEach(mod=>{
+    const isOpen=S.expanded===mod.id;
+    const words=getDailyWords();
+    html+=`<div class="card">
+      <button class="ch" onclick="S.expanded=S.expanded==='${mod.id}'?null:'${mod.id}';render()">
+        <div style="width:44px;height:44px;border-radius:var(--r);background:${mod.bg};display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">${mod.icon}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:500">${mod.num}. ${mod.name}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:1px">${mod.dur}</div>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="transform:${isOpen?"rotate(180deg)":"rotate(0)"};transition:transform .2s;flex-shrink:0"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      ${isOpen?`<div class="cb">
+        <div class="mod-head" style="background:${mod.bg}">
+          <div style="width:70px;height:70px;flex-shrink:0;display:flex;align-items:center;justify-content:center">${mod.illus}</div>
+          <div style="flex:1"><p style="font-size:13px;line-height:1.6;color:var(--text)">${mod.desc}</p></div>
+        </div>
+        <div class="sl" style="margin-bottom:8px">Exercices</div>
+        ${mod.steps.map((s,i)=>`<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:9px">
+          <div style="width:22px;height:22px;border-radius:50%;background:${mod.bg};display:flex;align-items:center;justify-content:center;font-size:11px;color:${mod.color};flex-shrink:0;margin-top:2px;font-weight:600">${i+1}</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:500;margin-bottom:2px">${s.name} <span style="font-weight:400;color:var(--text3)">${s.dur>0?(s.dur>=60?Math.floor(s.dur/60)+"min":s.dur+"s"):""}</span></div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.5">${s.desc}</div></div>
+        </div>`).join("")}
+        ${mod.random?`<div style="background:var(--orange-bg);border-radius:var(--r);padding:12px;margin:10px 0">
+          <div class="sl" style="margin-bottom:7px;color:var(--orange)">Mots du jour (changent chaque jour)</div>
+          <div>${[...words.plosives,...words.fricat,...words.voyelles].map(w=>`<span class="word-chip" style="font-size:12px;padding:3px 10px">${w}</span>`).join("")}</div>
+          <div style="margin-top:9px"><div class="sl" style="margin-bottom:6px;color:var(--orange)">Phrases du jour</div>${words.phrases.map(p=>`<div class="phrase-chip">${p}</div>`).join("")}</div>
+        </div>`:""}
+        ${mod.topics?`<div style="background:var(--bg2);border-radius:var(--r);padding:10px;margin:8px 0"><div class="sl" style="margin-bottom:5px">Sujet du jour</div><div style="font-size:14px;font-weight:500;color:var(--orange)">${words.topic}</div></div>`:""}
+        ${mod.videos&&mod.videos.length?`<div class="sl" style="margin-bottom:7px;margin-top:10px">Vidéo de référence</div>${renderVideos(mod.videos,"mod-"+mod.id)}`:""}
+      </div>`:""}
+    </div>`;
+  });
+
+  // Bonus éloquence
+  html+=`<div class="card" style="border-style:dashed;opacity:.85">
+    <div style="padding:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <span style="font-size:24px">${MODULE_ELOQ.icon}</span>
+        <div><div style="font-size:14px;font-weight:500;color:${MODULE_ELOQ.color}">${MODULE_ELOQ.name}</div>
+        <div style="font-size:11px;color:var(--text3)">Hors programme principal</div></div>
+      </div>
+      <p style="font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:10px">${MODULE_ELOQ.desc}</p>
+      ${MODULE_ELOQ.videos.map(v=>`<a href="${v.url}" target="_blank" rel="noopener" class="btn btn-sm btn-yt" style="margin-bottom:6px;display:inline-flex">${YT_SVG} ${v.label}</a>`).join("<br>")}
+    </div>
+  </div>`;
+  return html;
+}
+
+function renderRecording(){
+  const used=storUsed(),max=5*1024*1024,pct=Math.min(100,Math.round((used/max)*100));
+  const barCol=pct>80?"var(--red)":pct>55?"var(--orange)":"var(--green)";
+  return`
   <div class="card" style="margin-bottom:12px"><div style="padding:14px">
-    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px">Bilan complet : progression, mots difficiles, observations. Copiez et collez dans Claude.ai.</p>
-    <textarea id="bilan-ta" class="export-ta" readonly style="margin-bottom:10px">${bilan}</textarea>
+    <div class="sl" style="margin-bottom:9px">Enregistrement libre</div>
+    <div style="background:var(--bg2);border-radius:var(--r);padding:9px 11px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:4px"><span>Stockage</span><span>${fmtSz(used)} / ~5 Mo · ${S.recordings.length}/15</span></div>
+      <div class="storage-bar"><div class="storage-fill" style="width:${pct}%;background:${barCol}"></div></div>
+    </div>
+    ${!isRec&&!window._rec?`<button class="btn btn-red" onclick="startRec(false)"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span> Démarrer</button>`:""}
+    ${isRec?`<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div class="wave"><span></span><span></span><span></span><span></span><span></span></div><span id="rec-time" style="font-size:22px;font-weight:600;color:var(--red)">0:00</span></div><button class="btn" onclick="stopRec()">Arrêter</button>`:""}
+    ${!isRec&&window._rec&&!window._rec.fromSession?`
+      <div class="sl" style="margin-bottom:4px">Réécoute — ${fmt(window._rec.dur)}</div>
+      <audio controls src="${window._rec.b64}"></audio>
+      <div style="margin-bottom:8px"><select id="rec-mod">${MODULES.map(m=>`<option value="${m.id}">${m.num}. ${m.name}</option>`).join("")}</select></div>
+      <input id="rec-words" placeholder="Mots difficiles (virgules)" style="margin-bottom:8px">
+      <textarea id="rec-obs" rows="2" placeholder="Observations"></textarea>
+      <div style="display:flex;gap:7px;margin-top:9px">
+        <button class="btn btn-green" onclick="saveRec(false)">Sauvegarder</button>
+        <button class="btn" onclick="window._rec=null;render()">Annuler</button>
+      </div>`:""}
+  </div></div>
+  ${!S.recordings.length?`<div class="empty">Aucun enregistrement.</div>`:
+  S.recordings.map(e=>{
+    const mod=MODULES.find(m=>m.id===e.module);
+    const words=e.words?e.words.split(",").map(w=>w.trim()).filter(Boolean):[];
+    return`<div class="card"><div style="padding:13px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px">
+        <div><div style="font-size:14px;font-weight:500">${mod?mod.name:"—"}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px">${e.date} ${e.time} · ${fmt(e.dur||0)}</div></div>
+        <button class="del-btn" onclick="delRec(${e.id})">Supprimer</button>
+      </div>
+      ${words.length?`<div style="margin-bottom:7px">${words.map(w=>`<span style="display:inline-block;background:var(--red-bg);color:var(--red);font-size:12px;padding:2px 9px;border-radius:12px;margin:2px 3px 0 0">${w}</span>`).join("")}</div>`:""}
+      ${e.obs?`<p style="font-size:13px;color:var(--text2);margin-bottom:8px">${e.obs}</p>`:""}
+      <audio controls src="${e.b64}"></audio>
+      <button class="btn btn-sm btn-blue" onclick="dlAudio(${e.id})" style="margin-top:6px">Télécharger l'audio</button>
+    </div></div>`;
+  }).join("")}`;
+}
+
+function renderJournal(){
+  return`
+  <div class="card" style="margin-bottom:12px"><div style="padding:14px">
+    <div class="sl" style="margin-bottom:9px">Nouvelle entrée</div>
+    <textarea id="j-text" rows="4" placeholder="Observations, points positifs, difficultés…"></textarea>
+    <div style="display:flex;align-items:center;gap:10px;margin:10px 0">
+      <span style="font-size:13px;color:var(--text2)">Note :</span>
+      <select id="j-rating" style="width:auto;padding:8px 10px">${[1,2,3,4,5].map(i=>`<option value="${i}"${i===3?" selected":""}>${i}/5</option>`).join("")}</select>
+    </div>
+    <button class="btn btn-green" onclick="addJournal()">Enregistrer</button>
+  </div></div>
+  ${!S.journal.length?`<div class="empty">Aucune entrée. Les séances guidées remplissent le journal automatiquement.</div>`:
+  S.journal.map(e=>`<div class="card"><div style="padding:13px 14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+      <span style="font-size:13px;font-weight:500;color:var(--text2)">${e.date}</span>
+      <div style="display:flex;gap:2px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=e.rating?"var(--green)":"var(--border)"}"></div>`).join("")}</div>
+    </div>
+    <div style="font-size:14px;line-height:1.6">${e.text}</div>
+  </div></div>`).join("")}`;
+}
+
+function addJournal(){
+  const t=document.getElementById("j-text")?.value.trim();
+  const rt=parseInt(document.getElementById("j-rating")?.value||3);
+  if(!t)return;
+  S.journal=[{id:Date.now(),date:today(),text:t,rating:rt},...S.journal];
+  save();render();
+}
+
+function renderExport(){
+  return`
+  <div class="sl" style="margin-bottom:9px">Partager vers Claude</div>
+  <div class="card" style="margin-bottom:12px"><div style="padding:14px">
+    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px">Bilan complet — collez dans Claude.ai pour une analyse personnalisée.</p>
+    <textarea id="bilan-ta" rows="6" readonly style="font-size:12px;font-family:monospace;background:var(--bg2);margin-bottom:10px">${buildBilan()}</textarea>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      ${hasShare?`<button class="btn btn-primary" style="flex:1" onclick="shareBilan()">Partager (WhatsApp / Email…)</button>`:""}
-      <button class="btn" style="${hasShare?"flex:1":""}" onclick="copyBilan()">Copier pour Claude</button>
+      ${navigator.share?`<button class="btn btn-blue" style="flex:1" onclick="shareBilan()">Partager (WhatsApp / Email…)</button>`:""}
+      <button class="btn" style="flex:1" onclick="copyBilan()">Copier pour Claude</button>
     </div>
   </div></div>
-  <div class="sl" style="margin-bottom:10px">Sauvegarde locale</div>
+  <div class="sl" style="margin-bottom:9px">Sauvegarde locale</div>
   <div class="card"><div style="padding:14px">
-    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px">Toutes vos données (audios inclus) en fichier JSON.</p>
-    <button class="btn btn-success" onclick="downloadBackup()" style="margin-bottom:12px">Télécharger la sauvegarde (.json)</button>
-    <div class="sl" style="margin-bottom:6px">Restaurer une sauvegarde</div>
+    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px">Toutes vos données (audios inclus) en fichier JSON — réimportable sur n'importe quel appareil.</p>
+    <button class="btn btn-green" onclick="dlBackup()" style="margin-bottom:12px;width:100%">Télécharger la sauvegarde (.json)</button>
+    <div class="sl" style="margin-bottom:6px">Restaurer</div>
     <input type="file" accept=".json" onchange="importBackup(this)" style="font-size:13px;padding:8px">
   </div></div>`;
 }
 
-// ── RENDU PRINCIPAL ───────────────────────────────────────────
+// ── MAIN RENDER ───────────────────────────────────────────────────────────────
+const TABS=[["session","▶ Séance"],["modules","Modules"],["recording","Enregistrement"],["journal","Journal"],["export","Partager"]];
+
 function render(){
-  document.getElementById("tabs").innerHTML=TABS.map(([id,label])=>`<button class="tab${S.tab===id?" active":""}${id==="session"?" tab-session":""}" onclick="setTab('${id}')">${label}</button>`).join("");
+  document.getElementById("tabs").innerHTML=TABS.map(([id,label])=>`<button class="tab${S.tab===id?" active":""}${id==="session"?" tab-s":""}" onclick="S.tab='${id}';render()">${label}</button>`).join("");
   let c="";
   if(S.tab==="session")c=renderSession();
-  else if(S.tab==="dashboard")c=renderDashboard();
-  else if(S.tab==="warmup")c=renderWarmup();
-  else if(S.tab==="muscles")c=renderMuscles();
+  else if(S.tab==="modules")c=renderModules();
   else if(S.tab==="recording")c=renderRecording();
-  else if(S.tab==="rules")c=renderRules();
-  else if(S.tab==="planning")c=renderPlanning();
   else if(S.tab==="journal")c=renderJournal();
   else if(S.tab==="export")c=renderExport();
-  document.getElementById("content").innerHTML=c;
+  document.getElementById("app").innerHTML=c;
 }
 
 load();render();
