@@ -274,7 +274,10 @@ const MODULES=[
   {id:"pl1",name:"Parole spontanée 2 min",dur:120,desc:"Parler librement — raconter un souvenir, décrire une journée, exprimer une opinion. Débit lent, corrections immédiates. Sujet au choix."},
   {id:"pl2",name:"Enregistrement",dur:0,desc:"Enregistrer la séance. La réécoute se fait entre les séances — pas pendant. Noter les mots difficiles et la technique la plus efficace."},
  ],
- videos:[],
+ videos:[
+  {url:"https://www.youtube.com/results?search_query=prolonged+speech+stuttering+slow+rate+demonstration+adul&sp=EgIYAg%3D%3Dt",label:"Parole lente — démonstration EN"},
+  {url:"https://www.youtube.com/results?search_query=parole+lente+bégaiement+adulte+exercice+débi&sp=EgIYAg%3D%3Dt",label:"Parole lente bégaiement FR"},
+ ],
  topics:["Décris ta journée d'hier","Parle d'un souvenir d'enfance","Explique ce que tu études","Décris ton endroit préféré","Donne ton avis sur un film vu récemment","Raconte un défi que tu as surmonté","Parle de tes objectifs professionnels","Décris une personne que tu admires","Explique ce qu'est le bégaiement","Parle de ce qui te rend heureux"]}
 ];
 
@@ -282,8 +285,9 @@ const MODULE_ELOQ={
  id:"eloq",icon:"✨",name:"Éloquence (bonus)",color:"#b7860b",bg:"#fffbe6",dur:"libre",
  desc:"Travail complémentaire sur la clarté, l'impact et la présence orale. Non inclus dans le programme principal — exercice additionnel quand les 8 modules sont bien en place.",
  videos:[
-  {url:"https://www.youtube.com/results?search_query=exercices+éloquence+prise+de+parole+français+adulte",label:"Exercices d'éloquence FR"},
-  {url:"https://www.youtube.com/results?search_query=virelangue+français+articulation+diction",label:"Virelangues & diction FR"},
+  {url:"https://www.youtube.com/results?search_query=exercices+éloquence+prise+parole+confiance+oral+françai&sp=EgIYAg%3D%3Ds",label:"Éloquence & prise de parole FR"},
+  {url:"https://www.youtube.com/results?search_query=virelangues+diction+articulation+exercices+françai&sp=EgIYAg%3D%3Ds",label:"Virelangues & diction FR"},
+  {url:"https://www.youtube.com/results?search_query=TEDx+français+discours+prise+parole+publi&sp=EgIYAg%3D%3Dc",label:"TEDx FR — modèles d'éloquence"},
  ]
 };
 
@@ -402,12 +406,15 @@ function ytEmbed(v){return`https://www.youtube-nocookie.com/embed/${v.id}${v.sta
 function renderVideos(videos,prefix){
   if(!videos||!videos.length)return"";
   return videos.map((v,i)=>{
-    const eid=prefix+"-v"+i;const isOpen=S.vidOpen[eid];
-    return`<div style="margin-bottom:8px">
-      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px">
-        ${v.id?`<button class="btn btn-sm" onclick="S.vidOpen['${eid}']=!S.vidOpen['${eid}'];render()">
-          ${isOpen?"✕ Fermer":"▶ Voir dans l'app"}</button>`:""}
-        <a href="${ytUrl(v)}" target="_blank" rel="noopener" class="btn btn-sm btn-yt">${YT_SVG} ${v.label}</a>
+    const eid=prefix+"-v"+i;
+    // First video with an id auto-embeds; others show toggle button
+    const autoEmbed=v.id&&i===0;
+    const isOpen=autoEmbed||S.vidOpen[eid];
+    return`<div style="margin-bottom:10px">
+      <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
+        <span style="font-size:12px;color:var(--text2);font-weight:500">${v.label}</span>
+        ${v.id&&!autoEmbed?`<button class="btn btn-sm" onclick="S.vidOpen['${eid}']=!S.vidOpen['${eid}'];render()">${isOpen?"✕ Fermer":"▶ Intégrer"}</button>`:""}
+        <a href="${ytUrl(v)}" target="_blank" rel="noopener" class="btn btn-sm btn-yt" style="margin-left:auto">${YT_SVG} Ouvrir YouTube</a>
       </div>
       ${v.id&&isOpen?`<div class="vid-box"><iframe src="${ytEmbed(v)}" allowfullscreen loading="lazy"></iframe></div>`:""}
     </div>`;
