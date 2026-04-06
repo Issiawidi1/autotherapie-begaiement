@@ -10,17 +10,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#fff;--bg2:#f7f5f2;--bg3:#f0ede8;
-  --text:#1a1a1a;--text2:#5a5a5a;--text3:#999;
-  --border:#e2ddd8;
-  --green:#1a7a3e;--green-bg:#e8f5ed;
-  --blue:#1a5fa8;--blue-bg:#e8f0fb;
-  --orange:#a05c00;--orange-bg:#fff3e0;
-  --red:#c0392b;--red-bg:#fdecea;
-  --purple:#5344b5;--purple-bg:#ede8fb;
-  --pink:#9c2462;--pink-bg:#fdeef5;
-  --r:8px;--rl:14px;
-  --safe:env(safe-area-inset-bottom,0px);
+  --bg:#fff;--bg2:#f7f5f2;--bg3:#f0ede8;--text:#1a1a1a;--text2:#5a5a5a;--text3:#999;--border:#e2ddd8;
+  --green:#1a7a3e;--green-bg:#e8f5ed;--blue:#1a5fa8;--blue-bg:#e8f0fb;
+  --orange:#a05c00;--orange-bg:#fff3e0;--red:#c0392b;--red-bg:#fdecea;
+  --purple:#5344b5;--purple-bg:#ede8fb;--pink:#9c2462;--pink-bg:#fdeef5;
+  --r:8px;--rl:14px;--safe:env(safe-area-inset-bottom,0px);
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#1c1c1a;--bg2:#262624;--bg3:#2e2e2b;--text:#f0ede8;--text2:#a8a49e;--text3:#666;--border:#3a3836;
@@ -33,302 +27,281 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .wrap{max-width:780px;margin:0 auto;padding:1rem 14px calc(2.5rem + var(--safe))}
 header{background:var(--bg3);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border)}
 .hi{max-width:780px;margin:0 auto;padding:.9rem 14px 0}
-h1{font-size:16px;font-weight:600}
-.sub{font-size:11px;color:var(--text3);margin-top:1px}
+h1{font-size:16px;font-weight:600}.sub{font-size:11px;color:var(--text3);margin-top:1px}
 .tabs{display:flex;overflow-x:auto;margin-top:.7rem;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{padding:8px 13px;border:none;border-bottom:2px solid transparent;background:none;font-size:13px;color:var(--text2);cursor:pointer;white-space:nowrap;font-family:inherit;min-height:42px}
 .tab.active{border-bottom-color:var(--text);color:var(--text);font-weight:500}
-.tab-s{color:var(--green)!important}.tab-s.active{border-bottom-color:var(--green)!important}
-/* cards */
+.tab-g{color:var(--green)!important}.tab-g.active{border-bottom-color:var(--green)!important}
 .card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-bottom:10px}
 .ch{width:100%;padding:13px 14px;background:none;border:none;text-align:left;display:flex;align-items:center;gap:10px;cursor:pointer;font-family:inherit;color:var(--text);min-height:54px}
-.ch:active{background:var(--bg2)}
-.cb{padding:14px;border-top:1px solid var(--border)}
-/* typography */
+.ch:active{background:var(--bg2)}.cb{padding:14px;border-top:1px solid var(--border)}
 .sl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
 .note{background:var(--blue-bg);border-left:3px solid var(--blue);padding:9px 11px;border-radius:0 var(--r) var(--r) 0;margin:8px 0 12px;font-size:13px;color:var(--blue);line-height:1.5}
-.warn{background:var(--orange-bg);border-left:3px solid var(--orange);padding:9px 11px;border-radius:0 var(--r) var(--r) 0;margin:8px 0;font-size:13px;color:var(--orange);line-height:1.5}
-/* buttons */
+.warn{background:var(--orange-bg);border-left:3px solid var(--orange);padding:9px 11px;border-radius:0 var(--r) var(--r) 0;margin:8px 0;font-size:13px;color:var(--orange)}
+.alert{background:var(--red-bg);border-left:3px solid var(--red);padding:9px 11px;border-radius:0 var(--r) var(--r) 0;margin:8px 0;font-size:13px;color:var(--red)}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 15px;border-radius:var(--r);font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--bg2);color:var(--text);cursor:pointer;font-family:inherit;min-height:42px;text-decoration:none;-webkit-appearance:none}
-.btn:active{opacity:.7}
-.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn:active{opacity:.7}.btn:disabled{opacity:.35;cursor:not-allowed}
 .btn-full{width:100%;justify-content:center}
-.btn-sm{padding:6px 11px;font-size:12px;min-height:32px}
 .btn-green{background:var(--green-bg);color:var(--green);border-color:var(--green)}
 .btn-blue{background:var(--blue-bg);color:var(--blue);border-color:var(--blue)}
 .btn-red{background:var(--red-bg);color:var(--red);border-color:var(--red)}
 .btn-orange{background:var(--orange-bg);color:var(--orange);border-color:var(--orange)}
-.btn-start{background:var(--green);color:#fff;border-color:var(--green);font-size:16px;font-weight:600;padding:14px;width:100%;justify-content:center;border-radius:var(--rl)}
+.btn-purple{background:var(--purple-bg);color:var(--purple);border-color:var(--purple)}
+.btn-sm{padding:6px 11px;font-size:12px;min-height:32px}
+.btn-start{background:var(--green);color:#fff;border-color:var(--green);font-size:15px;font-weight:600;padding:14px;width:100%;justify-content:center;border-radius:var(--rl)}
+.btn-presit{background:var(--orange);color:#fff;border-color:var(--orange);font-size:14px;font-weight:600;padding:12px;width:100%;justify-content:center;border-radius:var(--rl)}
+.btn-long{background:var(--purple);color:#fff;border-color:var(--purple);font-size:14px;font-weight:600;padding:12px;width:100%;justify-content:center;border-radius:var(--rl)}
 .btn-yt{background:#f00;color:#fff;border-color:#c00}
-/* forms */
 input,textarea,select{font-family:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;font-size:15px;-webkit-appearance:none;width:100%}
-input:focus,textarea:focus,select:focus{outline:2px solid var(--blue);outline-offset:-1px}
 textarea{resize:vertical;line-height:1.5}
-/* timer */
-.timer-ring{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;transition:all .3s}
+.timer-ring{width:54px;height:54px;border-radius:50%;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;transition:all .3s}
 .timer-ring.running{border-color:var(--green);color:var(--green)}
 .timer-ring.done{border-color:var(--green);background:var(--green-bg);color:var(--green)}
-/* video */
-.vid-box{border-radius:var(--r);overflow:hidden;background:#000;position:relative;padding-top:56.25%;margin:10px 0}
+.vid-box{border-radius:var(--r);overflow:hidden;background:#000;position:relative;padding-top:56.25%;margin:8px 0}
 .vid-box iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-/* session */
 .prog-bar{display:flex;gap:4px;margin-bottom:1rem}
 .prog-dot{flex:1;height:4px;border-radius:2px;background:var(--border);transition:background .3s}
 .prog-dot.done{background:var(--green)}.prog-dot.cur{background:var(--orange)}
-/* module header */
-.mod-head{border-radius:var(--rl);padding:16px;margin-bottom:12px;display:flex;align-items:flex-start;gap:14px}
-/* step */
 .step{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
 .step.done-step{opacity:.55}
 .check{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:12px;transition:all .2s;background:none}
 .check.on{background:var(--green);border-color:var(--green);color:#fff}
-/* words */
-.word-chip{display:inline-block;padding:5px 13px;border-radius:20px;font-size:14px;font-weight:500;margin:4px;background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange)}
-.phrase-chip{display:block;padding:9px 13px;border-radius:var(--r);font-size:14px;margin-bottom:7px;background:var(--bg2);border-left:3px solid var(--orange);line-height:1.5}
-/* recording */
+.word-chip{display:inline-block;padding:5px 12px;border-radius:20px;font-size:13px;font-weight:500;margin:3px;background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange)}
+.phrase-box{background:var(--bg2);border-left:3px solid var(--orange);border-radius:0 var(--r) var(--r) 0;padding:10px 12px;margin-bottom:7px;font-size:14px;line-height:1.6}
+.start-phrase{background:var(--blue-bg);border-left:3px solid var(--blue);border-radius:0 var(--r) var(--r) 0;padding:10px 12px;margin-bottom:7px;font-size:14px;line-height:1.6;color:var(--blue);font-weight:500}
 .wave{display:flex;align-items:center;gap:3px;height:26px}
 .wave span{display:block;width:3px;background:var(--red);border-radius:2px;animation:wv .8s ease-in-out infinite}
 .wave span:nth-child(2){animation-delay:.12s}.wave span:nth-child(3){animation-delay:.24s}.wave span:nth-child(4){animation-delay:.36s}.wave span:nth-child(5){animation-delay:.48s}
 @keyframes wv{0%,100%{height:5px}50%{height:20px}}
-/* misc */
+.badge{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap}
 .empty{text-align:center;padding:2.5rem;color:var(--text3);font-size:14px}
 .dot{width:8px;height:8px;border-radius:50%}
 .del-btn{font-size:11px;padding:4px 9px;border:1px solid var(--red);color:var(--red);background:none;border-radius:var(--r);cursor:pointer;flex-shrink:0;font-family:inherit}
-.storage-bar{height:4px;border-radius:2px;overflow:hidden;background:var(--bg2);margin-top:4px}
-.storage-fill{height:100%;border-radius:2px;transition:width .4s}
+.sb-bar{height:4px;border-radius:2px;overflow:hidden;background:var(--bg2);margin-top:4px}
+.sb-fill{height:100%;border-radius:2px;transition:width .4s}
 audio{width:100%;margin:6px 0}
-svg.illus{overflow:visible}
-.p14{padding:14px}.flx1{flex:1}.sub2{font-size:11px;color:var(--text3)}.desc2{font-size:13px;color:var(--text2)}
+.mode-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:16px;margin-bottom:10px}
+.mode-icon{font-size:28px;margin-bottom:8px}
+.profile-bar{height:8px;border-radius:4px;overflow:hidden;background:var(--bg2);margin:6px 0}
+.profile-fill{height:100%;border-radius:4px}
 </style>
 </head>
 <body>
 <header>
   <div class="hi">
     <h1>Auto-thérapie Bégaiement</h1>
-    <div class="sub">Programme structuré · 8 modules</div>
+    <div class="sub">Adapté à votre profil · Blocage laryngé</div>
     <div class="tabs" id="tabs"></div>
   </div>
 </header>
 <div class="wrap"><div id="app"></div></div>
 <script>
-// ── DONNÉES ──
+// ── PROFIL ACOUSTIQUE (issu des enregistrements analysés) ─────────────────
+const PROFIL={
+  type:"Blocage laryngé",
+  vulnerabilites:["Démarrage (0-60s) : blocages de 5 à 10 secondes systématiques","Fatigue après 25 min : dégradation nette du débit","Situations à enjeu : fréquence ×2.3 vs situation neutre"],
+  points_forts:["Récupération possible en milieu de séance (5-15 min)","Temps de parole correct une fois stabilisé (72% entretien 1)","Conscience du mécanisme de blocage"],
+  stats:{ex1_bpm:10.1,e1_bpm:5.7,e2_bpm:13.2,e1_speech:72,e2_speech:49}
+};
+
+// ── DONNÉES ───────────────────────────────────────────────────────────────
+
+// Phrases de démarrage — entraînement spécifique au pattern de blocage initial
+const START_PHRASES=[
+  "Bonjour, je m'appelle Issiaka.",
+  "Merci de me recevoir.",
+  "Avec plaisir, je vais vous expliquer.",
+  "Bonjour, comment allez-vous ?",
+  "Je suis disponible pour répondre à vos questions.",
+  "Permettez-moi de me présenter.",
+  "Je suis ravi d'être ici aujourd'hui.",
+  "C'est un sujet qui m'intéresse beaucoup.",
+  "Je vais commencer par vous donner un contexte.",
+  "Voici ce que j'ai préparé pour vous.",
+  "Je travaille sur ce dossier depuis plusieurs semaines.",
+  "Ma première expérience dans ce domaine date de...",
+  "Pour répondre à votre question, je dirais que...",
+  "Ce projet m'a permis de développer des compétences en...",
+  "Je m'intéresse particulièrement à l'économie du développement.",
+];
+
+// Mots difficiles ciblés (plosives + voyelles = profil laryngé)
+const MOTS_PLOSIVES=["bonjour","bureau","projet","présenter","préparer","parler","problème","possible","participer","proposer","pertinent","diplôme","programme","partir","capable","professeur","pratiquer","précisément","période","position","permettre","principal","promouvoir","produire","potentiel"];
+const MOTS_VOYELLES=["arriver","écouter","étudier","objectif","important","université","exercice","expliquer","apprendre","essayer","aller","idée","occasion","accord","ouvrir","avancer","évoluer","évaluer","obtenir","organisation","analyse","approche","aspect","axe","environnement"];
+const MOTS_FRICATIF=["savoir","suivre","chercher","jamais","faire","futur","service","succès","financer","valeur","société","vision","souhait","solution","système","stratégie","structurer","synthèse","soutenir","surveiller"];
+
+const PHRASES_BV=[
+  "Je voudrais poser une question sur ce sujet.",
+  "Permettez-moi de continuer mon explication.",
+  "Pouvez-vous répéter la question s'il vous plaît ?",
+  "Je travaille sur cette problématique depuis plusieurs mois.",
+  "Mon parcours m'a préparé à ce type de défi.",
+  "Je prends le temps de bien formuler ma réponse.",
+  "Ce projet présente plusieurs aspects intéressants.",
+  "La principale difficulté que j'ai rencontrée est la suivante.",
+  "Pour conclure, je dirais que les résultats sont prometteurs.",
+  "Je suis convaincu que cette approche est pertinente.",
+  "Bonne journée à vous, à bientôt.",
+  "Voici ma proposition pour résoudre ce problème.",
+  "Je pense que nous pouvons progresser sur ce point.",
+  "Mon objectif est de contribuer efficacement à ce travail.",
+  "Je reste disponible pour toute question complémentaire.",
+];
+
+const SUJETS_PAROLE=[
+  "Présente-toi en 2 minutes comme si tu étais en entretien",
+  "Décris ton parcours académique depuis le bac",
+  "Explique ce qu'est l'économie du développement",
+  "Parle d'un projet ou d'un travail dont tu es fier",
+  "Décris une difficulté que tu as surmontée",
+  "Explique pourquoi tu postules à ce stage",
+  "Parle de tes objectifs professionnels à 5 ans",
+  "Décris une journée de travail idéale pour toi",
+  "Explique la méthode DiD en quelques phrases",
+  "Parle d'un article ou d'un livre que tu as lu récemment",
+  "Décris le contexte économique de l'Afrique subsaharienne",
+  "Explique ce qu'est une donnée de panel",
+  "Parle de tes forces et de tes axes d'amélioration",
+  "Décris comment tu organises ton travail au quotidien",
+  "Explique pourquoi la parole lente est efficace contre le bégaiement",
+];
+
+// ── MODULES ───────────────────────────────────────────────────────────────
 const MODULES=[
-{id:"massage",num:1,icon:"💆",name:"Massage musculaire",color:"var(--pink)",bg:"var(--pink-bg)",dur:"3-4 min",
- desc:"Priorité absolue — déverrouiller le larynx et les muscles péri-laryngés avant tout exercice vocal. Un larynx tendu bloque la parole.",
- illus:`<svg class="illus" viewBox="0 0 80 80" fill="none">
-  <ellipse cx="40" cy="32" rx="14" ry="18" stroke="#9c2462" stroke-width="2" fill="#fdeef5"/>
-  <line x1="40" y1="50" x2="40" y2="65" stroke="#9c2462" stroke-width="2"/>
-  <path d="M26 38 Q18 44 20 56 Q22 62 30 60" stroke="#9c2462" stroke-width="1.8" stroke-linecap=round/>
-  <path d="M54 38 Q62 44 60 56 Q58 62 50 60" stroke="#9c2462" stroke-width="1.8" stroke-linecap=round/>
-  <circle cx="28" cy="58" r="4" fill="#9c2462" opacity=".3"/>
-  <circle cx="52" cy="58" r="4" fill="#9c2462" opacity=".3"/>
-  <path d="M32 22 Q40 16 48 22" stroke="#9c2462" stroke-width="1.5" fill="none"/>
- </svg>`,
+{id:"massage",num:1,icon:"💆",name:"Massage laryngé",color:"var(--pink)",bg:"var(--pink-bg)",dur:"3 min",
+ desc:"Déverrouille le larynx avant toute parole. Priorité absolue — ne jamais sauter ce module.",
  steps:[
-  {id:"m1",name:"Massage masséter",dur:60,desc:"Pouces sous les pommettes. Mouvements circulaires lents. Sentir le relâchement."},
-  {id:"m2",name:"Massage larynx",dur:45,desc:"Deux doigts de chaque côté de la pomme d'Adam. Pression circulaire douce vers le bas."},
-  {id:"m3",name:"Vibration labiale 'brrr'",dur:20,desc:"Lèvres relâchées — faire 'brrr' × 3. Lèvres qui ne vibrent pas = trop contractées."},
-  {id:"m4",name:"Bâillements contrôlés × 5",dur:30,desc:"Bailler lentement, bouche grande ouverte. Larynx qui descend = état cible."},
+  {id:"m1",dur:60,name:"Massage masséter + larynx",desc:"Pouces sous les pommettes — cercles 1 min. Puis deux doigts de chaque côté de la pomme d'Adam, pression circulaire douce vers le bas."},
+  {id:"m2",dur:30,name:"Bâillements contrôlés × 5",desc:"Bailler lentement, bouche grande ouverte. Sentir le larynx descendre. C'est l'état laryngé cible."},
+  {id:"m3",dur:20,name:"Vibration labiale 'brrr'",desc:"Lèvres relâchées, faire 'brrr' × 3. Si les lèvres ne vibrent pas : trop contractées."},
  ],
- videos:[
-  {id:"HbQOCB9bO6g",label:"Massage larynx & gorge"},
-  {id:"4SNO61r4Nz8",label:"Massage langue"},
-  {id:"Ldvvz8N02Ms",label:"Exercice gorge"},
- ]},
-{id:"resp",num:2,icon:"🫁",name:"Respiration abdominale",color:"var(--green)",bg:"var(--green-bg)",dur:"2 min",
- desc:"Le souffle abdominal est le support de la parole. Sans soutien du diaphragme, le larynx compense — source directe de blocages.",
- illus:`<svg class="illus" viewBox="0 0 80 80" fill="none">
-  <path d="M40 14 L40 22" stroke="#1a7a3e" stroke-width="2" stroke-linecap=round/>
-  <path d="M28 22 Q22 22 20 30 Q16 42 18 54 Q21 64 30 62 Q36 60 40 54 Q44 60 50 62 Q59 64 62 54 Q64 42 60 30 Q58 22 52 22 L40 22 Z" stroke="#1a7a3e" stroke-width="2" fill="#e8f5ed"/>
-  <path d="M10 36 Q5 32 8 26" stroke="#1a7a3e" stroke-width="1.5" stroke-dasharray=3,2 stroke-linecap=round/>
-  <path d="M70 36 Q75 32 72 26" stroke="#1a7a3e" stroke-width="1.5" stroke-dasharray=3,2 stroke-linecap=round/>
-  <path d="M20 45 Q40 52 60 45" stroke="#1a7a3e" stroke-width="1.5" opacity=".4"/>
- </svg>`,
+ videos:[{id:"HbQOCB9bO6g",label:"Massage larynx & gorge"},{id:"4SNO61r4Nz8",label:"Massage langue"}]},
+
+{id:"paille",num:2,icon:"🥤",name:"Technique de la paille",color:"var(--purple)",bg:"var(--purple-bg)",dur:"3 min",
+ desc:"Rééquilibre les pressions sous/sus-glottiques. Détente mécanique du larynx. À faire aussi juste avant une situation de parole.",
  steps:[
-  {id:"r1",name:"Respiration diaphragmatique",dur:60,desc:"Main sur le ventre. Inspirer 4s (ventre sort) → expirer 6s sur 'sss'. 5 cycles."},
-  {id:"r2",name:"Parole sur expiration",dur:60,desc:"Phrase entière, le ventre se creuse progressivement. Ne jamais parler sur réserve vide. × 5."},
- ],
- videos:[{id:"4kkONEub04M",label:"Respiration diaphragmatique"}]},
-{id:"paille",num:3,icon:"🥤",name:"Technique de la paille",color:"var(--purple)",bg:"var(--purple-bg)",dur:"3 min",
- desc:"Rééquilibre les pressions sous/sus-glottiques. Les cordes vocales se détendent mécaniquement. Utilisé en rééducation orthophonique pour le blocage laryngé.",
- illus:`<svg class="illus" viewBox="0 0 80 80" fill="none">
-  <rect x="22" y="30" width="36" height="42" rx="6" stroke="#5344b5" stroke-width="2" fill="#ede8fb"/>
-  <line x1="44" y1="72" x2="52" y2="20" stroke="#5344b5" stroke-width="3" stroke-linecap=round/>
-  <circle cx="36" cy="52" r="3" fill="#5344b5" opacity=".4"/>
-  <circle cx="30" cy="44" r="2" fill="#5344b5" opacity=".3"/>
-  <circle cx="40" cy="60" r="2" fill="#5344b5" opacity=".3"/>
-  <circle cx="32" cy="58" r="1.5" fill="#5344b5" opacity=".2"/>
-  <path d="M22 55 Q40 58 58 55" stroke="#5344b5" stroke-width="1" opacity=".3"/>
- </svg>`,
- steps:[
-  {id:"p1",name:"Paille dans l'eau",dur:180,desc:"Paille dans un verre (3 cm d'eau). Souffler en émettant 'ooo' ou 'mmm'. Bulles régulières = détendu. 3 min."},
+  {id:"p1",dur:180,name:"Paille dans l'eau — 3 minutes",desc:"Paille ordinaire dans 3 cm d'eau. Souffler doucement en émettant 'ooo' ou 'mmm' continu. Bulles régulières = larynx détendu."},
  ],
  videos:[{id:"YB3IKoeCGs0",label:"Technique de la paille"}]},
-{id:"artic",num:4,icon:"👄",name:"Articulation",color:"var(--red)",bg:"var(--red-bg)",dur:"2 min",
- desc:"Contacts précis et légers des articulateurs. L'objectif est la précision, jamais la force. Des consonnes nettes soulagent la voix.",
- illus:`<svg class="illus" viewBox="0 0 80 80" fill="none">
-  <path d="M18 36 Q18 28 40 28 Q62 28 62 36 Q62 52 40 58 Q18 52 18 36Z" stroke="#c0392b" stroke-width="2" fill="#fdecea"/>
-  <path d="M22 36 Q40 44 58 36" stroke="#c0392b" stroke-width="1.5" fill="none"/>
-  <ellipse cx="40" cy="50" rx="10" ry="5" fill="#c0392b" opacity=".25"/>
-  <line x1="30" y1="32" x2="30" y2="28" stroke="#c0392b" stroke-width="1.5"/>
-  <line x1="40" y1="30" x2="40" y2="26" stroke="#c0392b" stroke-width="1.5"/>
-  <line x1="50" y1="32" x2="50" y2="28" stroke="#c0392b" stroke-width="1.5"/>
- </svg>`,
+
+{id:"resp",num:3,icon:"🫁",name:"Respiration abdominale",color:"var(--green)",bg:"var(--green-bg)",dur:"2 min",
+ desc:"Le souffle abdominal est le support de la parole. Sans soutien diaphragmatique, le larynx compense — source directe de blocages.",
  steps:[
-  {id:"a1",name:"Voyelles exagérées",dur:30,desc:"A — E — I — O — U, ouverture maximale. Exagérer chaque position. × 5 séries."},
-  {id:"a2",name:"Virelangue lent",dur:60,desc:"'Un chasseur sachant chasser sans son chien' — lentement, syllabe par syllabe. Puis 2× plus vite."},
-  {id:"a3",name:"Lecture syllabique",dur:60,desc:"Lire en déta-chant cha-que syl-la-be. Conscience de chaque consonne. Progresser vers débit normal."},
+  {id:"r1",dur:60,name:"Respiration diaphragmatique",desc:"Main sur le ventre. Inspirer 4s (ventre sort) → expirer 6s sur 'sss' continu. 5 cycles."},
+  {id:"r2",dur:60,name:"Parole sur expiration",desc:"Prononcer une phrase entière en vérifiant que le ventre se creuse progressivement. Ne jamais parler sur réserve d'air vide. × 5 phrases."},
+ ],
+ videos:[{id:"4kkONEub04M",label:"Respiration diaphragmatique"}]},
+
+{id:"demarrage",num:4,icon:"🚀",name:"Démarrage",color:"var(--blue)",bg:"var(--blue-bg)",dur:"4 min",
+ desc:"Votre vulnérabilité principale (données enregistrements). Blocages de 5 à 10s dans les 60 premières secondes. Cet entraînement cible exactement ce pattern.",
+ steps:[
+  {id:"d1",dur:60,name:"Onset doux × 10 démarrages",desc:"'hhhaaaa' — 'hhhheee' — 'hhhhiii'. Voix qui s'allume très doucement depuis le silence. Aucun coup de glotte. C'est le geste exact à automatiser."},
+  {id:"d2",dur:90,name:"Phrases d'ouverture × 5",desc:"Prononcer chaque phrase d'ouverture (ci-dessous) avec onset doux sur le premier mot. Pause de 2s avant chaque phrase. Regard maintenu."},
+  {id:"d3",dur:60,name:"Enchaînement rapide × 5",desc:"Prononcer 5 phrases différentes à la suite sans pause entre elles. Objectif : maintenir l'onset doux même sous pression temporelle."},
+ ],
+ videos:[{id:"tleTRXOqWCg",label:"Easy onset & light contact"}],
+ showStartPhrases:true},
+
+{id:"artic",num:5,icon:"👄",name:"Articulation",color:"var(--red)",bg:"var(--red-bg)",dur:"2 min",
+ desc:"Contacts précis et légers. La précision des consonnes soulage la voix — elle n'a pas à pousser pour être entendue.",
+ steps:[
+  {id:"a1",dur:30,name:"Voyelles exagérées",desc:"A — E — I — O — U avec ouverture maximale. × 5 séries."},
+  {id:"a2",dur:60,name:"Virelangue lent → rapide",desc:"'Un chasseur sachant chasser sans son chien' — débit lent d'abord, puis progressivement plus rapide. Garder la précision."},
+  {id:"a3",dur:30,name:"Light contact sur plosives",desc:"p-b-p-b · t-d-t-d · m-m-m. Contacts labiaux et linguaux à peine perceptibles. Jamais appuyer. × 20."},
  ],
  videos:[{id:"YMESKuiUmRM",start:271,label:"Exercices d'articulation"}]},
-{id:"bvol",num:5,icon:"🗣️",name:"Bégaiement volontaire",color:"var(--orange)",bg:"var(--orange-bg)",dur:"3-4 min",
- desc:"Désensibilisation directe. Faire volontairement ce que l'on craint réduit la peur et prouve que l'on contrôle le mécanisme. Doux, calme — jamais imiter les pires blocages.",
- illus:`<svg class="illus" viewBox="0 0 80 80" fill="none">
-  <rect x="12" y="18" width="46" height="34" rx="8" stroke="#a05c00" stroke-width="2" fill="#fff3e0"/>
-  <path d="M24 52 L18 64" stroke="#a05c00" stroke-width="2" stroke-linecap=round/>
-  <text x="20" y="38" font-size="13" fill="#a05c00" font-family="monospace" font-weight="600">b-b-b</text>
-  <text x="20" y="52" font-size="11" fill="#a05c00" font-family="monospace" opacity=".6">bon...</text>
-  <circle cx="64" cy="22" r="10" fill="#fff3e0" stroke="#a05c00" stroke-width="1.5"/>
-  <text x="59" y="26" font-size="10" fill="#a05c00" font-weight="600">!</text>
- </svg>`,
+
+{id:"bvol",num:6,icon:"🗣️",name:"Bégaiement volontaire",color:"var(--orange)",bg:"var(--orange-bg)",dur:"3 min",
+ desc:"Désensibilisation directe. Faire volontairement ce que l'on craint. Doux, calme — jamais imiter les pires blocages.",
  steps:[
-  {id:"bv1",name:"Répétitions sur mots",dur:60,desc:"b-b-bonjour · m-m-merci · p-p-parler. Sons répétés doucement, sans tension. × 10 mots."},
-  {id:"bv2",name:"Prolongations",dur:60,desc:"bbbbonjour · mmmmmerci · sssalut. Étirer le premier son avant de glisser sur le reste. × 10 mots."},
-  {id:"bv3",name:"Phrases complètes",dur:90,desc:"5 phrases en bégayant volontairement sur 2+ mots par phrase. Calme, détendu. Voir mots du jour ci-dessous."},
+  {id:"bv1",dur:60,name:"Répétitions sur mots du jour",desc:"b-b-bonjour · p-p-projet · s-ss-savoir. Sons répétés doucement. Contact visuel maintenu. × 10 mots."},
+  {id:"bv2",dur:60,name:"Prolongations",desc:"bbbbonjour · ssssavoir · aaaarriver. Étirer doucement le premier son. × 10 mots."},
+  {id:"bv3",dur:60,name:"Phrases complètes",desc:"Prononcer 5 phrases en bégayant volontairement sur 2 mots par phrase. Calme, détendu."},
  ],
- random:true,
- videos:[]},
-{id:"onset",num:6,icon:"🎤",name:"Onset & Light contact",color:"var(--blue)",bg:"var(--blue-bg)",dur:"3 min",
- desc:"Easy onset : démarrer la voix très doucement, comme une flamme qui s'allume. Light contact : articulateurs effleurant à peine. Les deux ensemble éliminent la fermeture glottique brutale.",
- illus:`<svg class="illus" viewBox="0 0 80 80" fill="none">
-  <path d="M14 52 Q20 40 30 36 Q40 32 50 36 Q60 40 66 52" stroke="#1a5fa8" stroke-width="2" fill="none" stroke-linecap=round/>
-  <path d="M14 52 Q20 48 26 48 Q32 48 34 44" stroke="#1a5fa8" stroke-width="1" fill="none" opacity=".4"/>
-  <circle cx="66" cy="52" r="4" fill="#1a5fa8"/>
-  <circle cx="14" cy="52" r="3" fill="#1a5fa8" opacity=".3"/>
-  <text x="28" y="24" font-size="11" fill="#1a5fa8" font-family="-apple-system,sans-serif">hhhaaaa</text>
-  <path d="M28 26 L66 48" stroke="#1a5fa8" stroke-width="1" stroke-dasharray=2,2 opacity=".3"/>
- </svg>`,
+ random:true},
+
+{id:"debloc",num:7,icon:"🔓",name:"Déblocage",color:"var(--blue)",bg:"var(--blue-bg)",dur:"4 min",
+ desc:"Les 3 corrections dans l'ordre Fraser. Pratiquer sur blocages volontaires ou réels. Post → Pendant → Pré.",
  steps:[
-  {id:"o1",name:"Easy onset sur voyelles",dur:60,desc:"'hhhaaaa' — 'hhhheee' — 'hhhhiii'. Depuis le silence. Voix très douce. Aucun coup de glotte. × 5."},
-  {id:"o2",name:"Light contact sur plosives",dur:60,desc:"p-b-p-b · t-d-t-d · m-m-m. Contacts à peine perceptibles — effleurer. Jamais bloquer. × 20."},
-  {id:"o3",name:"Mots combinés",dur:60,desc:"Easy onset sur voyelles + light contact sur plosives dans des mots réels : 'bonjour', 'parler', 'téléphone'. × 10."},
+  {id:"db1",dur:80,name:"Annulation — post-blocage",desc:"Laisser le blocage → compléter le mot → pause → relâcher → redire lentement avec correction. × 5."},
+  {id:"db2",dur:80,name:"Pull-out — pendant le blocage",desc:"En cours de blocage : ralentir, prolonger doucement, sentir la tension baisser, glisser vers le son suivant. × 5."},
+  {id:"db3",dur:80,name:"Pré-blocage — anticiper",desc:"Avant un mot craint : pause → relâchement → onset doux → dire le mot. Planifier avant d'attaquer. × 5."},
  ],
- videos:[{id:"tleTRXOqWCg",label:"Easy onset & light contact"}]},
-{id:"debloc",num:7,icon:"🔓",name:"Déblocage",color:"var(--blue)",bg:"var(--blue-bg)",dur:"4-5 min",
- desc:"Les 3 corrections de Van Riper dans l'ordre Fraser. À pratiquer sur de vrais blocages ou sur du bégaiement volontaire. La maîtrise vient dans cet ordre : post → pendant → pré.",
- illus:`<svg class="illus" viewBox="0 0 80 80" fill="none">
-  <rect x="24" y="38" width="32" height="28" rx="5" stroke="#1a5fa8" stroke-width="2" fill="#e8f0fb"/>
-  <path d="M32 38 L32 28 Q32 18 40 18 Q48 18 48 28 L48 38" stroke="#1a5fa8" stroke-width="2" fill="none" stroke-linecap=round/>
-  <circle cx="40" cy="52" r="5" fill="#1a5fa8"/>
-  <line x1="40" y1="57" x2="40" y2="62" stroke="#1a5fa8" stroke-width="2"/>
-  <text x="50" y="22" font-size="9" fill="#1a5fa8" opacity=".5">→ ouvert</text>
- </svg>`,
+ videos:[{id:"ZEwYs9wlmx4",label:"Annulation (post-blocage)"},{id:"02P2yqNsUCs",label:"Pull-out & pré-blocage"}]},
+
+{id:"parole",num:8,icon:"📖",name:"Parole libre",color:"var(--text2)",bg:"var(--bg2)",dur:"2 min",
+ desc:"Intégrer toutes les techniques dans la parole réelle. Sujet aléatoire, débit lent, corrections immédiates.",
  steps:[
-  {id:"d1",name:"Annulation — post-blocage",dur:90,desc:"Blocage → compléter le mot → pause → relâcher → redire lentement avec correction. Calme. × 5."},
-  {id:"d2",name:"Pull-out — pendant le blocage",dur:90,desc:"En cours de blocage : ralentir, prolonger le son bloqué, sentir la tension baisser, glisser vers le son suivant. × 5."},
-  {id:"d3",name:"Pré-blocage — anticiper",dur:90,desc:"Avant un mot craint : pause → relâchement → onset doux → dire le mot. Planifier avant d'attaquer. × 5."},
+  {id:"pl1",dur:120,name:"Parole spontanée 2 min",desc:"Parler librement sur le sujet du jour. Débit lent, onset doux sur chaque démarrage de phrase, corrections pull-out sur les blocages."},
+  {id:"pl2",dur:0,name:"Enregistrement",desc:"Enregistrer la séance. Réécouter entre les séances — pas pendant. Noter les mots difficiles."},
  ],
- videos:[
-  {id:"ZEwYs9wlmx4",label:"Annulation (post-blocage)"},
-  {id:"02P2yqNsUCs",label:"Pull-out & pré-blocage"},
- ]},
-{id:"parole",num:8,icon:"📖",name:"Parole libre chronométrée",color:"var(--text2)",bg:"var(--bg2)",dur:"2-3 min",
- desc:"Intégrer tout le travail dans la parole réelle. Sujet libre, débit lent, correction immédiate des blocages. Réécoute entre les séances — jamais pendant.",
- illus:`<svg class="illus" viewBox="0 0 80 80" fill="none">
-  <circle cx="40" cy="42" r="24" stroke="#5a5a5a" stroke-width="2" fill="#f7f5f2"/>
-  <line x1="40" y1="42" x2="40" y2="24" stroke="#5a5a5a" stroke-width="2" stroke-linecap=round/>
-  <line x1="40" y1="42" x2="54" y2="50" stroke="#5a5a5a" stroke-width="2" stroke-linecap=round/>
-  <circle cx="40" cy="42" r="3" fill="#5a5a5a"/>
-  <path d="M40 18 L40 14" stroke="#5a5a5a" stroke-width="2"/>
-  <path d="M35 14 L45 14" stroke="#5a5a5a" stroke-width="2" stroke-linecap=round/>
-  <circle cx="52" cy="20" r="8" fill="#fff3e0" stroke="#a05c00" stroke-width="1.5"/>
-  <text x="48" y="24" font-size="9" fill="#a05c00" font-weight="600">🗣</text>
- </svg>`,
- steps:[
-  {id:"pl1",name:"Parole spontanée 2 min",dur:120,desc:"Parler librement — sujet au choix. Débit lent, corrections immédiates."},
-  {id:"pl2",name:"Enregistrement",dur:0,desc:"Enregistrer la séance. Réécoute entre les séances. Noter mots difficiles et technique efficace."},
- ],
- videos:[
-  {url:"https://www.youtube.com/results?search_query=prolonged+speech+stuttering+slow+rate+demonstration+adul&sp=EgIYAg%3D%3Dt",label:"Parole lente — démonstration EN"},
-  {url:"https://www.youtube.com/results?search_query=parole+lente+bégaiement+adulte+exercice+débi&sp=EgIYAg%3D%3Dt",label:"Parole lente bégaiement FR"},
- ],
- hasTopic:true}
+ showTopic:true},
 ];
-const MODULE_ELOQ={
- id:"eloq",icon:"✨",name:"Éloquence (bonus)",color:"#b7860b",bg:"#fffbe6",dur:"libre",
- desc:"Travail complémentaire sur la clarté, l'impact et la présence orale. Non inclus dans le programme principal — exercice additionnel quand les 8 modules sont bien en place.",
- videos:[
-  {url:"https://www.youtube.com/results?search_query=exercices+éloquence+prise+parole+confiance+oral+françai&sp=EgIYAg%3D%3Ds",label:"Éloquence & prise de parole FR"},
-  {url:"https://www.youtube.com/results?search_query=virelangues+diction+articulation+exercices+françai&sp=EgIYAg%3D%3Ds",label:"Virelangues & diction FR"},
-  {url:"https://www.youtube.com/results?search_query=TEDx+français+discours+prise+parole+publi&sp=EgIYAg%3D%3Dc",label:"TEDx FR — modèles d'éloquence"},
- ]
-};
-const SESSION_BLOCS=[
- {id:"b1",title:"Massage musculaire",icon:"💆",moduleIds:["massage"],dur:"3-4 min"},
- {id:"b2",title:"Respiration & Paille",icon:"🫁",moduleIds:["resp","paille"],dur:"5 min"},
- {id:"b3",title:"Articulation",icon:"👄",moduleIds:["artic"],dur:"2 min"},
- {id:"b4",title:"Bégaiement volontaire",icon:"🗣️",moduleIds:["bvol"],dur:"3-4 min"},
- {id:"b5",title:"Onset, Light contact & Déblocage",icon:"🎤",moduleIds:["onset","debloc"],dur:"6-7 min"},
- {id:"b6",title:"Parole libre & Enregistrement",icon:"📖",moduleIds:["parole"],dur:"2-3 min"},
+
+// ── SESSION BLOCS ─────────────────────────────────────────────────────────
+const BLOCS=[
+ {id:"b1",title:"Décontraction laryngée",icon:"💆🥤",mids:["massage","paille"],dur:"6 min",
+  note:"Ne jamais sauter. Vos données montrent que sans décontraction préalable, le démarrage est ingérable."},
+ {id:"b2",title:"Respiration & Démarrage",icon:"🫁🚀",mids:["resp","demarrage"],dur:"6 min",
+  note:"Le démarrage est votre vulnérabilité n°1. Travaillez-le chaque jour sans exception."},
+ {id:"b3",title:"Articulation & Désensibilisation",icon:"👄🗣️",mids:["artic","bvol"],dur:"5 min",
+  note:"Mots du jour — ciblés sur vos sons difficiles identifiés (plosives + voyelles)."},
+ {id:"b4",title:"Déblocage & Parole libre",icon:"🔓📖",mids:["debloc","parole"],dur:"6 min",
+  note:"Appliquer les corrections en situation réelle. Enregistrer systématiquement."},
 ];
-const BV_MOTS_PLOSIVES=["bonjour","père","café","téléphone","problème","bureau","partir","présenter","diplôme","parler","travailler","programme","demain","début","proposer","capable"];
-const BV_MOTS_FRICAT=["salut","voilà","merci","savoir","suivre","chercher","jamais","faire","futur","société","service","succès","valeur","vision"];
-const BV_MOTS_VOYELLES=["arriver","écouter","étudier","objectif","important","université","exercice","expliquer","apprendre","essayer","idée","avancer"];
-const BV_PHRASES=["Bonjour, comment allez-vous ?","Permettez-moi de me présenter.","Je voudrais poser une question.","Pouvez-vous répéter s'il vous plaît ?","Je travaille sur ma prise de parole.","Bonne journée à vous.","Je comprends votre point de vue.","Pourriez-vous m'expliquer ?","Merci pour votre patience.","Je prends le temps de bien parler.","Voici ce que je pense de la situation.","Je fais de mon mieux chaque jour.","Mon objectif est de m'améliorer.","Je pratique tous les jours.","Je suis capable de progresser."];
-const TOPICS=["Décris ta journée d'hier","Parle d'un souvenir d'enfance","Explique ce que tu études","Décris ton endroit préféré","Donne ton avis sur un film récent","Raconte un défi surmonté","Parle de tes objectifs pro","Décris une personne que tu admires","Explique le bégaiement","Parle de ce qui te rend heureux"];
-// ── ÉTAT ──
-const KEY="sbt_v5";
-let S={tab:"session",session:{active:false,bloc:0,done:{},readingLevel:2,recorded:false,jText:"",rating:3},journal:[],recordings:[],expanded:null,vidOpen:{},sessionCount:0,sessionDate:""};
-let recorder=null,chunks=[],isRec=false,recTimer=null,recSecs=0,timers={};
-function load(){try{const d=localStorage.getItem(KEY);if(d){const p=JSON.parse(d);S.journal=p.journal||[];S.recordings=p.recordings||[];S.sessionCount=p.sessionCount||0;S.sessionDate=p.sessionDate||""}}catch(e){}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify({journal:S.journal,recordings:S.recordings,sessionCount:S.sessionCount,sessionDate:S.sessionDate}))}catch(e){alert("Stockage plein — supprimez des enregistrements.");}}
+
+// ── CONSTANTES ────────────────────────────────────────────────────────────
+const KEY="sbt_v6";
+const YT_SVG=`<svg width="13" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>`;
+
+// ── ÉTAT ──────────────────────────────────────────────────────────────────
+let S={tab:"home",session:{active:false,mode:"full",bloc:0,done:{},jText:"",rating:3,recorded:false},
+  presit:{active:false,step:0,done:{}},
+  long:{active:false,elapsed:0,done:{},jText:"",rating:3,recorded:false},
+  journal:[],recordings:[],expanded:null,vidOpen:{}};
+let recorder=null,chunks=[],isRec=false,recTimer=null,recSecs=0,timers={},longTimer=null;
+
+function load(){try{const d=localStorage.getItem(KEY);if(d){const p=JSON.parse(d);S.journal=p.journal||[];S.recordings=p.recordings||[]}}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({journal:S.journal,recordings:S.recordings}))}catch(e){alert("Stockage plein.");}}
 function today(){return new Date().toLocaleDateString("fr-FR")}
 function fmt(s){const m=Math.floor(s/60),sc=s%60;return m+":"+(sc<10?"0":"")+sc}
 function storUsed(){try{const d=localStorage.getItem(KEY);return d?d.length*2:0}catch(e){return 0}}
 function fmtSz(b){return b<1048576?Math.round(b/1024)+"Ko":(b/1048576).toFixed(1)+"Mo"}
-// RANDOM WORDS (seeded daily)─────────────────────────────────────────────
-function dailySeed(){
-  const s=new Date().toDateString();let h=0;
-  for(let c of s)h=((h<<5)-h)+c.charCodeAt(0);
-  return h>>>0;
-}
-function seededPick(arr,n,seed){
-  let h=seed;const pick=(max)=>{h=(h*1664525+1013904223)>>>0;return h%max};
-  const pool=[...arr],res=[];
-  while(res.length<n&&pool.length>0){const i=pick(pool.length);res.push(pool.splice(i,1)[0])}
-  return res;
-}
-function getDailyWords(){
-  const offset=(S.sessionCount||0)*100;
-  const s=dailySeed()+offset;
+
+// Random daily
+function dailySeed(){const s=new Date().toDateString();let h=0;for(let c of s)h=((h<<5)-h)+c.charCodeAt(0);return h>>>0}
+function seededPick(arr,n,seed){let h=seed;const pick=(max)=>{h=(h*1664525+1013904223)>>>0;return h%max};const pool=[...arr],res=[];while(res.length<n&&pool.length>0){const i=pick(pool.length);res.push(pool.splice(i,1)[0])}return res}
+function getDailyData(){
+  const s=dailySeed();
   return{
-    plosives:seededPick(BV_MOTS_PLOSIVES,5,s),
-    fricat:seededPick(BV_MOTS_FRICAT,4,s+1),
-    voyelles:seededPick(BV_MOTS_VOYELLES,3,s+2),
-    phrases:seededPick(BV_PHRASES,5,s+3),
-    topic:seededPick(TOPICS,1,s+4)[0]
+    plosives:seededPick(MOTS_PLOSIVES,5,s),
+    voyelles:seededPick(MOTS_VOYELLES,4,s+1),
+    fricatifs:seededPick(MOTS_FRICATIF,3,s+2),
+    phrases:seededPick(PHRASES_BV,5,s+3),
+    startPhrases:seededPick(START_PHRASES,5,s+4),
+    sujet:seededPick(SUJETS_PAROLE,1,s+5)[0],
   };
 }
-// TIMERS───────────────────────────────────────────────────────────────────
-function startTimer(eid,sec){
+
+// ── TIMERS ────────────────────────────────────────────────────────────────
+function startTimer(eid,sec,prefix){
+  prefix=prefix||"tr-";
   if(timers[eid]){clearInterval(timers[eid]);delete timers[eid]}
   let rem=sec;
-  const el=()=>document.getElementById("tr-"+eid);
-  const btn=()=>document.getElementById("tb-"+eid);
   const tick=()=>{
-    if(!el())return;
-    if(rem<=0){
-      clearInterval(timers[eid]);delete timers[eid];
-      el().textContent="✓";el().className="timer-ring done";
-      if(btn()){btn().textContent="Terminé";btn().disabled=true}
-    }else{el().textContent=rem+"s";el().className="timer-ring running";rem--}
+    const el=document.getElementById(prefix+eid),btn=document.getElementById("tb-"+eid);
+    if(!el)return;
+    if(rem<=0){clearInterval(timers[eid]);delete timers[eid];el.textContent="✓";el.className="timer-ring done";if(btn){btn.textContent="Terminé";btn.disabled=true}}
+    else{el.textContent=rem<60?rem+"s":Math.ceil(rem/60)+"m";el.className="timer-ring running";rem--}
   };
   tick();timers[eid]=setInterval(tick,1000);
-  if(btn()){btn().textContent="En cours…";btn().disabled=true}
+  const btn=document.getElementById("tb-"+eid);if(btn){btn.textContent="En cours…";btn.disabled=true}
 }
-// RECORDING────────────────────────────────────────────────────────────────
+
+// ── ENREGISTREMENT ────────────────────────────────────────────────────────
 function b64(blob){return new Promise(r=>{const fr=new FileReader();fr.onloadend=()=>r(fr.result);fr.readAsDataURL(blob)})}
-async function startRec(fromSession){
+async function startRec(ctx){
   try{
     const stream=await navigator.mediaDevices.getUserMedia({audio:true});
     chunks=[];
@@ -338,7 +311,7 @@ async function startRec(fromSession){
     recorder.onstop=async()=>{
       stream.getTracks().forEach(t=>t.stop());
       const blob=new Blob(chunks,{type:recorder.mimeType});
-      window._rec={b64:await b64(blob),dur:recSecs,fromSession:!!fromSession};
+      window._rec={b64:await b64(blob),dur:recSecs,ctx};
       isRec=false;render();
     };
     recorder.start(1000);isRec=true;recSecs=0;
@@ -347,14 +320,14 @@ async function startRec(fromSession){
   }catch(e){alert("Microphone inaccessible.\n"+e.message)}
 }
 function stopRec(){if(recorder&&recorder.state!=="inactive")recorder.stop();clearInterval(recTimer)}
-async function saveRec(fromSession){
+async function saveRec(module_id){
   if(!window._rec||S.recordings.length>=15)return;
-  const rule=fromSession?"parole":(document.getElementById("rec-mod")?.value||"parole");
   const obs=document.getElementById("rec-obs")?.value||"";
   const words=document.getElementById("rec-words")?.value||"";
-  S.recordings=[{id:Date.now(),date:today(),time:new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}),module:rule,obs,words,dur:window._rec.dur,b64:window._rec.b64},...S.recordings];
+  S.recordings=[{id:Date.now(),date:today(),time:new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}),module:module_id||"parole",obs,words,dur:window._rec.dur,b64:window._rec.b64},...S.recordings];
   try{save()}catch(e){S.recordings.shift();return}
-  if(fromSession)S.session.recorded=true;
+  if(window._rec.ctx==="session")S.session.recorded=true;
+  if(window._rec.ctx==="long")S.long.recorded=true;
   window._rec=null;render();
 }
 function delRec(id){if(!confirm("Supprimer ?"))return;S.recordings=S.recordings.filter(r=>r.id!==id);save();render()}
@@ -363,221 +336,475 @@ function dlAudio(id){
   const ext=r.b64.includes("webm")?"webm":r.b64.includes("mp4")?"m4a":"ogg";
   const a=document.createElement("a");a.href=r.b64;a.download="seance-"+r.date.replace(/\//g,"-")+"."+ext;a.click();
 }
-// VIDEO HELPERS─────────────────────────────────────────────────────────────
-const YT_SVG=`<svg width="13" height="9" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.6S13.5.6 13 .2C12.4-.4 11.8-.4 11.5-.3 9.6 0 7 0 7 0S4.4 0 2.5-.3C2.2-.4 1.6-.4 1 .2.5.6.3 1.6.3 1.6S0 2.7 0 3.9v1.1C0 6.1.3 7.3.3 7.3S.5 8.3 1 8.7c.6.6 1.4.5 1.8.6C4.2 9.5 7 9.5 7 9.5s2.6 0 4.5-.3c.3-.1.9 0 1.5-.6.5-.4.7-1.4.7-1.4S14 6.1 14 5V3.9c0-1.2-.3-2.3-.3-2.3zM5.6 6.8V2.8l3.8 2-3.8 2z"/></svg>`;
-function ytUrl(v){const u=v.url?v.url:`https://www.youtube.com/watch?v=${v.id}${v.start?`&t=${v.start}s`:""}`;return u}
-function ytEmbed(v){return`https://www.youtube-nocookie.com/embed/${v.id}${v.start?`?start=${v.start}`:""}`}
+
+// ── VIDEO ─────────────────────────────────────────────────────────────────
 function renderVideos(videos,prefix){
-  if(!videos||!videos.length)return"";
-  return videos.map((v,i)=>{
-    const eid=prefix+"-v"+i;
-    const autoEmbed=v.id&&i===0;
-    const isOpen=autoEmbed||S.vidOpen[eid];
-    return`<div style="margin-bottom:10px">
-      <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
-        <span style="font-size:12px;color:var(--text2);font-weight:500">${v.label}</span>
-        ${v.id&&!autoEmbed?`<button class="btn btn-sm" onclick="S.vidOpen['${eid}']=!S.vidOpen['${eid}'];render()">${isOpen?"✕ Fermer":"▶ Intégrer"}</button>`:""}
-        <a href="${ytUrl(v)}" target="_blank" rel="noopener" class="btn btn-sm btn-yt" style="margin-left:auto">${YT_SVG} Ouvrir YouTube</a>
+  if(!videos?.length)return"";
+  return`<div class="sl" style="margin-bottom:7px;margin-top:10px">Vidéo de référence</div>`+
+  videos.map((v,i)=>{
+    const eid=prefix+"-v"+i;const isOpen=v.id&&i===0||S.vidOpen[eid];
+    return`<div style="margin-bottom:8px">
+      <div style="display:flex;gap:7px;align-items:center;margin-bottom:5px">
+        <span style="font-size:12px;color:var(--text2);flex:1">${v.label}</span>
+        ${v.id&&i>0?`<button class="btn btn-sm" onclick="S.vidOpen['${eid}']=!S.vidOpen['${eid}'];render()">${isOpen?"✕":"▶ Intégrer"}</button>`:""}
+        <a href="${v.url||`https://www.youtube.com/watch?v=${v.id}${v.start?`&t=${v.start}s`:""}`}" target="_blank" rel="noopener" class="btn btn-sm btn-yt">${YT_SVG} YouTube</a>
       </div>
-      ${v.id&&isOpen?`<div class="vid-box"><iframe src="${ytEmbed(v)}" allowfullscreen loading="lazy"></iframe></div>`:""}
+      ${v.id&&isOpen?`<div class="vid-box"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}${v.start?`?start=${v.start}`:""}" allowfullscreen loading="lazy"></iframe></div>`:""}
     </div>`;
   }).join("");
 }
-// SESSION───────────────────────────────────────────────────────────────────
-function startSession(){
-  const td=today();
-  if(S.sessionDate!==td){S.sessionCount=0;S.sessionDate=td}
-  else{S.sessionCount++}
-  save();
-  S.session={active:true,bloc:0,done:{},readingLevel:2,recorded:false,jText:"",rating:3};
+
+// ── FLASH ─────────────────────────────────────────────────────────────────
+function flashMsg(msg,color){
+  const d=document.createElement("div");d.textContent=msg;
+  Object.assign(d.style,{position:"fixed",bottom:"1.5rem",left:"50%",transform:"translateX(-50%)",background:color||"var(--green)",color:"#fff",padding:"10px 20px",borderRadius:"20px",fontSize:"14px",fontWeight:"500",zIndex:"9999",boxShadow:"0 4px 12px rgba(0,0,0,.2)"});
+  document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+
+// ── MODE PRÉ-SITUATION (5 min) ────────────────────────────────────────────
+const PRESIT_STEPS=[
+  {id:"ps1",dur:90,icon:"🥤",title:"Paille 90 secondes",desc:"Paille dans l'eau. 'ooo' ou 'mmm' continu. Bulles régulières. Larynx qui descend = état cible."},
+  {id:"ps2",dur:40,icon:"💆",title:"Massage laryngé rapide",desc:"Deux doigts de chaque côté de la pomme d'Adam. Pression circulaire douce 30s. Bâillement × 2."},
+  {id:"ps3",dur:30,icon:"🫁",title:"Respiration × 3 cycles",desc:"Inspirer 4s ventre → expirer 6s sur 'sss'. 3 cycles complets. Sentir le diaphragme travailler."},
+  {id:"ps4",dur:90,icon:"🚀",title:"5 phrases d'ouverture",desc:"Prononcer chaque phrase ci-dessous avec onset doux sur le premier mot. Pause 2s entre chaque. Regard droit devant."},
+  {id:"ps5",dur:30,icon:"🧘",title:"Silence et ancrage",desc:"30 secondes de silence. Respirer normalement. Répéter mentalement : 'Je démarre lentement, onset doux, je contrôle le démarrage.'"},
+];
+
+function startPreSit(){S.presit={active:true,step:0,done:{}};render()}
+function nextPresitStep(){if(S.presit.step<PRESIT_STEPS.length-1){S.presit.step++;render();window.scrollTo(0,0)}else{S.presit.active=false;flashMsg("Prêt. Démarrez lentement.","var(--orange)");render()}}
+function prevPresitStep(){if(S.presit.step>0){S.presit.step--;render();window.scrollTo(0,0)}}
+
+// ── MODE PAROLE LONGUE (25 min) ───────────────────────────────────────────
+const LONG_TOPICS_COUNT=5;
+function startLong(){
+  S.long={active:true,elapsed:0,done:{},jText:"",rating:3,recorded:false};
+  longTimer=setInterval(()=>{
+    S.long.elapsed++;
+    const el=document.getElementById("long-timer");
+    if(el)el.textContent=fmt(S.long.elapsed);
+    if(S.long.elapsed>=1500){clearInterval(longTimer);flashMsg("25 minutes atteintes !")}
+  },1000);
   render();
 }
-function nextBloc(){if(S.session.bloc<SESSION_BLOCS.length-1){S.session.bloc++;render();window.scrollTo(0,0)}}
+function stopLong(){clearInterval(longTimer);render()}
+function finishLong(){
+  clearInterval(longTimer);
+  const text=S.long.jText.trim()||"Séance parole longue 25 min complète.";
+  S.journal=[{id:Date.now(),date:today(),text,rating:S.long.rating,type:"long"},...S.journal];
+  save();S.long.active=false;
+  flashMsg("Séance longue enregistrée !");
+  S.tab="journal";render();
+}
+
+// ── SESSION GUIDÉE ────────────────────────────────────────────────────────
+function startSession(){S.session={active:true,bloc:0,done:{},jText:"",rating:3,recorded:false};render()}
+function nextBloc(){if(S.session.bloc<BLOCS.length-1){S.session.bloc++;render();window.scrollTo(0,0)}}
 function prevBloc(){if(S.session.bloc>0){S.session.bloc--;render();window.scrollTo(0,0)}}
-function toggleDone(k){S.session.done[k]=!S.session.done[k];renderBloc()}
-function renderBloc(){const el=document.getElementById("bloc-body");if(el)el.innerHTML=buildBlocContent()}
+function toggleDone(k){S.session.done[k]=!S.session.done[k];rebuildBlocBody()}
+function rebuildBlocBody(){const el=document.getElementById("bloc-body");if(el)el.innerHTML=buildBlocContent()}
+function finishSession(){
+  const text=S.session.jText.trim()||"Séance complète.";
+  S.journal=[{id:Date.now(),date:today(),text,rating:S.session.rating,type:"session"},...S.journal];
+  save();S.session.active=false;flashMsg("Séance enregistrée !");S.tab="journal";render();
+}
+
 function buildBlocContent(){
-  const b=SESSION_BLOCS[S.session.bloc];
-  const mods=b.moduleIds.map(id=>MODULES.find(m=>m.id===id)).filter(Boolean);
-  const words=getDailyWords();
+  const b=BLOCS[S.session.bloc];
+  const mods=b.mids.map(id=>MODULES.find(m=>m.id===id)).filter(Boolean);
+  const daily=getDailyData();
   let html="";
+
+  // Bloc note
+  html+=`<div class="warn" style="margin-bottom:12px">${b.note}</div>`;
+
   mods.forEach(mod=>{
-    html+=`<div style="background:${mod.bg};border-radius:var(--rl);padding:14px;margin-bottom:12px;border-left:4px solid ${mod.color}">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:22px">${mod.icon}</span>
-        <div><div style="font-size:15px;font-weight:600;color:${mod.color}">${mod.name}</div>
+    html+=`<div style="background:${mod.bg};border-radius:var(--rl);padding:12px;margin-bottom:12px;border-left:4px solid ${mod.color}">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:5px">
+        <span style="font-size:20px">${mod.icon}</span>
+        <div><div style="font-size:14px;font-weight:600;color:${mod.color}">${mod.name}</div>
         <div style="font-size:11px;color:${mod.color};opacity:.8">${mod.dur}</div></div>
       </div>
-      <p style="font-size:13px;line-height:1.5;opacity:.85;color:${mod.color}">${mod.desc}</p>
+      <p style="font-size:13px;color:${mod.color};opacity:.85;line-height:1.5">${mod.desc}</p>
     </div>`;
+
+    // Phrases de démarrage
+    if(mod.showStartPhrases){
+      html+=`<div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:10px">
+        <div class="sl" style="margin-bottom:7px">Phrases d'ouverture du jour</div>
+        ${daily.startPhrases.map(p=>`<div class="start-phrase">${p}</div>`).join("")}
+      </div>`;
+    }
+
+    // Mots aléatoires
     if(mod.random){
       html+=`<div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:10px">
-        <div class="sl" style="margin-bottom:8px">Mots du jour — répétitions</div>
-        <div style="margin-bottom:4px"><span class="sub2">Plosives (p,b,t) :</span><br>${words.plosives.map(w=>`<span class="word-chip">b-b-${w}</span>`).join("")}</div>
-        <div style="margin-bottom:4px"><span class="sub2">Fricatives (s,f,v) :</span><br>${words.fricat.map(w=>`<span class="word-chip">sss-${w}</span>`).join("")}</div>
-        <div style="margin-bottom:10px"><span class="sub2">Voyelles :</span><br>${words.voyelles.map(w=>`<span class="word-chip">hhh-${w}</span>`).join("")}</div>
-        <div class="sl" style="margin-bottom:7px">Phrases du jour</div>
-        ${words.phrases.map(p=>`<div class="phrase-chip">${p}</div>`).join("")}
+        <div class="sl" style="margin-bottom:7px">Mots du jour</div>
+        <div style="margin-bottom:6px"><span style="font-size:11px;color:var(--text3)">Plosives :</span><br>${daily.plosives.map(w=>`<span class="word-chip">b-b-${w}</span>`).join("")}</div>
+        <div style="margin-bottom:6px"><span style="font-size:11px;color:var(--text3)">Voyelles :</span><br>${daily.voyelles.map(w=>`<span class="word-chip">hhh-${w}</span>`).join("")}</div>
+        <div style="margin-bottom:10px"><span style="font-size:11px;color:var(--text3)">Fricatives :</span><br>${daily.fricatifs.map(w=>`<span class="word-chip">sss-${w}</span>`).join("")}</div>
+        <div class="sl" style="margin-bottom:6px">Phrases du jour</div>
+        ${daily.phrases.map(p=>`<div class="phrase-box">${p}</div>`).join("")}
       </div>`;
     }
-    if(mod.hasTopic){
+
+    // Sujet parole libre
+    if(mod.showTopic){
       html+=`<div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:10px">
         <div class="sl" style="margin-bottom:5px">Sujet du jour</div>
-        <div style="font-size:16px;font-weight:500;color:var(--orange)">${words.topic}</div>
+        <div style="font-size:15px;font-weight:500;color:var(--orange)">${daily.sujet}</div>
       </div>`;
     }
-    // Steps
+
+    // Étapes
     html+=`<div class="sl" style="margin-bottom:7px">Étapes</div>`;
     mod.steps.forEach((step,i)=>{
-      const eid=mod.id+"-"+i;const done=S.session.done[eid];
+      const done=S.session.done[step.id];
+      const eid="sess-"+step.id;
       if(step.dur===0){
-        // Enregistrement step
-        html+=buildRecordingStep(eid,done);
-        return;
+        html+=buildRecStep(eid,done,"session");return;
       }
       html+=`<div class="step${done?" done-step":""}">
-        <div class="check${done?" on":""}" onclick="toggleDone('${eid}')">${done?"✓":""}</div>
-        <div class="flx1">
+        <div class="check${done?" on":""}" onclick="toggleDone('${step.id}')">${done?"✓":""}</div>
+        <div style="flex:1">
           <div style="font-size:13px;font-weight:500;margin-bottom:3px">${i+1}. ${step.name}
-            <span style="font-size:11px;color:var(--text3);font-weight:400"> · ${step.dur>=60?Math.floor(step.dur/60)+"min":step.dur+"s"}</span>
+            <span style="font-size:11px;color:var(--text3);font-weight:400"> · ${step.dur>=60?Math.floor(step.dur/60)+"min"+((step.dur%60)>0?" "+step.dur%60+"s":""):step.dur+"s"}</span>
           </div>
-          <p style="font-size:13px;color:var(--text2);line-height:1.5">${step.desc}</p>
-          <div style="margin-top:8px"><div class="timer-ring" id="tr-${eid}">${step.dur>=60?Math.floor(step.dur/60)+"m":step.dur+"s"}</div>
-          <button id="tb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${step.dur})" style="margin-top:6px">▶ Minuteur</button></div>
+          <p style="font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:8px">${step.desc}</p>
+          <div class="timer-ring" id="tr-${eid}" style="display:inline-flex">${step.dur>=60?Math.floor(step.dur/60)+"m":step.dur+"s"}</div>
+          <button id="tb-${eid}" class="btn btn-sm" onclick="startTimer('${eid}',${step.dur})" style="margin-left:8px">▶ Minuteur</button>
         </div>
       </div>`;
     });
-    if(mod.videos&&mod.videos.length){
-      html+=`<div class="sl" style="margin-bottom:7px;margin-top:1rem">Vidéo de référence</div>`;
-      html+=renderVideos(mod.videos,"sess-"+mod.id);
-    }
-    html+=`<div style="height:12px"></div>`;
+
+    if(mod.videos?.length){html+=renderVideos(mod.videos,"sess-"+mod.id)}
+    html+=`<div style="height:10px"></div>`;
   });
-  if(S.session.bloc===SESSION_BLOCS.length-1){
-    html+=`<div class="sl" style="margin-bottom:7px;margin-top:1rem">Journal de séance</div>
+
+  // Journal dernier bloc
+  if(S.session.bloc===BLOCS.length-1){
+    html+=`<div class="sl" style="margin-bottom:7px;margin-top:1rem">Bilan de séance</div>
     <textarea rows="3" placeholder="Points positifs, technique efficace, mots difficiles…" oninput="S.session.jText=this.value" style="margin-bottom:10px">${S.session.jText}</textarea>
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem">
-      <span class="desc2">Note :</span>
-      <div style="display:flex;gap:5px">${[1,2,3,4,5].map(i=>`<button onclick="S.session.rating=${i};renderBloc()" style="width:30px;height:30px;border-radius:50%;border:2px solid ${i<=S.session.rating?"var(--green)":"var(--border)"};background:${i<=S.session.rating?"var(--green-bg)":"none"};cursor:pointer;font-size:13px">${i<=S.session.rating?"★":"☆"}</button>`).join("")}</div>
+      <span style="font-size:13px;color:var(--text2)">Note :</span>
+      <div style="display:flex;gap:5px">${[1,2,3,4,5].map(i=>`<button onclick="S.session.rating=${i};rebuildBlocBody()" style="width:30px;height:30px;border-radius:50%;border:2px solid ${i<=S.session.rating?"var(--green)":"var(--border)"};background:${i<=S.session.rating?"var(--green-bg)":"none"};cursor:pointer;font-size:13px">${i<=S.session.rating?"★":"☆"}</button>`).join("")}</div>
     </div>`;
   }
-  const total=mods.reduce((a,m)=>a+m.steps.filter(s=>s.dur>0).length,0);
-  const done=Object.values(S.session.done).filter(Boolean).length;
-  html+=`<div style="font-size:12px;color:var(--text3);margin-top:8px">${done} / ${total} étapes cochées</div>`;
+
+  const totalSteps=mods.reduce((a,m)=>a+m.steps.filter(s=>s.dur>0).length,0);
+  const doneSteps=mods.reduce((a,m)=>a+m.steps.filter(s=>s.dur>0&&S.session.done[s.id]).length,0);
+  html+=`<div style="font-size:12px;color:var(--text3);margin-top:8px">${doneSteps}/${totalSteps} étapes cochées</div>`;
   return html;
 }
-function dlLastRec(){const r=S.recordings[0];if(r)dlAudio(r.id)}
-function dlRecBlob(){
-  if(!window._rec)return;
-  const ext=window._rec.b64.includes("webm")?"webm":window._rec.b64.includes("mp4")?"m4a":"ogg";
-  const a=document.createElement("a");a.href=window._rec.b64;a.download="seance-"+today().replace(/\//g,"-")+"."+ext;a.click();
-}
-function buildRecordingStep(eid,done){
-  if(S.session.recorded){
-    return`<div class="step" style="background:var(--green-bg);border-color:var(--green)"><div style="display:flex;align-items:center;gap:10px;flex:1">
-      <div style="color:var(--green);font-size:16px">✓</div>
-      <div class="flx1"><div style="font-size:13px;color:var(--green);margin-bottom:6px">Enregistrement sauvegardé</div>
-      <button class="btn btn-sm btn-blue" onclick="dlLastRec()">Télécharger sur l'appareil</button></div>
-    </div></div>`;
+
+function buildRecStep(eid,done,ctx){
+  if(S.session.recorded||S.long.recorded){
+    return`<div class="step" style="background:var(--green-bg);border-color:var(--green)"><span style="color:var(--green);font-size:16px">✓</span><div style="font-size:13px;color:var(--green)">Enregistrement sauvegardé</div></div>`;
   }
   if(!isRec&&!window._rec){
-    return`<div class="step"><div class="check${done?" on":""}" onclick="toggleDone('${eid}')">${done?"✓":""}</div><div class="flx1"><div style="font-size:13px;font-weight:500;margin-bottom:6px">Enregistrement de séance</div><button class="btn btn-red" onclick="startRec(true)"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span> Démarrer</button></div></div>`;
+    return`<div class="step"><div class="check${done?" on":""}" onclick="toggleDone('${eid}')">${done?"✓":""}</div><div style="flex:1"><div style="font-size:13px;font-weight:500;margin-bottom:6px">Enregistrement de la parole libre</div><button class="btn btn-red" onclick="startRec('${ctx}')"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span> Démarrer</button></div></div>`;
   }
   if(isRec){
-    return`<div class="step"><div class="flx1"><div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div class="wave"><span></span><span></span><span></span><span></span><span></span></div><span id="rec-time" style="font-size:20px;font-weight:600;color:var(--red)">0:00</span></div><button class="btn" onclick="stopRec()">Arrêter</button></div></div>`;
+    return`<div class="step"><div style="flex:1"><div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div class="wave"><span></span><span></span><span></span><span></span><span></span></div><span id="rec-time" style="font-size:20px;font-weight:600;color:var(--red)">0:00</span></div><button class="btn" onclick="stopRec()">Arrêter</button></div></div>`;
   }
-  if(window._rec&&window._rec.fromSession){
-    return`<div class="step"><div class="flx1">
+  if(window._rec){
+    return`<div class="step"><div style="flex:1">
       <div class="sl" style="margin-bottom:4px">Réécoute — ${fmt(window._rec.dur)}</div>
       <audio controls src="${window._rec.b64}"></audio>
-      <input id="rec-words" placeholder="Mots difficiles (virgules)" style="margin-bottom:8px">
+      <input id="rec-words" placeholder="Mots difficiles (virgules)" style="margin-bottom:7px">
       <textarea id="rec-obs" rows="2" placeholder="Technique la plus efficace ?"></textarea>
-      <div style="display:flex;gap:7px;margin-top:8px;flex-wrap:wrap">
-        <button class="btn btn-green" onclick="saveRec(true)">Sauvegarder</button>
-        <button class="btn btn-blue" onclick="dlRecBlob()">Télécharger</button>
+      <div style="display:flex;gap:7px;margin-top:8px">
+        <button class="btn btn-green" onclick="saveRec('parole')">Sauvegarder</button>
         <button class="btn" onclick="window._rec=null;render()">Refaire</button>
       </div>
     </div></div>`;
   }
   return"";
 }
-function finishSession(){
-  const text=S.session.jText.trim()||"Séance complète.";
-  S.journal=[{id:Date.now(),date:today(),text,rating:S.session.rating},...S.journal];
-  save();S.session.active=false;
-  flashMsg("Séance enregistrée !");
-  S.tab="journal";render();
+
+// ── RENDERERS ─────────────────────────────────────────────────────────────
+const TABS=[["home","Accueil"],["session","▶ Séance"],["modules","Modules"],["recording","Enregistrement"],["journal","Journal"],["export","Partager"]];
+
+function renderHome(){
+  const d=getDailyData();
+  const lastJ=S.journal[0];
+  return`
+  <!-- Profil acoustique -->
+  <div class="card" style="margin-bottom:12px"><div style="padding:14px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <span style="font-size:24px">📊</span>
+      <div><div style="font-size:14px;font-weight:600">Profil acoustique — Issiaka</div>
+      <div style="font-size:12px;color:var(--text3)">Issu de l'analyse de 3 enregistrements réels</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
+      <div style="background:var(--green-bg);border-radius:var(--r);padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:600;color:var(--green)">5.7</div>
+        <div style="font-size:10px;color:var(--green);margin-top:2px">blocages/min<br>meilleur entretien</div>
+      </div>
+      <div style="background:var(--red-bg);border-radius:var(--r);padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:600;color:var(--red)">13.2</div>
+        <div style="font-size:10px;color:var(--red);margin-top:2px">blocages/min<br>2e entretien</div>
+      </div>
+      <div style="background:var(--orange-bg);border-radius:var(--r);padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:600;color:var(--orange)">10s</div>
+        <div style="font-size:10px;color:var(--orange);margin-top:2px">blocage max<br>démarrage</div>
+      </div>
+    </div>
+    <div class="sl" style="margin-bottom:7px">Vulnérabilités identifiées</div>
+    ${PROFIL.vulnerabilites.map(v=>`<div class="alert" style="margin-bottom:5px;padding:7px 10px">${v}</div>`).join("")}
+    <div class="sl" style="margin-bottom:7px;margin-top:10px">Points forts</div>
+    ${PROFIL.points_forts.map(v=>`<div class="note" style="margin-bottom:5px;padding:7px 10px">${v}</div>`).join("")}
+  </div></div>
+
+  <!-- 3 modes -->
+  <div class="sl" style="margin-bottom:9px">Modes d'entraînement</div>
+
+  <div class="mode-card">
+    <div class="mode-icon">🎯</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:4px">Séance quotidienne</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5">Programme complet 4 blocs · 20–23 min · 2 à 3 fois par jour<br>Couvre les 8 modules dans l'ordre adapté à votre profil.</div>
+    <button class="btn-start" onclick="S.tab='session';render()">▶ Démarrer la séance</button>
+  </div>
+
+  <div class="mode-card">
+    <div class="mode-icon">⚡</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:4px">Pré-situation — 5 min</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5">Avant un entretien, un appel, une réunion, une soutenance.<br>Paille + massage + 5 phrases d'ouverture en onset doux.</div>
+    <button class="btn-presit" onclick="startPreSit()">⚡ Préparer une situation</button>
+  </div>
+
+  <div class="mode-card">
+    <div class="mode-icon">💪</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:4px">Parole longue — 25 min</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5">Entraînement à la fatigue. Vos données montrent une dégradation après 25 min.<br>Parler en continu pour automatiser les techniques sous fatigue.</div>
+    <button class="btn-long" onclick="startLong()">💪 Démarrer 25 min</button>
+  </div>
+
+  ${lastJ?`<div class="sl" style="margin-bottom:8px;margin-top:1rem">Dernière séance</div>
+  <div class="card"><div style="padding:13px 14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+      <span style="font-size:12px;color:var(--text3)">${lastJ.date} · ${lastJ.type==="long"?"Parole longue":"Séance"}</span>
+      <div style="display:flex;gap:2px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=lastJ.rating?"var(--green)":"var(--border)"}"></div>`).join("")}</div>
+    </div>
+    <div style="font-size:13px;color:var(--text2)">${lastJ.text}</div>
+  </div></div>`:""}`;
 }
-// FLASH─────────────────────────────────────────────────────────────────────
-function flashMsg(msg){
-  const d=document.createElement("div");d.textContent=msg;
-  Object.assign(d.style,{position:"fixed",bottom:"1.5rem",left:"50%",transform:"translateX(-50%)",background:"var(--green)",color:"#fff",padding:"10px 20px",borderRadius:"20px",fontSize:"14px",fontWeight:"500",zIndex:"9999",boxShadow:"0 4px 12px rgba(0,0,0,.2)"});
-  document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
-}
-// EXPORTS──────────────────────────────────────────────────────────────────
-function getStats(){
-  const wc={};
-  S.recordings.forEach(r=>{if(r.words)r.words.split(",").map(w=>w.trim().toLowerCase()).filter(Boolean).forEach(w=>{wc[w]=(wc[w]||0)+1})});
-  const sortedWords=Object.entries(wc).sort((a,b)=>b[1]-a[1]);
-  const modCount={};
-  S.recordings.forEach(r=>{modCount[r.module]=(modCount[r.module]||0)+1});
-  let streak=0;
-  const dates=[...new Set(S.journal.map(j=>j.date))].sort((a,b)=>{
-    const[da,ma,ya]=a.split("/").map(Number);const[db,mb,yb]=b.split("/").map(Number);
-    return new Date(yb,mb-1,db)-new Date(ya,ma-1,da);
-  });
-  if(dates.length){
-    let d=new Date();d.setHours(0,0,0,0);
-    for(const ds of dates){
-      const[dd,mm,yy]=ds.split("/").map(Number);
-      const cd=new Date(yy,mm-1,dd);cd.setHours(0,0,0,0);
-      const diff=Math.round((d-cd)/(86400000));
-      if(diff<=1){streak++;d=cd}else break;
-    }
+
+function renderSession(){
+  // Pré-situation active
+  if(S.presit.active){
+    const step=PRESIT_STEPS[S.presit.step];
+    const daily=getDailyData();
+    const isLast=S.presit.step===PRESIT_STEPS.length-1;
+    return`
+    <div style="background:var(--orange-bg);border:2px solid var(--orange);border-radius:var(--rl);padding:14px;margin-bottom:1rem;text-align:center">
+      <div style="font-size:13px;font-weight:600;color:var(--orange)">⚡ MODE PRÉ-SITUATION · Étape ${S.presit.step+1}/${PRESIT_STEPS.length}</div>
+    </div>
+    <div class="prog-bar" style="margin-bottom:1rem">${PRESIT_STEPS.map((_,i)=>`<div class="prog-dot${i<S.presit.step?" done":i===S.presit.step?" cur":""}"></div>`).join("")}</div>
+    <div style="text-align:center;font-size:32px;margin-bottom:10px">${step.icon}</div>
+    <div style="font-size:17px;font-weight:600;text-align:center;margin-bottom:8px">${step.title}</div>
+    <div style="font-size:13px;color:var(--text2);text-align:center;line-height:1.6;margin-bottom:1rem">${step.desc}</div>
+    ${S.presit.step===3?`<div style="margin-bottom:12px">${daily.startPhrases.map(p=>`<div class="start-phrase">${p}</div>`).join("")}</div>`:""}
+    <div style="text-align:center;margin-bottom:1rem">
+      <div class="timer-ring" id="tr-ps${S.presit.step}" style="display:inline-flex;width:64px;height:64px;font-size:16px">${step.dur}s</div>
+      <button id="tb-ps${S.presit.step}" class="btn btn-sm btn-orange" onclick="startTimer('ps${S.presit.step}',${step.dur})" style="margin-left:10px">▶ Minuteur</button>
+    </div>
+    <div style="display:flex;gap:8px">
+      ${S.presit.step>0?`<button class="btn" onclick="prevPresitStep()" style="flex:1">←</button>`:""}
+      ${!isLast?`<button class="btn btn-orange" onclick="nextPresitStep()" style="flex:2;justify-content:center">Suivant →</button>`
+      :`<button class="btn-presit" onclick="nextPresitStep()" style="flex:2">Prêt. Bonne chance ✓</button>`}
+    </div>
+    <button onclick="S.presit.active=false;render()" style="width:100%;margin-top:9px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:6px">Annuler</button>`;
   }
-  const now=new Date();
-  const avgFor=(days)=>{
-    const cutoff=new Date(now-days*86400000);
-    const entries=S.journal.filter(j=>{const[d,m,y]=j.date.split("/").map(Number);return new Date(y,m-1,d)>=cutoff});
-    if(!entries.length)return null;
-    return(entries.reduce((a,e)=>a+e.rating,0)/entries.length).toFixed(1);
-  };
-  return{sortedWords,modCount,streak,totalSessions:S.journal.length,avg7:avgFor(7),avg14:avgFor(14),avg30:avgFor(30)};
+
+  // Parole longue active
+  if(S.long.active){
+    const daily=getDailyData();
+    const topics=seededPick(SUJETS_PAROLE,LONG_TOPICS_COUNT,dailySeed()+10);
+    return`
+    <div style="background:var(--purple-bg);border:2px solid var(--purple);border-radius:var(--rl);padding:14px;margin-bottom:1rem;text-align:center">
+      <div style="font-size:13px;font-weight:600;color:var(--purple)">💪 PAROLE LONGUE — ENTRAÎNEMENT FATIGUE</div>
+      <div id="long-timer" style="font-size:36px;font-weight:600;color:var(--purple);margin:8px 0">${fmt(S.long.elapsed)}</div>
+      <div style="font-size:12px;color:var(--purple);opacity:.8">Objectif : 25 minutes continues</div>
+      <div class="profile-bar"><div class="profile-fill" style="width:${Math.min(100,S.long.elapsed/1500*100)}%;background:var(--purple)"></div></div>
+    </div>
+    <div class="warn" style="margin-bottom:12px">Règles pendant les 25 minutes : débit lent constant · onset doux à chaque démarrage de phrase · corrections pull-out sur chaque blocage · ne jamais s'arrêter plus de 3 secondes</div>
+    <div class="sl" style="margin-bottom:8px">Sujets à enchaîner (changez toutes les 5 min)</div>
+    ${topics.map((t,i)=>`<div style="background:var(--bg2);border-radius:var(--r);padding:10px 12px;margin-bottom:7px;display:flex;align-items:center;gap:10px">
+      <div style="width:28px;height:28px;border-radius:50%;background:var(--purple-bg);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0">${i+1}</div>
+      <span style="font-size:14px">${t}</span>
+    </div>`).join("")}
+    ${!S.long.recorded?buildRecStep("long-rec",false,"long"):""}
+    ${S.long.elapsed>=1500||S.long.elapsed>0?`
+    <div style="margin-top:1rem"><div class="sl" style="margin-bottom:6px">Bilan</div>
+    <textarea rows="3" placeholder="Comment s'est passée la tenue dans la durée ?" oninput="S.long.jText=this.value" style="margin-bottom:10px">${S.long.jText}</textarea>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
+      <span style="font-size:13px;color:var(--text2)">Note :</span>
+      <div style="display:flex;gap:5px">${[1,2,3,4,5].map(i=>`<button onclick="S.long.rating=${i};render()" style="width:28px;height:28px;border-radius:50%;border:2px solid ${i<=S.long.rating?"var(--purple)":"var(--border)"};background:${i<=S.long.rating?"var(--purple-bg)":"none"};cursor:pointer;font-size:12px">${i<=S.long.rating?"★":"☆"}</button>`).join("")}</div>
+    </div>
+    <button class="btn-long" onclick="finishLong()">Terminer et enregistrer ✓</button></div>`:""}
+    <button onclick="if(confirm('Abandonner ?')){clearInterval(longTimer);S.long.active=false;render()}" style="width:100%;margin-top:9px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:6px">Abandonner</button>`;
+  }
+
+  // Séance guidée active
+  if(S.session.active){
+    const b=BLOCS[S.session.bloc];
+    const isLast=S.session.bloc===BLOCS.length-1;
+    return`
+    <div class="prog-bar">${BLOCS.map((_,i)=>`<div class="prog-dot${i<S.session.bloc?" done":i===S.session.bloc?" cur":""}"></div>`).join("")}</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem">
+      <div><div style="font-size:15px;font-weight:600">${b.icon} ${b.title}</div>
+      <div style="font-size:12px;color:var(--text3)">Bloc ${S.session.bloc+1}/${BLOCS.length} · ${b.dur}</div></div>
+      <div style="font-size:12px;color:var(--text3)">${today()}</div>
+    </div>
+    <div id="bloc-body">${buildBlocContent()}</div>
+    <div style="display:flex;gap:8px;margin-top:1rem">
+      ${S.session.bloc>0?`<button class="btn" onclick="prevBloc()" style="flex:1">← Précédent</button>`:""}
+      ${!isLast?`<button class="btn btn-green" onclick="nextBloc()" style="flex:2;justify-content:center">Bloc suivant →</button>`
+      :`<button class="btn-start" onclick="finishSession()">Terminer la séance ✓</button>`}
+    </div>
+    <button onclick="if(confirm('Abandonner la séance ?')){S.session.active=false;render()}" style="width:100%;margin-top:8px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:6px">Abandonner</button>`;
+  }
+
+  // Écran d'accueil séance
+  return`
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:36px;margin-bottom:8px">🎯</div>
+    <div style="font-size:18px;font-weight:600;margin-bottom:6px">Séance quotidienne</div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:.75rem">4 blocs · 20–23 minutes<br>Adapté à votre profil acoustique</div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:1.5rem">2 à 3 séances par jour</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem">
+    ${BLOCS.map(b=>`<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:10px;text-align:center">
+      <div style="font-size:18px;margin-bottom:4px">${b.icon}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--text2);line-height:1.3">${b.title}</div>
+      <div style="font-size:10px;color:var(--text3);margin-top:2px">${b.dur}</div>
+    </div>`).join("")}
+  </div>
+  <button class="btn-start" onclick="startSession()">▶ Commencer la séance</button>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+    <button class="btn-presit" onclick="startPreSit()">⚡ Pré-situation 5 min</button>
+    <button class="btn-long" onclick="startLong()">💪 Parole longue 25 min</button>
+  </div>`;
 }
+
+function renderModules(){
+  const daily=getDailyData();
+  let html=`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem">8 modules adaptés à votre profil. Le module Démarrage est prioritaire — c'est votre vulnérabilité n°1.</p>`;
+  MODULES.forEach(mod=>{
+    const isOpen=S.expanded===mod.id;
+    html+=`<div class="card">
+      <button class="ch" onclick="S.expanded=S.expanded==='${mod.id}'?null:'${mod.id}';render()">
+        <div style="width:42px;height:42px;border-radius:var(--r);background:${mod.bg};display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${mod.icon}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:500">${mod.num}. ${mod.name}${mod.id==="demarrage"?' <span style="font-size:10px;background:var(--red-bg);color:var(--red);padding:2px 7px;border-radius:10px;font-weight:600">PRIORITÉ 1</span>':""}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:1px">${mod.dur}</div>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="transform:${isOpen?"rotate(180deg)":"none"};transition:transform .2s;flex-shrink:0"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      ${isOpen?`<div class="cb">
+        <div style="background:${mod.bg};border-radius:var(--r);padding:12px;margin-bottom:12px;border-left:3px solid ${mod.color}">
+          <p style="font-size:13px;color:var(--text);line-height:1.6">${mod.desc}</p>
+        </div>
+        ${mod.id==="demarrage"?`<div class="alert">Données enregistrements : blocages de 5 à 10s dans les 60 premières secondes des deux entretiens. Ce module doit être pratiqué chaque jour sans exception.</div>`:""}
+        <div class="sl" style="margin-bottom:8px">Exercices</div>
+        ${mod.steps.filter(s=>s.dur>0).map((s,i)=>`<div style="display:flex;gap:9px;margin-bottom:9px">
+          <div style="width:22px;height:22px;border-radius:50%;background:${mod.bg};display:flex;align-items:center;justify-content:center;font-size:11px;color:${mod.color};flex-shrink:0;margin-top:1px;font-weight:600">${i+1}</div>
+          <div><div style="font-size:13px;font-weight:500;margin-bottom:2px">${s.name} <span style="font-weight:400;color:var(--text3)">${s.dur>=60?Math.floor(s.dur/60)+"min":s.dur+"s"}</span></div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.5">${s.desc}</div></div>
+        </div>`).join("")}
+        ${mod.showStartPhrases?`<div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin:10px 0"><div class="sl" style="margin-bottom:7px">Phrases d'ouverture du jour</div>${daily.startPhrases.map(p=>`<div class="start-phrase">${p}</div>`).join("")}</div>`:""}
+        ${mod.random?`<div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin:10px 0"><div class="sl" style="margin-bottom:7px">Mots du jour</div>${[...daily.plosives,...daily.voyelles,...daily.fricatifs].map(w=>`<span class="word-chip" style="font-size:12px">${w}</span>`).join("")}</div>`:""}
+        ${mod.showTopic?`<div style="background:var(--bg2);border-radius:var(--r);padding:10px;margin:8px 0"><div class="sl" style="margin-bottom:5px">Sujet du jour</div><div style="font-size:14px;font-weight:500;color:var(--orange)">${daily.sujet}</div></div>`:""}
+        ${renderVideos(mod.videos||[],"mod-"+mod.id)}
+      </div>`:""}
+    </div>`;
+  });
+  return html;
+}
+
+function renderRecording(){
+  const used=storUsed(),max=5*1024*1024,pct=Math.min(100,Math.round((used/max)*100));
+  const barCol=pct>80?"var(--red)":pct>55?"var(--orange)":"var(--green)";
+  return`
+  <div class="card" style="margin-bottom:12px"><div style="padding:14px">
+    <div class="sl" style="margin-bottom:9px">Enregistrement libre</div>
+    <div style="background:var(--bg2);border-radius:var(--r);padding:9px 11px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:4px"><span>Stockage</span><span>${fmtSz(used)} / ~5 Mo · ${S.recordings.length}/15</span></div>
+      <div class="sb-bar"><div class="sb-fill" style="width:${pct}%;background:${barCol}"></div></div>
+    </div>
+    ${!isRec&&!window._rec?`<button class="btn btn-red" onclick="startRec('libre')"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span> Démarrer</button>`:""}
+    ${isRec?`<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div class="wave"><span></span><span></span><span></span><span></span><span></span></div><span id="rec-time" style="font-size:22px;font-weight:600;color:var(--red)">0:00</span></div><button class="btn" onclick="stopRec()">Arrêter</button>`:""}
+    ${!isRec&&window._rec&&window._rec.ctx==="libre"?`
+      <div class="sl" style="margin-bottom:4px">Réécoute — ${fmt(window._rec.dur)}</div>
+      <audio controls src="${window._rec.b64}"></audio>
+      <select id="rec-mod" style="margin-bottom:8px">${MODULES.map(m=>`<option value="${m.id}">${m.num}. ${m.name}</option>`).join("")}</select>
+      <input id="rec-words" placeholder="Mots difficiles (virgules)" style="margin-bottom:8px">
+      <textarea id="rec-obs" rows="2" placeholder="Observations"></textarea>
+      <div style="display:flex;gap:7px;margin-top:9px">
+        <button class="btn btn-green" onclick="saveRec(document.getElementById('rec-mod')?.value)">Sauvegarder</button>
+        <button class="btn" onclick="window._rec=null;render()">Annuler</button>
+      </div>`:""}
+  </div></div>
+  ${!S.recordings.length?`<div class="empty">Aucun enregistrement.</div>`:
+  S.recordings.map(e=>{
+    const mod=MODULES.find(m=>m.id===e.module);
+    const words=e.words?e.words.split(",").map(w=>w.trim()).filter(Boolean):[];
+    return`<div class="card"><div style="padding:13px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px">
+        <div><div style="font-size:14px;font-weight:500">${mod?mod.name:"Séance"}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px">${e.date} ${e.time} · ${fmt(e.dur||0)}</div></div>
+        <button class="del-btn" onclick="delRec(${e.id})">Supprimer</button>
+      </div>
+      ${words.length?`<div style="margin-bottom:7px">${words.map(w=>`<span style="display:inline-block;background:var(--red-bg);color:var(--red);font-size:12px;padding:2px 9px;border-radius:12px;margin:2px 3px 0 0">${w}</span>`).join("")}</div>`:""}
+      ${e.obs?`<p style="font-size:13px;color:var(--text2);margin-bottom:8px">${e.obs}</p>`:""}
+      <audio controls src="${e.b64}"></audio>
+      <button class="btn btn-sm btn-blue" onclick="dlAudio(${e.id})" style="margin-top:6px">Télécharger</button>
+    </div></div>`;
+  }).join("")}`;
+}
+
+function renderJournal(){
+  return`
+  <div class="card" style="margin-bottom:12px"><div style="padding:14px">
+    <div class="sl" style="margin-bottom:9px">Entrée manuelle</div>
+    <textarea id="j-text" rows="4" placeholder="Observations, points positifs, difficultés…"></textarea>
+    <div style="display:flex;align-items:center;gap:10px;margin:10px 0">
+      <span style="font-size:13px;color:var(--text2)">Note :</span>
+      <select id="j-rating" style="width:auto;padding:8px 10px">${[1,2,3,4,5].map(i=>`<option value="${i}"${i===3?" selected":""}>${i}/5</option>`).join("")}</select>
+    </div>
+    <button class="btn btn-green" onclick="addJournal()">Enregistrer</button>
+  </div></div>
+  ${!S.journal.length?`<div class="empty">Aucune entrée. Les séances remplissent le journal automatiquement.</div>`:
+  S.journal.map(e=>`<div class="card"><div style="padding:13px 14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+      <span style="font-size:12px;color:var(--text3)">${e.date} · ${e.type==="long"?"Parole longue":e.type==="session"?"Séance":"Manuel"}</span>
+      <div style="display:flex;gap:2px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=e.rating?"var(--green)":"var(--border)"}"></div>`).join("")}</div>
+    </div>
+    <div style="font-size:14px;line-height:1.6">${e.text}</div>
+  </div></div>`).join("")}`;
+}
+
+function addJournal(){
+  const t=document.getElementById("j-text")?.value.trim();
+  if(!t)return;
+  const rt=parseInt(document.getElementById("j-rating")?.value||3);
+  S.journal=[{id:Date.now(),date:today(),text:t,rating:rt,type:"manuel"},...S.journal];
+  save();render();
+}
+
 function buildBilan(){
   const now=new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
-  const st=getStats();
-  let t=`=== BILAN AUTO-THÉRAPIE BÉGAIEMENT — ISSIAKA ===\n${now}\n`;
-  t+=`Pattern : blocage laryngé (fermeture cordes vocales)\n`;
-  t+=`Programme : Malcolm Fraser — objectif septembre 2025\n\n`;
-  t+=`--- STATISTIQUES ---\n`;
-  t+=`Total séances : ${st.totalSessions}\n`;
-  t+=`Streak actuel : ${st.streak} jour(s)\n`;
-  if(st.avg7)t+=`Moyenne 7j : ${st.avg7}/5`;
-  if(st.avg14)t+=` · 14j : ${st.avg14}/5`;
-  if(st.avg30)t+=` · 30j : ${st.avg30}/5`;
-  if(st.avg7)t+=`\n`;
-  t+=`\n--- PROGRESSION DES NOTES ---\n`;
-  S.journal.slice(0,20).forEach(e=>{t+=`[${e.date}] ${"★".repeat(e.rating)}${"☆".repeat(5-e.rating)} ${e.text.substring(0,80)}\n`});
-  t+=`\n--- MOTS DIFFICILES RÉCURRENTS ---\n`;
-  if(!st.sortedWords.length)t+="Aucun mot enregistré.\n";
-  else st.sortedWords.forEach(([w,c])=>{t+=`• ${w} — ${c} fois${c>=3?" ⚠️ persistant":""}\n`});
-  t+=`\n--- MODULES TRAVAILLÉS ---\n`;
-  const modNames={massage:"Massage",resp:"Respiration",paille:"Paille",artic:"Articulation",bvol:"Bégaiement vol.",onset:"Onset",debloc:"Déblocage",parole:"Parole libre"};
-  Object.entries(st.modCount).sort((a,b)=>b[1]-a[1]).forEach(([m,c])=>{t+=`• ${modNames[m]||m} : ${c} enregistrement(s)\n`});
-  const allMods=Object.keys(modNames);
-  const missing=allMods.filter(m=>!st.modCount[m]);
-  if(missing.length)t+=`⚠️ Modules sans enregistrement : ${missing.map(m=>modNames[m]).join(", ")}\n`;
-  t+=`\n--- OBSERVATIONS RÉCENTES ---\n`;
-  S.recordings.slice(0,8).forEach(e=>{t+=`[${e.date} ${e.time}] ${modNames[e.module]||e.module} · ${fmt(e.dur||0)}\n`;if(e.obs)t+=`  ${e.obs}\n`;if(e.words)t+=`  Mots difficiles: ${e.words}\n`});
-  t+=`\n--- DEMANDE D'ANALYSE ---\n`;
-  t+=`Claude, analyse ce bilan et propose :\n`;
-  t+=`1. Une évaluation de ma progression globale\n`;
-  t+=`2. Les points forts et les axes d'amélioration\n`;
-  t+=`3. Des adaptations d'exercices ciblées sur mes mots/sons difficiles récurrents\n`;
-  t+=`4. Un ajustement de la durée ou de l'intensité des modules si nécessaire\n`;
-  t+=`5. Des conseils pour les situations réelles (téléphone, présentations, conversations)\n`;
-  t+=`\n=== FIN DU BILAN ===`;
+  let t=`=== BILAN AUTO-THÉRAPIE BÉGAIEMENT ===\n${now}\nProfil : Blocage laryngé · Vulnérabilité démarrage\n\n`;
+  t+=`--- JOURNAL (${S.journal.length} séances) ---\n`;
+  S.journal.slice(0,10).forEach(e=>{t+=`[${e.date}] ${e.type||""} ${"★".repeat(e.rating)}${"☆".repeat(5-e.rating)}\n${e.text}\n\n`});
+  t+=`--- MOTS DIFFICILES IDENTIFIÉS ---\n`;
+  const wc={};S.recordings.forEach(r=>{if(r.words)r.words.split(",").map(w=>w.trim().toLowerCase()).filter(Boolean).forEach(w=>{wc[w]=(wc[w]||0)+1})});
+  const sorted=Object.entries(wc).sort((a,b)=>b[1]-a[1]);
+  if(!sorted.length)t+="Aucun enregistré.\n";
+  else sorted.forEach(([w,c])=>{t+=`• ${w} — ${c} fois\n`});
+  t+=`\n--- ENREGISTREMENTS (${S.recordings.length}) ---\n`;
+  S.recordings.slice(0,6).forEach(e=>{t+=`[${e.date}] ${fmt(e.dur||0)} — ${e.obs||""}\n`});
+  t+=`\n=== FIN — Coller dans Claude.ai pour analyse ===`;
   return t;
 }
 async function shareBilan(){
@@ -588,259 +815,44 @@ function copyBilan(){
   navigator.clipboard.writeText(buildBilan()).then(()=>flashMsg("Copié !")).catch(()=>{const t=document.getElementById("bilan-ta");if(t){t.select();document.execCommand("copy");flashMsg("Copié !")}});
 }
 function dlBackup(){
-  const data=JSON.stringify({journal:S.journal,recordings:S.recordings,exportedAt:new Date().toISOString()},null,2);
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));a.download="autotherapie-"+today().replace(/\//g,"-")+".json";a.click();
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({journal:S.journal,recordings:S.recordings,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"}));a.download="autotherapie-"+today().replace(/\//g,"-")+".json";a.click();
 }
 function importBackup(input){
   const f=input.files[0];if(!f)return;
-  const r=new FileReader();r.onload=e=>{try{
-    const d=JSON.parse(e.target.result);
-    if(confirm("Importer ? Données actuelles remplacées.")){
-      if(d.journal)S.journal=d.journal;
-      if(d.recordings)S.recordings=d.recordings;
-      save();render();flashMsg("Importé !");
-    }
-  }catch(err){alert("Fichier invalide.")}};r.readAsText(f);
+  const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(confirm("Importer ? Données actuelles remplacées.")){if(d.journal)S.journal=d.journal;if(d.recordings)S.recordings=d.recordings;save();render();flashMsg("Importé !")}}catch{alert("Fichier invalide.")}};r.readAsText(f);
 }
-// RENDERERS─────────────────────────────────────────────────────────────────
-function renderSession(){
-  if(!S.session.active){
-    const w=getDailyWords();
-    return`
-    <div style="text-align:center;padding:1.5rem 0 1rem">
-      <div style="font-size:42px;margin-bottom:10px">🎯</div>
-      <div style="font-size:20px;font-weight:600;margin-bottom:6px">Programme — 6 blocs</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:.75rem">
-        Massage → Respiration & Paille → Articulation<br>Bégaiement volontaire → Onset & Déblocage → Parole libre
-      </div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:1.5rem">18 à 22 minutes · 2 à 3 séances par jour</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:1.25rem">
-      ${SESSION_BLOCS.map(b=>`<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:10px 8px;text-align:center">
-        <div style="font-size:20px;margin-bottom:4px">${b.icon}</div>
-        <div style="font-size:10px;font-weight:600;color:var(--text2);line-height:1.3">${b.title}</div>
-        <div style="font-size:10px;color:var(--text3);margin-top:2px">${b.dur}</div>
-      </div>`).join("")}
-    </div>
-    <button class="btn-start" onclick="startSession()">▶ Commencer la séance</button>
-    ${S.journal.length>0?`<div style="margin-top:1.5rem"><div class="sl" style="margin-bottom:8px">Dernière séance</div>
-    <div class="card"><div style="padding:13px 14px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-        <span style="font-size:13px;font-weight:500">${S.journal[0].date}</span>
-        <div style="display:flex;gap:2px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=S.journal[0].rating?"var(--green)":"var(--border)"}"></div>`).join("")}</div>
-      </div>
-      <div class="desc2">${S.journal[0].text}</div>
-    </div></div></div>`:""}`;
-  }
-  const b=SESSION_BLOCS[S.session.bloc];
-  const isLast=S.session.bloc===SESSION_BLOCS.length-1;
-  return`
-  <div class="prog-bar">${SESSION_BLOCS.map((_,i)=>`<div class="prog-dot${i<S.session.bloc?" done":i===S.session.bloc?" cur":""}"></div>`).join("")}</div>
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem">
-    <div><div style="font-size:15px;font-weight:600">${b.icon} ${b.title}</div>
-    <div style="font-size:12px;color:var(--text3)">Bloc ${S.session.bloc+1}/${SESSION_BLOCS.length} · ${b.dur}</div></div>
-    <div style="font-size:12px;color:var(--text3)">${today()}</div>
-  </div>
-  <div id="bloc-body">${buildBlocContent()}</div>
-  <div style="display:flex;gap:8px;margin-top:1rem">
-    ${S.session.bloc>0?`<button class="btn" onclick="prevBloc()" class="flx1">← Précédent</button>`:""}
-    ${!isLast?`<button class="btn btn-green" onclick="nextBloc()" style="flex:2">Bloc suivant →</button>`
-    :`<button class="btn-start" onclick="finishSession()" style="flex:2;background:var(--green)">Terminer ✓</button>`}
-  </div>
-  <button onclick="if(confirm('Abandonner la séance ?')){S.session.active=false;render()}" style="width:100%;margin-top:8px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:6px">Abandonner</button>`;
-}
-function renderModules(){
-  let html=`<p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem">8 modules fondamentaux. Chaque module est intégré dans la séance guidée. Explorez-les ici pour comprendre le "pourquoi" de chaque exercice.</p>`;
-  MODULES.forEach(mod=>{
-    const isOpen=S.expanded===mod.id;
-    const words=getDailyWords();
-    html+=`<div class="card">
-      <button class="ch" onclick="S.expanded=S.expanded==='${mod.id}'?null:'${mod.id}';render()">
-        <div style="width:44px;height:44px;border-radius:var(--r);background:${mod.bg};display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">${mod.icon}</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:14px;font-weight:500">${mod.num}. ${mod.name}</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:1px">${mod.dur}</div>
-        </div>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="transform:${isOpen?"rotate(180deg)":"rotate(0)"};transition:transform .2s;flex-shrink:0"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap=round stroke-linejoin=round/></svg>
-      </button>
-      ${isOpen?`<div class="cb">
-        <div class="mod-head" style="background:${mod.bg}">
-          <div style="width:70px;height:70px;flex-shrink:0;display:flex;align-items:center;justify-content:center">${mod.illus}</div>
-          <div class="flx1"><p style="font-size:13px;line-height:1.6;color:var(--text)">${mod.desc}</p></div>
-        </div>
-        <div class="sl" style="margin-bottom:8px">Exercices</div>
-        ${mod.steps.map((s,i)=>`<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:9px">
-          <div style="width:22px;height:22px;border-radius:50%;background:${mod.bg};display:flex;align-items:center;justify-content:center;font-size:11px;color:${mod.color};flex-shrink:0;margin-top:2px;font-weight:600">${i+1}</div>
-          <div class="flx1"><div style="font-size:13px;font-weight:500;margin-bottom:2px">${s.name} <span style="font-weight:400;color:var(--text3)">${s.dur>0?(s.dur>=60?Math.floor(s.dur/60)+"min":s.dur+"s"):""}</span></div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.5">${s.desc}</div></div>
-        </div>`).join("")}
-        ${mod.random?`<div style="background:var(--orange-bg);border-radius:var(--r);padding:12px;margin:10px 0">
-          <div class="sl" style="margin-bottom:7px;color:var(--orange)">Mots du jour (changent chaque jour)</div>
-          <div>${[...words.plosives,...words.fricat,...words.voyelles].map(w=>`<span class="word-chip" style="font-size:12px;padding:3px 10px">${w}</span>`).join("")}</div>
-          <div style="margin-top:9px"><div class="sl" style="margin-bottom:6px;color:var(--orange)">Phrases du jour</div>${words.phrases.map(p=>`<div class="phrase-chip">${p}</div>`).join("")}</div>
-        </div>`:""}
-        ${mod.hasTopic?`<div style="background:var(--bg2);border-radius:var(--r);padding:10px;margin:8px 0"><div class="sl" style="margin-bottom:5px">Sujet du jour</div><div style="font-size:14px;font-weight:500;color:var(--orange)">${words.topic}</div></div>`:""}
-        ${mod.videos&&mod.videos.length?`<div class="sl" style="margin-bottom:7px;margin-top:10px">Vidéo de référence</div>${renderVideos(mod.videos,"mod-"+mod.id)}`:""}
-      </div>`:""}
-    </div>`;
-  });
-  html+=`<div class="card" style="border-style:dashed;opacity:.85">
-    <div class="p14">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <span style="font-size:24px">${MODULE_ELOQ.icon}</span>
-        <div><div style="font-size:14px;font-weight:500;color:${MODULE_ELOQ.color}">${MODULE_ELOQ.name}</div>
-        <div class="sub2">Hors programme principal</div></div>
-      </div>
-      <p style="font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:10px">${MODULE_ELOQ.desc}</p>
-      ${MODULE_ELOQ.videos.map(v=>`<a href="${v.url}" target="_blank" rel="noopener" class="btn btn-sm btn-yt" style="margin-bottom:6px;display:inline-flex">${YT_SVG} ${v.label}</a>`).join("<br>")}
-    </div>
-  </div>`;
-  return html;
-}
-function renderRecording(){
-  const used=storUsed(),max=5*1024*1024,pct=Math.min(100,Math.round((used/max)*100));
-  const barCol=pct>80?"var(--red)":pct>55?"var(--orange)":"var(--green)";
-  return`
-  <div class="card" style="margin-bottom:12px"><div class="p14">
-    <div class="sl" style="margin-bottom:9px">Enregistrement libre</div>
-    <div style="background:var(--bg2);border-radius:var(--r);padding:9px 11px;margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:4px"><span>Stockage</span><span>${fmtSz(used)} / ~5 Mo · ${S.recordings.length}/15</span></div>
-      <div class="storage-bar"><div class="storage-fill" style="width:${pct}%;background:${barCol}"></div></div>
-    </div>
-    ${!isRec&&!window._rec?`<button class="btn btn-red" onclick="startRec(false)"><span style="width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block"></span> Démarrer</button>`:""}
-    ${isRec?`<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div class="wave"><span></span><span></span><span></span><span></span><span></span></div><span id="rec-time" style="font-size:22px;font-weight:600;color:var(--red)">0:00</span></div><button class="btn" onclick="stopRec()">Arrêter</button>`:""}
-    ${!isRec&&window._rec&&!window._rec.fromSession?`
-      <div class="sl" style="margin-bottom:4px">Réécoute — ${fmt(window._rec.dur)}</div>
-      <audio controls src="${window._rec.b64}"></audio>
-      <div style="margin-bottom:8px"><select id="rec-mod">${MODULES.map(m=>`<option value="${m.id}">${m.num}. ${m.name}</option>`).join("")}</select></div>
-      <input id="rec-words" placeholder="Mots difficiles (virgules)" style="margin-bottom:8px">
-      <textarea id="rec-obs" rows="2" placeholder="Observations"></textarea>
-      <div style="display:flex;gap:7px;margin-top:9px;flex-wrap:wrap">
-        <button class="btn btn-green" onclick="saveRec(false)">Sauvegarder</button>
-        <button class="btn btn-blue" onclick="dlRecBlob()">Télécharger</button>
-        <button class="btn" onclick="window._rec=null;render()">Annuler</button>
-      </div>`:""}
-  </div></div>
-  ${!S.recordings.length?`<div class="empty">Aucun enregistrement.</div>`:
-  S.recordings.map(e=>{
-    const mod=MODULES.find(m=>m.id===e.module);
-    const words=e.words?e.words.split(",").map(w=>w.trim()).filter(Boolean):[];
-    return`<div class="card"><div style="padding:13px 14px">
-      <div style="margin-bottom:7px">
-        <div style="font-size:14px;font-weight:500">${mod?mod.name:"—"}</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:1px">${e.date} ${e.time} · ${fmt(e.dur||0)}</div>
-      </div>
-      ${words.length?`<div style="margin-bottom:7px">${words.map(w=>`<span style="display:inline-block;background:var(--red-bg);color:var(--red);font-size:12px;padding:2px 9px;border-radius:12px;margin:2px 3px 0 0">${w}</span>`).join("")}</div>`:""}
-      ${e.obs?`<p style="font-size:13px;color:var(--text2);margin-bottom:8px">${e.obs}</p>`:""}
-      <audio controls src="${e.b64}"></audio>
-      <div style="display:flex;gap:7px;margin-top:8px">
-        <button class="btn btn-blue" onclick="dlAudio(${e.id})" class="flx1">Télécharger sur l'appareil</button>
-        <button class="del-btn" onclick="delRec(${e.id})" style="align-self:center">Supprimer</button>
-      </div>
-    </div></div>`;
-  }).join("")}`;
-}
-function renderJournal(){
-  const st=getStats();
-  let html="";
-  // Progression section
-  html+=`<div class="card" style="margin-bottom:12px"><div class="p14">
-    <div class="sl" style="margin-bottom:10px">Progression</div>
-    <div style="display:flex;gap:16px;margin-bottom:14px;flex-wrap:wrap">
-      <div style="text-align:center;flex:1;min-width:70px">
-        <div style="font-size:26px;font-weight:700;color:var(--green)">${st.totalSessions}</div>
-        <div class="sub2">séances</div>
-      </div>
-      <div style="text-align:center;flex:1;min-width:70px">
-        <div style="font-size:26px;font-weight:700;color:var(--orange)">${st.streak}</div>
-        <div class="sub2">jours consécutifs</div>
-      </div>
-      <div style="text-align:center;flex:1;min-width:70px">
-        <div style="font-size:26px;font-weight:700;color:var(--blue)">${st.avg7||"—"}</div>
-        <div class="sub2">moy. 7 jours</div>
-      </div>
-    </div>`;
-  // Mini bar chart of last 14 sessions
-  if(S.journal.length>1){
-    const last14=S.journal.slice(0,14).reverse();
-    html+=`<div class="sl" style="margin-bottom:6px">Dernières séances</div>
-    <div style="display:flex;align-items:flex-end;gap:3px;height:50px;margin-bottom:4px">
-      ${last14.map(e=>`<div title="${e.date} — ${e.rating}/5" style="flex:1;background:${e.rating>=4?"var(--green)":e.rating>=3?"var(--orange)":"var(--red)"};border-radius:2px 2px 0 0;height:${e.rating*20}%;min-width:8px;opacity:.8;transition:height .3s"></div>`).join("")}
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3)">
-      <span>${last14[0]?.date||""}</span><span>${last14[last14.length-1]?.date||""}</span>
-    </div>`;
-  }
-  // Difficult words
-  if(st.sortedWords.length){
-    html+=`<div class="sl" style="margin-top:14px;margin-bottom:7px">Mots difficiles récurrents</div>
-    <div style="display:flex;flex-wrap:wrap;gap:5px">
-      ${st.sortedWords.slice(0,15).map(([w,c])=>`<span style="display:inline-block;padding:4px 10px;border-radius:14px;font-size:12px;font-weight:500;background:${c>=3?"var(--red-bg)":"var(--orange-bg)"};color:${c>=3?"var(--red)":"var(--orange)"};border:1px solid ${c>=3?"var(--red)":"var(--orange)"}">${w} <span style="opacity:.6">×${c}</span></span>`).join("")}
-    </div>`;
-  }
-  html+=`</div></div>`;
-  // New entry form
-  html+=`<div class="card" style="margin-bottom:12px"><div class="p14">
-    <div class="sl" style="margin-bottom:9px">Nouvelle entrée</div>
-    <textarea id="j-text" rows="4" placeholder="Observations, points positifs, difficultés…"></textarea>
-    <div style="display:flex;align-items:center;gap:10px;margin:10px 0">
-      <span class="desc2">Note :</span>
-      <select id="j-rating" style="width:auto;padding:8px 10px">${[1,2,3,4,5].map(i=>`<option value="${i}"${i===3?" selected":""}>${i}/5</option>`).join("")}</select>
-    </div>
-    <button class="btn btn-green" onclick="addJournal()">Enregistrer</button>
-  </div></div>`;
-  // Journal entries
-  if(!S.journal.length){
-    html+=`<div class="empty">Aucune entrée. Les séances guidées remplissent le journal automatiquement.</div>`;
-  }else{
-    html+=S.journal.map(e=>`<div class="card"><div style="padding:13px 14px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-        <span style="font-size:13px;font-weight:500;color:var(--text2)">${e.date}</span>
-        <div style="display:flex;gap:2px">${[1,2,3,4,5].map(i=>`<div class="dot" style="background:${i<=e.rating?"var(--green)":"var(--border)"}"></div>`).join("")}</div>
-      </div>
-      <div style="font-size:14px;line-height:1.6">${e.text}</div>
-    </div></div>`).join("");
-  }
-  return html;
-}
-function addJournal(){
-  const t=document.getElementById("j-text")?.value.trim();
-  const rt=parseInt(document.getElementById("j-rating")?.value||3);
-  if(!t)return;
-  S.journal=[{id:Date.now(),date:today(),text:t,rating:rt},...S.journal];
-  save();render();
-}
+
 function renderExport(){
   return`
   <div class="sl" style="margin-bottom:9px">Partager vers Claude</div>
-  <div class="card" style="margin-bottom:12px"><div class="p14">
-    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px">Bilan complet — collez dans Claude.ai pour une analyse personnalisée.</p>
+  <div class="card" style="margin-bottom:12px"><div style="padding:14px">
+    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px">Bilan journal + mots difficiles. Coller dans Claude.ai pour analyse.</p>
     <textarea id="bilan-ta" rows="6" readonly style="font-size:12px;font-family:monospace;background:var(--bg2);margin-bottom:10px">${buildBilan()}</textarea>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      ${navigator.share?`<button class="btn btn-blue" class="flx1" onclick="shareBilan()">Partager (WhatsApp / Email…)</button>`:""}
-      <button class="btn" class="flx1" onclick="copyBilan()">Copier pour Claude</button>
+      ${navigator.share?`<button class="btn btn-blue" style="flex:1" onclick="shareBilan()">Partager</button>`:""}
+      <button class="btn" style="flex:1" onclick="copyBilan()">Copier pour Claude</button>
     </div>
   </div></div>
-  <div class="sl" style="margin-bottom:9px">Sauvegarde locale</div>
-  <div class="card"><div class="p14">
-    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px">Toutes vos données (audios inclus) en fichier JSON — réimportable sur n'importe quel appareil.</p>
+  <div class="sl" style="margin-bottom:9px">Sauvegarde</div>
+  <div class="card"><div style="padding:14px">
     <button class="btn btn-green" onclick="dlBackup()" style="margin-bottom:12px;width:100%">Télécharger la sauvegarde (.json)</button>
     <div class="sl" style="margin-bottom:6px">Restaurer</div>
     <input type="file" accept=".json" onchange="importBackup(this)" style="font-size:13px;padding:8px">
   </div></div>`;
 }
-// MAIN RENDER───────────────────────────────────────────────────────────────
-const TABS=[["session","▶ Séance"],["modules","Modules"],["recording","Enregistrement"],["journal","Journal"],["export","Partager"]];
+
 function render(){
-  document.getElementById("tabs").innerHTML=TABS.map(([id,label])=>`<button class="tab${S.tab===id?" active":""}${id==="session"?" tab-s":""}" onclick="S.tab='${id}';render()">${label}</button>`).join("");
+  document.getElementById("tabs").innerHTML=TABS.map(([id,label])=>`<button class="tab${S.tab===id?" active":""}${id==="home"?" tab-g":""}" onclick="S.tab='${id}';render()">${label}</button>`).join("");
   let c="";
-  if(S.tab==="session")c=renderSession();
+  if(S.tab==="home")c=renderHome();
+  else if(S.tab==="session")c=renderSession();
   else if(S.tab==="modules")c=renderModules();
   else if(S.tab==="recording")c=renderRecording();
   else if(S.tab==="journal")c=renderJournal();
   else if(S.tab==="export")c=renderExport();
   document.getElementById("app").innerHTML=c;
 }
+
 load();render();
 </script>
 </body>
